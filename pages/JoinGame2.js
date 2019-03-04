@@ -27,29 +27,36 @@ export default class JoinGame2 extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.inputLabel}>Enter your name!</Text>
-        <Text style={styles.infoText}>
-          This should be your real name, so that people in the game know who you
-          are.
-        </Text>
-        <TextInput
-            style={styles.inputText}
-            onChangeText={(first) => this.setState({first})}
-            placeholder={"First name"}
-            placeholderTextColor={"#888"}
-            autoFocus={true}
-        />
-        <TextInput
-            style={styles.inputText}
-            onChangeText={(last) => this.setState({last})}
-            placeholder={"Last name"}
-            placeholderTextColor={"#888"}
-        />
-        <Button
-            onPress={this.submit.bind(this)}//()=>navigate("game")}
-            title="Submit"
-            color="#7d97c1"
-        />
+        <View style={{flex: 1}} />
+        <View style={{flex: 3}}>
+          <Text style={styles.inputLabel}>Enter your name!</Text>
+          <Text style={styles.infoText}>
+            This should be your real name, so that people in the game know who you
+            are.
+          </Text>
+          <View style={{flex: 1}} />
+          <TextInput
+              style={styles.inputText}
+              onChangeText={(first) => this.setState({first})}
+              placeholder={"First name"}
+              placeholderTextColor={"#888"}
+              autoFocus={true}
+          />
+          <View style={{flex: 1}} />
+          <TextInput
+              style={styles.inputText}
+              onChangeText={(last) => this.setState({last})}
+              placeholder={"Last name"}
+              placeholderTextColor={"#888"}
+          />
+          <View style={{flex: 1}} />
+          <Button
+              onPress={this.submit.bind(this)}//()=>navigate("game")}
+              title="Submit"
+              color="#7d97c1"
+          />
+        </View>
+        <View style={{flex: 4}} />
       </View>
     );
   }
@@ -59,8 +66,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#222',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   inputLabel: {

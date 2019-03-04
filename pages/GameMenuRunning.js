@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 
+import Store from '../components/Store';
+
 export default class GameMenuRunning extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +17,15 @@ export default class GameMenuRunning extends React.Component {
     const {navigate} = this.props.navigation;
     const vSpace = 50;
 
+    var adminControls
+    if(Store.creator) {
+      adminControls = (
+        <Button onPress={()=>navigate("gameWaiting")} title="End Round" color="#7d97c1" />
+      );
+    } else {
+      adminControls = <View />;
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Mac Assassin 2k19</Text>
@@ -22,6 +33,7 @@ export default class GameMenuRunning extends React.Component {
         <Text style={styles.subTitle}>You are hunting Corey</Text>
         <View style={{height: vSpace}}></View>
         <Button onPress={()=>navigate("join1")} title="They got got" color="#7d97c1" />
+        {adminControls}
       </View>
     );
   }

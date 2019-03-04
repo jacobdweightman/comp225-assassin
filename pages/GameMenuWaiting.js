@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
 
 import { StackActions, NavigationActions } from 'react-navigation';
+
+import Store from '../components/Store'
 
 export default class GameMenuWaiting extends React.Component {
   doNothing() {
@@ -23,6 +25,41 @@ export default class GameMenuWaiting extends React.Component {
     const {navigate} = this.props.navigation;
     const vSpace = 50;
 
+    var advance;
+    var playerList;
+    if(Store.creator) {
+      advance = (
+        <Button
+            onPress={this.advance.bind(this)}
+            title="Start Round"
+            color="#7d97c1"
+        />
+      );
+
+      playerList = (
+        <FlatList
+          numColumns={1}
+          horizontal={false}
+          data={[
+            {first: 'Jacob', last: 'Weightman'},
+            {first: 'Ellen', last: 'Graham'},
+            {first: 'Corey', last: 'Pieper'},
+            {first: 'Analeidi', last: 'Barrera'}
+          ]}
+          renderItem={({item}) => <Text style={styles.listItem}>{item.last},&#9;&#9;{item.first}</Text>}
+          keyExtractor={(item,index)=>item.last}
+        />
+      );
+    } else {
+      advance = (
+        <Text style={styles.subTitle}>
+          Waiting for game creator to start game
+        </Text>
+      );
+
+      playerList = <View />;
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Mac Assassin 2k19</Text>
@@ -35,14 +72,8 @@ export default class GameMenuWaiting extends React.Component {
           embarassment, there must be a section ofCOMP-225 present.
         </Text>
         <View style={{height: vSpace}}></View>
-        <Text style={styles.subTitle}>
-          Waiting for game creator to start game
-        </Text>
-        <Button
-            onPress={this.advance.bind(this)}
-            title="This shouldn't be here but take me forward"
-            color="#7d97c1"
-        />
+        {advance}
+        {playerList}
       </View>
     );
   }
@@ -69,5 +100,10 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 16,
     color: "#ccc"
+  },
+
+  listItem: {
+    fontSize: 18,
+    color: "#ddd"
   }
 });
