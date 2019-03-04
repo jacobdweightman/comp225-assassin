@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#222',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 20
   },
 
   inputLabel: {

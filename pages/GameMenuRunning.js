@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20
   },
 
   title: {
