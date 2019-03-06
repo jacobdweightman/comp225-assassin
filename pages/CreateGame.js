@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
-import Store from '../components/Store'
+import Store from '../components/Store';
 
 export default class CreateGame extends React.Component {
   constructor(props) {
@@ -21,6 +21,16 @@ export default class CreateGame extends React.Component {
     return navigate("join2");
   }
 
+  nameChanged(text) {
+    this.setState({text});
+    Store.gameName = text;
+  }
+
+  rulesChanged(text) {
+    this.setState({text});
+    Store.gameRules = text;
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -29,7 +39,7 @@ export default class CreateGame extends React.Component {
         <Text style={styles.inputLabel}>Game Name:</Text>
         <TextInput
             style={styles.inputText}
-            onChangeText={(text) => this.setState({text})}
+            onChangeText={this.nameChanged.bind(this)}
             placeholderTextColor={"#888"}
             autoFocus={true}
         />
@@ -38,7 +48,7 @@ export default class CreateGame extends React.Component {
             style={styles.inputText}
             multiline={true}
             textAlignVertical={'top'}
-            onChangeText={(text) => this.setState({text})}
+            onChangeText={this.rulesChanged.bind(this)}
             placeholderTextColor={"#888"}
         />
         <Button
