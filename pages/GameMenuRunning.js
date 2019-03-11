@@ -13,17 +13,21 @@ export default class GameMenuRunning extends React.Component {
     };
   }
 
+  gotGot() {
+    this.setState(() => ({
+      theyGotGot: true
+    }));
+  }
+
   render() {
     const {navigate} = this.props.navigation;
     const vSpace = 50;
 
-    var adminControls
-    if(Store.creator) {
-      adminControls = (
-        <Button onPress={()=>navigate("gameWaiting")} title="End Round" color="#7d97c1" />
-      );
+    var controls;
+    if(this.state.theyGotGot) {
+      controls = (<Text style={styles.subTitle}>Waiting for target to confirm assassination</Text>);
     } else {
-      adminControls = <View />;
+      controls = (<Button onPress={this.gotGot.bind(this)} title="They got got" color="#7d97c1" />);
     }
 
     return (
@@ -32,8 +36,7 @@ export default class GameMenuRunning extends React.Component {
         <View style={{height: vSpace}}></View>
         <Text style={styles.subTitle}>You are hunting Corey</Text>
         <View style={{height: vSpace}}></View>
-        <Button onPress={()=>navigate("join1")} title="They got got" color="#7d97c1" />
-        {adminControls}
+        {controls}
       </View>
     );
   }

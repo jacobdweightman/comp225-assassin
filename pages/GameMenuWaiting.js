@@ -62,14 +62,11 @@ export default class GameMenuWaiting extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Mac Assassin 2k19</Text>
+        <Text style={styles.title}>{Store.gameName}</Text>
         <View style={{height: vSpace}}></View>
         <Text style={styles.subTitle}>Game Rules:</Text>
         <Text style={styles.infoText}>
-          This is a place for the game creator to write some text about the
-          "house rules" &mdash; for instance, in this game assassinations are
-          made by publically serenading your target. For the target to die of
-          embarassment, there must be a section ofCOMP-225 present.
+          {Store.gameRules}
         </Text>
         <View style={{height: vSpace}}></View>
         {advance}

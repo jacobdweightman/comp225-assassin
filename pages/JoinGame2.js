@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
 import { StackActions, NavigationActions } from 'react-navigation';
 
+import Store from '../components/Store';
+
 export default class JoinGame2 extends React.Component {
   constructor(props) {
     super(props);
@@ -29,6 +31,7 @@ export default class JoinGame2 extends React.Component {
       <View style={styles.container}>
         <View style={{flex: 1}} />
         <View style={{flex: 3}}>
+          <Text style={styles.title}>{Store.gameName}</Text>
           <Text style={styles.inputLabel}>Enter your name!</Text>
           <Text style={styles.infoText}>
             This should be your real name, so that people in the game know who you
@@ -56,7 +59,7 @@ export default class JoinGame2 extends React.Component {
               color="#7d97c1"
           />
         </View>
-        <View style={{flex: 4}} />
+        <View style={{flex: 5}} />
       </View>
     );
   }
@@ -70,8 +73,13 @@ const styles = StyleSheet.create({
     padding: 20
   },
 
-  inputLabel: {
+  title: {
     fontSize: 36,
+    color: "#eee"
+  },
+
+  inputLabel: {
+    fontSize: 24,
     color: "#eee"
   },
 
