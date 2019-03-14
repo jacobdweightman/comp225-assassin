@@ -2,7 +2,7 @@ Goals:
 
 
 3/13  
-Do your work you nerds  
+Do your work you cool cats  
 
 
 Clean the code!!! - Jacob  
