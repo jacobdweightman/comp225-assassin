@@ -32,7 +32,7 @@ export default class MainMenu extends React.Component {
       return <Expo.AppLoading />;
     }
     return (
-      <LinearGradient colors= { ['#000000', '#778899','#B0C4DE']} style ={{position :'absolute', left: 0, bottom: 0, right: 0, top:0}}>
+      <LinearGradient colors= { ['#101010', '#7e8e9e','#7e8e9e','#F0F8FF']} style ={{position :'absolute', left: 0, bottom: 0, right: 0, top:0}}>
       <View style={styles.container}>
       <Text style={styles.title}>Assassin</Text>
         <TouchableOpacity 
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 0.30,
     fontFamily: 'font',
     fontSize: 100,
-    color: 'lightgray'
+    color: 'white'
   },
 
   button: {
