@@ -7,13 +7,21 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
+    "apsl-react-native-button": "^3.1.1",
     "expo": "^32.0.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-theme-provider": "0.0.2",
     "react-navigation": "^3.3.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
   },
-  "private": true
+  "private": true,
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
 }
