@@ -1,19 +1,31 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Platform } from 'react-native';
 
-import Store from './components/Store';
+
+// Declare global variables in App.js
+global.creator;
+global.gameName = "Mac Assassin 2019";
+global.gameRules = "This is a place for the game creator to write some text about the house rules--for instance, in this game assassinations are made by publically serenading your target. For the target to die of embarassment, there must be a section ofCOMP-225 present.";
+global.code;
+global.firstName = "";
+global.lastName = "";
+global.playerList = [
+  {first: 'Jacob', last: 'Weightman'},
+  {first: 'Ellen', last: 'Graham'},
+  {first: 'Corey', last: 'Pieper'},
+  {first: 'Analeidi', last: 'Barrera'},
+  {first: 'Paul', last: 'Cantrell'}
+];
 
 import MainMenu from './pages/MainMenu';
 import CreateGame from './pages/CreateGame';
-import JoinGame1 from './pages/JoinGame1';
-import JoinGame2 from './pages/JoinGame2';
+import JoinGame1 from './pages/JoinGameEnterCode';
+import JoinGame2 from './pages/JoinGameEnterName';
 import GameMenuWaiting from './pages/GameMenuWaiting';
 import GameMenuRunning from './pages/GameMenuRunning';
 
-Store.ingame = false;
-Store.creator = false;
-
-const Navigator = createStackNavigator({
+const Navigator = createStackNavigator(
+{ // Navigator for pages
   home: {screen: MainMenu},
   create: {screen: CreateGame},
   join1: {screen: JoinGame1},
@@ -26,5 +38,10 @@ const Navigator = createStackNavigator({
 });
 
 const App = createAppContainer(Navigator);
+
+export class Palette {
+    static color1 = "#7d97c1";
+    static color2 = "#FFC107";
+}
 
 export default App;

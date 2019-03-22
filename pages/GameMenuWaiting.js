@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
-
 import { StackActions, NavigationActions } from 'react-navigation';
 
-import Store from '../components/Store'
+import App, { Palette } from '../App';
 
 export default class GameMenuWaiting extends React.Component {
   doNothing() {
@@ -27,50 +26,45 @@ export default class GameMenuWaiting extends React.Component {
 
     var advance;
     var playerList;
-    if(Store.creator) {
+
+    if (global.creator) {
       advance = (
         <Button
             onPress={this.advance.bind(this)}
             title="Start Round"
-            color="#7d97c1"
-        />
-      );
-
-      playerList = (
-        <FlatList
-          numColumns={1}
-          horizontal={false}
-          data={[
-            {first: 'Jacob', last: 'Weightman'},
-            {first: 'Ellen', last: 'Graham'},
-            {first: 'Corey', last: 'Pieper'},
-            {first: 'Analeidi', last: 'Barrera'}
-          ]}
-          renderItem={({item}) => <Text style={styles.listItem}>{item.last},&#9;&#9;{item.first}</Text>}
-          keyExtractor={(item,index)=>item.last}
+            color={Palette.color1}
         />
       );
     } else {
       advance = (
-        <Text style={styles.subTitle}>
+        <Text style={[styles.subTitle, {textDecorationLine: "none"}]}>
           Waiting for game creator to start game
         </Text>
       );
-
-      playerList = <View />;
     }
+
+    playerList = (
+      <FlatList
+        numColumns={1}
+        horizontal={false}
+        data={global.playerList}
+        renderItem={({item}) => <Text style={styles.listItem}>{item.first},&#9;&#9;{item.last}</Text>}
+        keyExtractor={(item,index)=>item.last}
+      />
+    );
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{Store.gameName}</Text>
-        <View style={{height: vSpace}}></View>
+        <Text style={styles.title}>{global.gameName}</Text>
+        <View style={{flex: 0.1}}/>
         <Text style={styles.subTitle}>Game Rules:</Text>
         <Text style={styles.infoText}>
-          {Store.gameRules}
+          {global.gameRules}
         </Text>
-        <View style={{height: vSpace}}></View>
-        {advance}
+        <View style={{flex: 0.1}}/>
+        <Text style={styles.subTitle}>Player List:</Text>
         {playerList}
+        {advance}
       </View>
     );
   }
@@ -87,12 +81,14 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 40,
-    color: "#eee"
+    color: "#eee",
+    // textDecorationLine: "underline",
   },
 
   subTitle: {
     fontSize: 24,
-    color: "#ddd"
+    color: "#ddd",
+    textDecorationLine: "underline"
   },
 
   infoText: {

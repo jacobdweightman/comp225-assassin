@@ -1,34 +1,23 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
 
-import Store from '../components/Store';
+import App, { Palette } from '../App';
 
 export default class CreateGame extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      name: "",
-      rules: ""
-    };
   }
 
   create() {
-    const {navigate} = this.props.navigation;
-
-    Store.creator = true;
-
-    return navigate("join2");
-  }
-
-  nameChanged(text) {
-    this.setState({text});
-    Store.gameName = text;
-  }
-
-  rulesChanged(text) {
-    this.setState({text});
-    Store.gameRules = text;
+    if (global.gameName.length < 2) { // basic input validation
+      Alert.alert("Please enter a valid game name");
+    }
+    else {
+      global.creator = true;
+      global.code = 1234; // probably something else
+      const {navigate} = this.props.navigation;
+      return navigate("join2");
+    }
   }
 
   render() {
@@ -36,25 +25,30 @@ export default class CreateGame extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.inputLabel}>Game Name:</Text>
+        <Text style={styles.inputLabel}>Game name:</Text>
         <TextInput
             style={styles.inputText}
-            onChangeText={this.nameChanged.bind(this)}
+            onChangeText={(text) => global.gameName = text}
             placeholderTextColor={"#888"}
             autoFocus={true}
         />
+        <View style={{flex: 0.05}} />
         <Text style={styles.inputLabel}>Game rules:</Text>
         <TextInput
             style={styles.inputText}
             multiline={true}
+            numberOfLines={4}
             textAlignVertical={'top'}
-            onChangeText={this.rulesChanged.bind(this)}
+            onChangeText={(text) => global.gameRules = text}
+            placeholder="This is the place to list any safe zones / how players
+            will be assassinated"
             placeholderTextColor={"#888"}
         />
+        <View style={{flex: 0.1}} />
         <Button
             onPress={this.create.bind(this)}
             title="Join Game"
-            color="#7d97c1"
+            color={Palette.color1}
         />
       </View>
     );
@@ -65,17 +59,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#222',
-    alignItems: 'center',
+    // alignItems: 'center',
     padding: 20
   },
 
   inputLabel: {
     fontSize: 36,
-    color: "#eee"
+    color: "#eee",
+    textAlign: 'center'
   },
 
   inputText: {
     fontSize: 24,
-    color: "#ddd"
+    color: "#ddd",
+    borderColor: "gray",
+    borderWidth: 1,
+    alignItems: 'flex-start'
   }
 });

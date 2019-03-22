@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 
-import Store from '../components/Store';
+import App, { Palette } from '../App';
 
 export default class GameMenuRunning extends React.Component {
   constructor(props) {
@@ -22,19 +22,22 @@ export default class GameMenuRunning extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     const vSpace = 50;
+    const shouldBeNumber = Math.floor(Math.random() * global.playerList.length); // random int
+    // [0,playerlist.length]
+    const target = global.playerList[shouldBeNumber];
 
     var controls;
     if(this.state.theyGotGot) {
-      controls = (<Text style={styles.subTitle}>Waiting for target to confirm assassination</Text>);
+      controls = (<Text style={[styles.subTitle, {color: "steelblue"}]}>Waiting for target to confirm assassination</Text>);
     } else {
-      controls = (<Button onPress={this.gotGot.bind(this)} title="They got got" color="#7d97c1" />);
+      controls = (<Button onPress={this.gotGot.bind(this)} title="They got got" color={Palette.color1} />);
     }
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Mac Assassin 2k19</Text>
+        <Text style={styles.title}>{global.gameName}</Text>
         <View style={{height: vSpace}}></View>
-        <Text style={styles.subTitle}>You are hunting Corey</Text>
+        <Text style={styles.subTitle}>You are hunting {target.first} {target.last}</Text>
         <View style={{height: vSpace}}></View>
         {controls}
       </View>
