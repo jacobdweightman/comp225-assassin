@@ -1,12 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import { Font, AppLoading } from 'expo';
 import { LinearGradient } from 'expo';
 
 
 
+
 import Store from '../components/Store';
 import font from '../assets/fonts/Iceland_Regular.ttf';
+
 
 export default class MainMenu extends React.Component {
   constructor(props) {

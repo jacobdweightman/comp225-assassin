@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import { Font, AppLoading } from 'expo';
+import { LinearGradient } from 'expo';
 
 import Store from '../components/Store';
 
@@ -27,10 +29,17 @@ export default class GameMenuRunning extends React.Component {
     if(this.state.theyGotGot) {
       controls = (<Text style={styles.subTitle}>Waiting for target to confirm assassination</Text>);
     } else {
-      controls = (<Button onPress={this.gotGot.bind(this)} title="They got got" color="#7d97c1" />);
+      controls = (
+      <TouchableOpacity
+      style = {styles.button}
+      onPress={this.gotGot.bind(this)}>
+      <Text style= {styles.text}> They got got </Text>
+      </TouchableOpacity>
+      );
     }
 
     return (
+      <LinearGradient colors= { ['#101010', '#7e8e9e','#7e8e9e','#F0F8FF']} style ={{position :'absolute', left: 0, bottom: 0, right: 0, top:0}}>
       <View style={styles.container}>
         <Text style={styles.title}>Mac Assassin 2k19</Text>
         <View style={{height: vSpace}}></View>
@@ -38,6 +47,7 @@ export default class GameMenuRunning extends React.Component {
         <View style={{height: vSpace}}></View>
         {controls}
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -45,7 +55,6 @@ export default class GameMenuRunning extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
@@ -53,11 +62,29 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 40,
-    color: "#eee"
+    color: 'white',
+    fontFamily: 'font'
   },
 
   subTitle: {
     fontSize: 24,
-    color: "#ddd"
+    color: 'white',
+    fontFamily: 'font'
+  },
+    button: {
+    width:250,
+    height:50,
+    backgroundColor: "slategray",
+    borderRadius: 50,
+    justifyContent: 'center',
+  },
+
+  text: {
+    color: 'white',
+    fontSize:24, 
+    textAlign: 'center', 
+    fontFamily: 'font'
+
   }
+
 });

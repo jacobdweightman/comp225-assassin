@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
-
+import { StyleSheet, View, Text, Button, FlatList, TouchableOpacity} from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
+import { Font, AppLoading } from 'expo';
+import { LinearGradient } from 'expo';
 
 import Store from '../components/Store'
+import font from '../assets/fonts/Iceland_Regular.ttf';
 
 export default class GameMenuWaiting extends React.Component {
   doNothing() {
@@ -29,11 +31,11 @@ export default class GameMenuWaiting extends React.Component {
     var playerList;
     if(Store.creator) {
       advance = (
-        <Button
-            onPress={this.advance.bind(this)}
-            title="Start Round"
-            color="#7d97c1"
-        />
+        <TouchableOpacity
+            style = {styles.button}
+            onPress={this.advance.bind(this)}>
+            <Text style = {styles.text}> Start Round </Text>
+        </TouchableOpacity>
       );
 
       playerList = (
@@ -61,6 +63,7 @@ export default class GameMenuWaiting extends React.Component {
     }
 
     return (
+      <LinearGradient colors= { ['#101010', '#7e8e9e','#7e8e9e','#F0F8FF']} style ={{position :'absolute', left: 0, bottom: 0, right: 0, top:0}}>
       <View style={styles.container}>
         <Text style={styles.title}>{Store.gameName}</Text>
         <View style={{height: vSpace}}></View>
@@ -72,6 +75,7 @@ export default class GameMenuWaiting extends React.Component {
         {advance}
         {playerList}
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -79,7 +83,6 @@ export default class GameMenuWaiting extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
@@ -87,21 +90,39 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 40,
-    color: "#eee"
+    color: "#eee",
+    fontFamily: 'font'
   },
 
   subTitle: {
     fontSize: 24,
-    color: "#ddd"
+    color: "#ddd", 
+    fontFamily: 'font'
   },
 
   infoText: {
     fontSize: 16,
-    color: "#ccc"
+    color: "#ccc",
+    fontFamily: 'font'
   },
 
   listItem: {
     fontSize: 18,
     color: "#ddd"
+  },
+  button: {
+    width:250,
+    height:50,
+    backgroundColor: "slategray",
+    borderRadius: 50,
+    justifyContent: 'center',
+  },
+
+  text: {
+    color: 'white',
+    fontSize:24, 
+    textAlign: 'center', 
+    fontFamily: 'font'
+
   }
 });

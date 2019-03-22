@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Font, AppLoading } from 'expo';
+import { LinearGradient } from 'expo';
 
 import Store from '../components/Store';
 
@@ -35,15 +37,16 @@ export default class CreateGame extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
+      <LinearGradient colors= { ['#101010', '#7e8e9e','#7e8e9e','#F0F8FF']} style ={{position :'absolute', left: 0, bottom: 0, right: 0, top:0}}>
       <View style={styles.container}>
         <Text style={styles.inputLabel}>Game Name:</Text>
         <TextInput
             style={styles.inputText}
             onChangeText={this.nameChanged.bind(this)}
-            placeholderTextColor={"#888"}
+            placeholderTextColor={"#888"}  
             autoFocus={true}
         />
-        <Text style={styles.inputLabel}>Game rules:</Text>
+        <Text style={styles.inputLabel}>Game Rules:</Text>
         <TextInput
             style={styles.inputText}
             multiline={true}
@@ -51,12 +54,14 @@ export default class CreateGame extends React.Component {
             onChangeText={this.rulesChanged.bind(this)}
             placeholderTextColor={"#888"}
         />
-        <Button
-            onPress={this.create.bind(this)}
-            title="Join Game"
-            color="#7d97c1"
-        />
+        <TouchableOpacity
+            style= {styles.button}
+            onPress={this.create.bind(this)}>
+            <Text style={styles.text}>Join Game</Text>
+        </TouchableOpacity>
+            
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -64,18 +69,35 @@ export default class CreateGame extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     alignItems: 'center',
-    padding: 20
+    padding: 100
   },
 
   inputLabel: {
-    fontSize: 36,
-    color: "#eee"
+    fontSize: 40,
+    color: "#eee",
+    fontFamily: 'font'
   },
 
   inputText: {
     fontSize: 24,
-    color: "#ddd"
+    color: "#ddd",
+    fontFamily: 'font'
+  },
+  button: {
+    width:250,
+    height:50,
+    backgroundColor: "slategray",
+    borderRadius: 50,
+    justifyContent: 'center',
+  },
+
+  text: {
+    color: 'white',
+    fontSize: 24, 
+    textAlign: 'center', 
+    fontFamily: 'font'
+
   }
+
 });
