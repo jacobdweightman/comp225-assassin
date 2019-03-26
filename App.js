@@ -1,5 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Platform } from 'react-native';
+import { Font, AppLoading } from 'expo';
 
 
 // Declare global variables in App.js
