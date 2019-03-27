@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { Platform } from 'react-native';
-import { Font, AppLoading } from 'expo';
+import { Platform} from 'react-native';
+import {Font, AppLoading} from 'expo';
+
 
 
 // Declare global variables in App.js
@@ -40,9 +41,52 @@ const Navigator = createStackNavigator(
 
 const App = createAppContainer(Navigator);
 
+
 export class Palette {
     static color1 = "#7d97c1";
     static color2 = "#FFC107";
+    static gradientCol = ['#101010','#7e8e9e','#7e8e9e','#F0F8FF'];
+    static place = {position :'absolute', left: 0, bottom: 0, right: 0, top:0};
 }
 
+
+
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

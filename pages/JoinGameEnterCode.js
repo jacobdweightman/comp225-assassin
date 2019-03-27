@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { LinearGradient } from 'expo';
 
 import App, { Palette } from '../App';
 
@@ -19,6 +20,7 @@ export default class JoinGame1 extends React.Component {
 
   render() {
     return (
+      <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={styles.container}>
         <View style={{flex: 1}} />{/*spacer*/}
         <View style={{flex: 2}} >
@@ -43,6 +45,7 @@ export default class JoinGame1 extends React.Component {
         </View>
         <View style={{flex: 3}} />{/*spacer*/}
       </View>
+       </LinearGradient>
     );
   }
 }
@@ -50,7 +53,6 @@ export default class JoinGame1 extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     padding: 20
   },
 
