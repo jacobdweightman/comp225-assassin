@@ -5,6 +5,7 @@ export default StyleSheet.create({
  container : {
   flex: 1, 
   alignItems: 'center',
+  justifyContent: 'center',
   padding:20,
   },
  title: {
@@ -12,7 +13,7 @@ export default StyleSheet.create({
    fontSize: 100,
    fontFamily: 'font',
    color: "white",
-   textAlign: "center"
+   
   }, 
   button:{
   	width: 250, 
@@ -28,9 +29,3 @@ export default StyleSheet.create({
   	fontFamily: 'font'
   }
 });
-
-
-
-
-
-

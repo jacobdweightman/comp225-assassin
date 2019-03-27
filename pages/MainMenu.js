@@ -31,11 +31,11 @@ export default class MainMenu extends React.Component {
       <View style={baseStyle.container}>
           <Text style={[baseStyle.title, styles.title]}>Assassin </Text>
           <TouchableOpacity style = {baseStyle.button} onPress={()=>navigate("join1")}>
-            <Text style = {baseStyle.text}> "Join Game" </Text>  
+            <Text style = {baseStyle.text}> Join Game </Text>  
           </TouchableOpacity>
-          <View style={{flex: 0.05}} />{/*spacer*/}
+          <Text style={{flex: 0.05}}> </Text>{/*spacer*/}
           <TouchableOpacity  style = {baseStyle.button} onPress={()=>navigate("create")}>
-            <Text style = {baseStyle.text}> "Create Game" </Text>
+            <Text style = {baseStyle.text}> Create Game </Text>
           </TouchableOpacity>
       </View>
       </LinearGradient>
@@ -47,6 +47,7 @@ var styles = StyleSheet.create({
   title: {
   },
 });
+
 
 
 
