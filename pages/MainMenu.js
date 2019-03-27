@@ -10,10 +10,7 @@ export default class MainMenu extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  render() {
-    const {navigate} = this.props.navigation;
-  state = {
+   state = {
     fontLoading: false
   }
   async componentWillMount(){
@@ -22,6 +19,9 @@ export default class MainMenu extends React.Component {
     });
     this.setState({fontLoading:true});
   }
+
+  render() {
+    const {navigate} = this.props.navigation;
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={styles.container}>
