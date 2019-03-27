@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { LinearGradient } from 'expo';
 
 import App, { Palette } from '../App';
 
@@ -24,6 +25,7 @@ export default class CreateGame extends React.Component {
     const {navigate} = this.props.navigation;
 
     return (
+      <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={styles.container}>
         <Text style={styles.inputLabel}>Game name:</Text>
         <TextInput
@@ -51,6 +53,7 @@ export default class CreateGame extends React.Component {
             color={Palette.color1}
         />
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -58,7 +61,6 @@ export default class CreateGame extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     // alignItems: 'center',
     padding: 20
   },

@@ -31,7 +31,7 @@ export default class MainMenu extends React.Component {
         <View style={{flex: 1}} />{/*spacer*/}
         <View style={{flex: 2}} >
           {/*content*/}
-          <Text style={styles.title}>Assassiiiiiin</Text>
+          <Text style={styles.title}>Assassin</Text>
           <Button onPress={()=>navigate("join1")} title="Join Game" color={Palette.color1}  />
           <View style={{flex: 1}} />{/*spacer*/}
           <Button onPress={()=>navigate("create")} title="Create Game" color={Palette.color1} />
@@ -44,13 +44,14 @@ export default class MainMenu extends React.Component {
 }
 
 const styles = StyleSheet.create({ // set styles for view components
- container :{flex: 1, 
+ container : {
+  flex: 1, 
   padding:20
   },
   title: {
     fontSize: 80,
     fontFamily: 'font',
-    color: "#eee",
+    color: "white",
     flex: 4,
     textAlign: "center"
   },

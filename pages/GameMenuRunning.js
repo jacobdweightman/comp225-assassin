@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
+import { LinearGradient } from 'expo';
 
 import App, { Palette } from '../App';
 
@@ -34,6 +35,7 @@ export default class GameMenuRunning extends React.Component {
     }
 
     return (
+      <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={styles.container}>
         <Text style={styles.title}>{global.gameName}</Text>
         <View style={{height: vSpace}}></View>
@@ -41,6 +43,7 @@ export default class GameMenuRunning extends React.Component {
         <View style={{height: vSpace}}></View>
         {controls}
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -48,7 +51,6 @@ export default class GameMenuRunning extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20

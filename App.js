@@ -4,6 +4,8 @@ import { Platform} from 'react-native';
 
 
 
+
+
 // Declare global variables in App.js
 global.creator;
 global.gameName = "Mac Assassin 2019";
@@ -47,10 +49,7 @@ export class Palette {
     static color2 = "#FFC107";
     static gradientCol = ['#101010','#7e8e9e','#7e8e9e','#F0F8FF'];
     static place = {position :'absolute', left: 0, bottom: 0, right: 0, top:0};
-    
 }
-
-
 
 
 export default App;

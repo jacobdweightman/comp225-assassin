@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
+import { LinearGradient } from 'expo';
 
 import App, { Palette } from '../App';
 
@@ -54,6 +55,7 @@ export default class GameMenuWaiting extends React.Component {
     );
 
     return (
+      <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={styles.container}>
         <Text style={styles.title}>{global.gameName}</Text>
         <View style={{flex: 0.1}}/>
@@ -66,6 +68,7 @@ export default class GameMenuWaiting extends React.Component {
         {playerList}
         {advance}
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -73,7 +76,6 @@ export default class GameMenuWaiting extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
