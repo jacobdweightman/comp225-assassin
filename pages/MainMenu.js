@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import { LinearGradient } from 'expo';
 import {Font, AppLoading} from 'expo';
 
 import App, { Palette} from '../App'; // App for global variables, Palette for colors
 import font from '../assets/fonts/IcelandReg.ttf';
+import baseStyle from '../UI/defaultStyles/DefaultTitle';
 
 export default class MainMenu extends React.Component {
   constructor(props) {
@@ -27,39 +28,27 @@ export default class MainMenu extends React.Component {
     }
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={styles.container}>
-        <View style={{flex: 1}} />{/*spacer*/}
-        <View style={{flex: 2}} >
-          {/*content*/}
-          <Text style={styles.title}>Assassin</Text>
-          <Button onPress={()=>navigate("join1")} title="Join Game" color={Palette.color1}  />
-          <View style={{flex: 1}} />{/*spacer*/}
-          <Button onPress={()=>navigate("create")} title="Create Game" color={Palette.color1} />
-        </View>
-        <View style={{flex: 2}} />{/*spacer*/}
+      <View style={baseStyle.container}>
+          <Text style={[baseStyle.title, styles.title]}>Assassin </Text>
+          <TouchableOpacity style = {baseStyle.button} onPress={()=>navigate("join1")}>
+            <Text style = {baseStyle.text}> "Join Game" </Text>  
+          </TouchableOpacity>
+          <View style={{flex: 0.05}} />{/*spacer*/}
+          <TouchableOpacity  style = {baseStyle.button} onPress={()=>navigate("create")}>
+            <Text style = {baseStyle.text}> "Create Game" </Text>
+          </TouchableOpacity>
       </View>
       </LinearGradient>
     );
   }
 }
 
-const styles = StyleSheet.create({ // set styles for view components
- container : {
-  flex: 1, 
-  padding:20
-  },
+var styles = StyleSheet.create({
   title: {
-    fontSize: 80,
-    fontFamily: 'font',
-    color: "white",
-    flex: 4,
-    textAlign: "center"
   },
-
-  button: {
-
-  }
 });
+
+
 
 
 

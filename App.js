@@ -1,5 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { Platform} from 'react-native';
+import { Platform, StyleSheet} from 'react-native';
 
 
 
@@ -50,6 +50,8 @@ export class Palette {
     static gradientCol = ['#101010','#7e8e9e','#7e8e9e','#F0F8FF'];
     static place = {position :'absolute', left: 0, bottom: 0, right: 0, top:0};
 }
+
+
 
 
 export default App;
