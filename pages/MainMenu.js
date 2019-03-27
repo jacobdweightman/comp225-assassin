@@ -22,13 +22,16 @@ export default class MainMenu extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
+      if (!this.state.fontLoading) {
+      return <Expo.AppLoading />;
+    }
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={styles.container}>
         <View style={{flex: 1}} />{/*spacer*/}
         <View style={{flex: 2}} >
           {/*content*/}
-          <Text style={styles.title}>Assassin</Text>
+          <Text style={styles.title}>Assassiiiiiin</Text>
           <Button onPress={()=>navigate("join1")} title="Join Game" color={Palette.color1}  />
           <View style={{flex: 1}} />{/*spacer*/}
           <Button onPress={()=>navigate("create")} title="Create Game" color={Palette.color1} />
@@ -41,12 +44,9 @@ export default class MainMenu extends React.Component {
 }
 
 const styles = StyleSheet.create({ // set styles for view components
-  container: {
-    flex: 1,
-    // alignItems: 'stretch',
-    padding:20
+ container :{flex: 1, 
+  padding:20
   },
-
   title: {
     fontSize: 80,
     fontFamily: 'font',

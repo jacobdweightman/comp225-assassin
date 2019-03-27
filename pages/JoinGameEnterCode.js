@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
 
   inputLabel: {
     fontSize: 36,
-    color: "#eee"
+    color: "#eee",
+    fontFamily:'font'
   },
 
   inputText: {
