@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 import App, { Palette } from '../App';
 
@@ -26,56 +27,45 @@ export default class CreateGame extends React.Component {
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={styles.container}>
-        <Text style={styles.inputLabel}>Game name:</Text>
+      <View style={[baseStyle.container, styles.container]}>
+        <Text style={[baseStyle.inputLabel, styles.inputLabel ]}>Game name:</Text>
         <TextInput
-            style={styles.inputText}
+            style={baseStyle.inputText}
             onChangeText={(text) => global.gameName = text}
-            placeholderTextColor={"#888"}
+            placeholderTextColor= 'white'
+            placeholder= "Game Name"
             autoFocus={true}
         />
         <View style={{flex: 0.05}} />
-        <Text style={styles.inputLabel}>Game rules:</Text>
+        <Text style={baseStyle.inputLabel}>Game rules:</Text>
         <TextInput
-            style={styles.inputText}
+            style={baseStyle.inputText}
             multiline={true}
             numberOfLines={4}
             textAlignVertical={'top'}
             onChangeText={(text) => global.gameRules = text}
             placeholder="This is the place to list any safe zones / how players
             will be assassinated"
-            placeholderTextColor={"#888"}
+            placeholderTextColor={"#eee"}
         />
         <View style={{flex: 0.1}} />
-        <Button
-            onPress={this.create.bind(this)}
-            title="Join Game"
-            color={Palette.color1}
-        />
+        <TouchableOpacity style= {baseStyle.button} onPress={this.create.bind(this)}>
+          <Text style={baseStyle.text}>Join Game</Text>
+        </TouchableOpacity>
+        
       </View>
       </LinearGradient>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignItems: 'center',
-    padding: 20
+var styles = StyleSheet.create({
+  container:{
+    flex:0.60
   },
-
   inputLabel: {
-    fontSize: 36,
-    color: "#eee",
-    textAlign: 'center'
+    flex: 0.20
   },
-
-  inputText: {
-    fontSize: 24,
-    color: "#ddd",
-    borderColor: "gray",
-    borderWidth: 1,
-    alignItems: 'flex-start'
-  }
 });
+
+

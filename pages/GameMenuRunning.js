@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
 import { LinearGradient } from 'expo';
 
 import App, { Palette } from '../App';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 export default class GameMenuRunning extends React.Component {
   constructor(props) {
@@ -29,17 +30,20 @@ export default class GameMenuRunning extends React.Component {
 
     var controls;
     if(this.state.theyGotGot) {
-      controls = (<Text style={[styles.subTitle, {color: "steelblue"}]}>Waiting for target to confirm assassination</Text>);
+      controls = (<Text style={[baseStyle.subTitle, {color: "black"}]}>Waiting for target to confirm assassination</Text>);
     } else {
-      controls = (<Button onPress={this.gotGot.bind(this)} title="They got got" color={Palette.color1} />);
+      controls = (
+        <TouchableOpacity style = {baseStyle.button} onPress={this.gotGot.bind(this)}>
+      <Text style= {baseStyle.text}> They got got </Text>
+      </TouchableOpacity>);
     }
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{global.gameName}</Text>
+      <View style={baseStyle.container}>
+        <Text style={[baseStyle.title, styles.title]}>{global.gameName}</Text>
         <View style={{height: vSpace}}></View>
-        <Text style={styles.subTitle}>You are hunting {target.first} {target.last}</Text>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>You are hunting {target.first} {target.last}</Text>
         <View style={{height: vSpace}}></View>
         {controls}
       </View>
@@ -49,20 +53,10 @@ export default class GameMenuRunning extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
-  },
-
   title: {
-    fontSize: 40,
-    color: "#eee"
+    fontSize: 40
   },
-
   subTitle: {
-    fontSize: 24,
-    color: "#ddd"
+    fontSize: 30
   }
 });

@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 import App, { Palette } from '../App';
 
@@ -35,39 +36,36 @@ export default class JoinGame2 extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={styles.container}>
-        <View style={{flex: 3}} >
+      <View style={baseStyle.container}>
+        <View style={{flex: 2.6}} >
           <View style={{flex: 1}} />{/*spacer*/}
-          <Text style={styles.title}>{global.gameName}</Text>
-          <Text style={[styles.inputLabel, {fontStyle: "italic"}]}>Game Code: #{global.code}</Text>
-          <View style={{flex: 1}} />{/*spacer*/}
-          <Text style={styles.inputLabel}>Enter your name!</Text>
-          <Text style={styles.infoText}>
+          <Text style={[baseStyle.title, styles.title]}>{global.gameName}</Text>
+          <Text style={baseStyle.subTitle}>Game Code: #{global.code}</Text>
+          <View style={{flex: 0.70}} />{/*spacer*/}
+          <Text style={baseStyle.subTitle}>Enter your name!</Text>
+          <Text style={baseStyle.infoText}>
             This should be your real name, so that people in the game know who you
             are.
           </Text>
-          <View style={{flex: 0.2}} />{/*spacer*/}
+          <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
-              style={styles.inputText}
+              style={baseStyle.subTitle}
               onChangeText={(first) => global.firstName = first}
               placeholder={"First name"}
-              placeholderTextColor={"#888"}
+              placeholderTextColor={"#eee"}
               autoFocus={true}
           />
-          <View style={{flex: 0.2}} />{/*spacer*/}
+          <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
-              style={styles.inputText}
+              style={baseStyle.subTitle}
               onChangeText={(last) => global.lastName = last}
               placeholder={"Last name"}
-              placeholderTextColor={"#888"}
+              placeholderTextColor={"#eee"}
           />
-          <View style={{flex: 1}} />{/*spacer*/}
-          <Button
-              onPress={this.submit.bind(this)}//()=>navigate("game")}
-              // call the submit function
-              title="Submit"
-              color={Palette.color1}
-          />
+          <View style={{flex: 0.7}} />{/*spacer*/}
+           <TouchableOpacity style={baseStyle.widebutton} onPress={this.submit.bind(this)}>
+          <Text style={baseStyle.text}> submit </Text>
+        </TouchableOpacity>
         </View>
         <View style={{flex: 2}} />{/*spacer*/}
       </View>
@@ -76,30 +74,9 @@ export default class JoinGame2 extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 20
-  },
-
+var styles = StyleSheet.create({
   title: {
-    fontSize: 36,
-    color: "#eee"
+    fontSize: 50
   },
-
-  inputLabel: {
-    fontSize: 24,
-    color: "#eee"
-  },
-
-  inputText: {
-    fontSize: 24,
-    color: "#ddd"
-  },
-
-  infoText: {
-    fontSize: 16,
-    color: "#eee"
-  }
 });
+

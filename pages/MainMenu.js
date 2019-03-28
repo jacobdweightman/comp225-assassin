@@ -5,7 +5,7 @@ import {Font, AppLoading} from 'expo';
 
 import App, { Palette} from '../App'; // App for global variables, Palette for colors
 import font from '../assets/fonts/IcelandReg.ttf';
-import baseStyle from '../UI/defaultStyles/DefaultTitle';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 export default class MainMenu extends React.Component {
   constructor(props) {
@@ -45,6 +45,8 @@ export default class MainMenu extends React.Component {
 
 var styles = StyleSheet.create({
   title: {
+    flex: 0.30,
+    fontSize: 100
   },
 });
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 import App, { Palette } from '../App';
 
@@ -21,27 +22,24 @@ export default class JoinGame1 extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={styles.container}>
+      <View style={baseStyle.container}>
         <View style={{flex: 1}} />{/*spacer*/}
         <View style={{flex: 2}} >
-          <Text style={styles.inputLabel}>Enter game code:</Text>
+          <Text style={baseStyle.inputLabel}>Enter game code:</Text>
           <View style={{flex: .2}} />{/*spacer*/}
           <TextInput
-              style={styles.inputText}
+              style={baseStyle.inputText}
               keyboardType={"number-pad"}
               onChangeText={(text) => global.code = text}
               // onSubmitEditing={event => Alert.alert(global.code)}
               placeholder={"Game code"}
-              placeholderTextColor={"#888"}
               autoFocus={true}
               maxLength={5}
           />
           <View style={{flex: 1}} />{/*spacer*/}
-          <Button
-              onPress={this.next.bind(this)}//call the next() function
-              title="Join Game"
-              color={Palette.color1}
-          />
+          <TouchableOpacity style ={baseStyle.widebutton} onPress={this.next.bind(this)}>
+            <Text style={baseStyle.text}> Join Game </Text>
+          </TouchableOpacity>
         </View>
         <View style={{flex: 3}} />{/*spacer*/}
       </View>
@@ -50,20 +48,4 @@ export default class JoinGame1 extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20
-  },
 
-  inputLabel: {
-    fontSize: 36,
-    color: "#eee",
-    fontFamily:'font'
-  },
-
-  inputText: {
-    fontSize: 24,
-    color: "#ddd"
-  }
-});

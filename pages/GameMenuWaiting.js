@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList} from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
 
+
 import App, { Palette } from '../App';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 export default class GameMenuWaiting extends React.Component {
   doNothing() {
@@ -30,15 +32,13 @@ export default class GameMenuWaiting extends React.Component {
 
     if (global.creator) {
       advance = (
-        <Button
-            onPress={this.advance.bind(this)}
-            title="Start Round"
-            color={Palette.color1}
-        />
+        <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
+          <Text style = {baseStyle.text}> Start Round </Text>
+        </TouchableOpacity>
       );
     } else {
       advance = (
-        <Text style={[styles.subTitle, {textDecorationLine: "none"}]}>
+        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: 'black'}]}>
           Waiting for game creator to start game
         </Text>
       );
@@ -49,22 +49,22 @@ export default class GameMenuWaiting extends React.Component {
         numColumns={1}
         horizontal={false}
         data={global.playerList}
-        renderItem={({item}) => <Text style={styles.listItem}>{item.first},&#9;&#9;{item.last}</Text>}
+        renderItem={({item}) => <Text style={baseStyle.listItem}>{item.first},&#9;&#9;{item.last}</Text>}
         keyExtractor={(item,index)=>item.last}
       />
     );
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{global.gameName}</Text>
+      <View style={baseStyle.container}>
+        <Text style={[baseStyle.title, styles.title]}>{global.gameName}</Text>
         <View style={{flex: 0.1}}/>
-        <Text style={styles.subTitle}>Game Rules:</Text>
-        <Text style={styles.infoText}>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
+        <Text style={baseStyle.infoText}>
           {global.gameRules}
         </Text>
         <View style={{flex: 0.1}}/>
-        <Text style={styles.subTitle}>Player List:</Text>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>Player List:</Text>
         {playerList}
         {advance}
       </View>
@@ -73,33 +73,15 @@ export default class GameMenuWaiting extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
-  },
-
+var styles = StyleSheet.create({
   title: {
-    fontSize: 40,
-    color: "#eee",
-    // textDecorationLine: "underline",
+    fontSize: 50,
   },
 
   subTitle: {
-    fontSize: 24,
-    color: "#ddd",
+    fontSize: 35,
+    color: 'white',
     textDecorationLine: "underline"
-  },
-
-  infoText: {
-    fontSize: 16,
-    color: "#ccc"
-  },
-
-  listItem: {
-    fontSize: 18,
-    color: "#ddd"
   }
+  
 });
