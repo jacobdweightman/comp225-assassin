@@ -27,11 +27,12 @@ import JoinGame1 from './pages/JoinGameEnterCode';
 import JoinGame2 from './pages/JoinGameEnterName';
 import GameMenuWaiting from './pages/GameMenuWaiting';
 import GameMenuRunning from './pages/GameMenuRunning';
+import DeathYouLose from './pages/DeathYouLose';
 
 const Navigator = createStackNavigator(
 { // Navigator for pages
   home: {screen: MainMenu},
-  create: {screen: CreateGame},
+  create: {screen: CreateGame}, //creategame!
   join1: {screen: JoinGame1},
   join2: {screen: JoinGame2},
   gameWaiting: {screen: GameMenuWaiting},
@@ -48,6 +49,7 @@ export class Palette {
     static color1 = "#7d97c1";
     static color2 = "#FFC107";
     static gradientCol = ['#101010','#7e8e9e','#7e8e9e','#F0F8FF'];
+    static deathColors= ['#bfbfbf', '#838383', '#1a1a1a', '#4d1414', '#b40d0d'];
     static place = {position :'absolute', left: 0, bottom: 0, right: 0, top:0};
 }
 

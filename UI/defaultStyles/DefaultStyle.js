@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
+
 export default StyleSheet.create({
  container : {
   flex: 1, 
@@ -11,7 +12,6 @@ export default StyleSheet.create({
  title: {
    fontFamily: 'font',
    color: "white",
-   
   },
   inputLabel: {
     textAlign:'center',
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     flex: 0.15
   },
     infoText: {
-    fontSize: 20,
+    fontSize: 23,
     color: "white", 
     fontFamily: 'font'
   },
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   },
 
    button:{
-    width: 250, 
+    width: 250, //Has width whereas the other botton type does not 
     height:50,
     backgroundColor: 'slategray',
     borderRadius:50,
