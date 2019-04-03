@@ -11,13 +11,19 @@ export default class GameMenuRunning extends React.Component {
 
     this.state = {
       iGotGot: false,
-      theyGotGot: false
+      theyReallyGotGot: false
     };
   }
 
   gotGot() {
     this.setState(() => ({
       theyGotGot: true
+    }));
+  }
+
+  approvedGot(){
+    this.setState(() => ({
+      theyReallyGotGot: true
     }));
   }
 
@@ -40,13 +46,10 @@ export default class GameMenuRunning extends React.Component {
         autoFocus={true}
         />
         <Text> </Text>
-        <TouchableOpacity style = {baseStyle.button}>
+        <TouchableOpacity style = {baseStyle.button} onPress= {this.approvedGot.bind(this)}>
       <Text style= {baseStyle.text}> Die </Text>
       </TouchableOpacity>
       </View>);
-
-      
-
     } else {
       controls = (
       <TouchableOpacity style = {baseStyle.button} onPress={this.gotGot.bind(this)}>
