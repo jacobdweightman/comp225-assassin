@@ -33,6 +33,7 @@ const Navigator = createStackNavigator(
 { // Navigator for pages
   home: {screen: MainMenu},
   create: {screen: CreateGame}, //creategame!
+  loss: {screen: MainMenu},
   join1: {screen: JoinGame1},
   join2: {screen: JoinGame2},
   gameWaiting: {screen: GameMenuWaiting},

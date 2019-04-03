@@ -6,6 +6,13 @@ import App, { Palette} from '../App';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
 export default class DeathYouLose extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  goingHome(){
+  const {navigate} = this.props.navigation;
+  return navigate("loss");
+  }
   render() {
     return (
       <LinearGradient colors= {Palette.deathColors} style ={Palette.place}>
@@ -13,12 +20,8 @@ export default class DeathYouLose extends React.Component {
         <Text style= {[baseStyle.title, styles.title]}> You Got Got!</Text>
         <Text> </Text>  
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity style = {[baseStyle.button, styles.button]}>
-            <Text style = {baseStyle.text}> Deny </Text>  
-          </TouchableOpacity>
-          <Text>      </Text>
-          <TouchableOpacity style = {[baseStyle.button, styles.button]}>
-            <Text style = {baseStyle.text}> Confirm </Text>  
+          <TouchableOpacity style = {[baseStyle.button, styles.button]} onPress={this.goingHome.bind(this)}>
+            <Text style = {baseStyle.text}> Home </Text>  
           </TouchableOpacity>
         </View>
       </View>
@@ -34,7 +37,8 @@ const styles = StyleSheet.create({
     flex: 0.3
   },
   button:{
-    width: 150
+    width: 150, 
+    backgroundColor: 'black'
   }
 });
 
