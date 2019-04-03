@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
 import { LinearGradient } from 'expo';
 
 import App, { Palette } from '../App';
@@ -30,18 +30,34 @@ export default class GameMenuRunning extends React.Component {
 
     var controls;
     if(this.state.theyGotGot) {
-      controls = (<Text style={[baseStyle.subTitle, {color: "black"}]}>Waiting for target to confirm assassination</Text>);
+      controls = (
+        <View>
+         <TextInput
+        style={baseStyle.subTitle}
+        onChangeText={(code) => global.killCode = code}
+        placeholder={"Life Code"}
+        placeholderTextColor={"white"}
+        autoFocus={true}
+        />
+        <Text> </Text>
+        <TouchableOpacity style = {baseStyle.button}>
+      <Text style= {baseStyle.text}> Die </Text>
+      </TouchableOpacity>
+      </View>);
+
+      
+
     } else {
       controls = (
-        <TouchableOpacity style = {baseStyle.button} onPress={this.gotGot.bind(this)}>
-      <Text style= {baseStyle.text}> They got got </Text>
+      <TouchableOpacity style = {baseStyle.button} onPress={this.gotGot.bind(this)}>
+        <Text style= {baseStyle.text}> They got got </Text>
       </TouchableOpacity>);
     }
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={baseStyle.container}>
-        <Text style={[baseStyle.title, styles.title]}>{global.gameName}</Text>
+      <View style={[baseStyle.container, styles.container]}>
+        <Text style={[baseStyle.title, styles.title]}>{global.firstName}</Text>
         <View style={{height: vSpace}}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>You are hunting {target.first} {target.last}</Text>
         <View style={{height: vSpace}}></View>
@@ -53,6 +69,10 @@ export default class GameMenuRunning extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    justifyContent:"flex-start" 
+  }, 
+
   title: {
     fontSize: 40
   },
