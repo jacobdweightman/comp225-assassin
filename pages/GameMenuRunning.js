@@ -33,7 +33,6 @@ export default class GameMenuRunning extends React.Component {
     const shouldBeNumber = Math.floor(Math.random() * global.playerList.length); // random int
     // [0,playerlist.length]
     const target = global.playerList[shouldBeNumber];
-
     var controls;
     if(this.state.theyGotGot) {
       controls = (
