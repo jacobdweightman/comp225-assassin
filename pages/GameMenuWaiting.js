@@ -4,8 +4,8 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
 
 
-import App, { Palette } from '../App';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import Palette from '../UI/defaultStyles/Palette';
 
 export default class GameMenuWaiting extends React.Component {
   doNothing() {
@@ -83,5 +83,5 @@ var styles = StyleSheet.create({
     color: 'white',
     textDecorationLine: "underline"
   }
-  
+
 });

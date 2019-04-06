@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
-import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
-import App, { Palette } from '../App';
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import Palette from '../UI/defaultStyles/Palette';
+
+import global from '../Global';
 
 // TODO: On submit, server has to check if name is duplicate, if not add player and
 // send information for the game waiting / running page
@@ -79,4 +81,3 @@ var styles = StyleSheet.create({
     fontSize: 50
   },
 });
-

@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
 import { LinearGradient } from 'expo';
 
-import App, { Palette } from '../App';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import Palette from '../UI/defaultStyles/Palette';
 
 export default class GameMenuRunning extends React.Component {
   constructor(props) {
@@ -72,8 +72,8 @@ export default class GameMenuRunning extends React.Component {
 
 const styles = StyleSheet.create({
   container:{
-    justifyContent:"flex-start" 
-  }, 
+    justifyContent:"flex-start"
+  },
 
   title: {
     fontSize: 40

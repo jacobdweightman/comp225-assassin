@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
 
-import App, { Palette} from '../App';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import Palette from '../UI/defaultStyles/Palette';
 
 export default class Victory extends React.Component {
   constructor(props) {
@@ -18,10 +18,10 @@ export default class Victory extends React.Component {
       <LinearGradient colors= {Palette.winColors} style ={Palette.place}>
       <View style={baseStyle.container}>
         <Text style= {[baseStyle.title, styles.title]}> Victor!</Text>
-        <Text> </Text>  
+        <Text> </Text>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style = {[baseStyle.button, styles.button]} onPress={this.goingHome.bind(this)}>
-            <Text style = {baseStyle.text}> Home </Text>  
+            <Text style = {baseStyle.text}> Home </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 0.3
   },
   button:{
-    width: 150, 
+    width: 150,
     backgroundColor: '#DAA520'
   }
 });

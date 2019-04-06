@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
-
-import App, { Palette } from '../App';
+import Palette from '../UI/defaultStyles/Palette';
 
 // TODO: pressing join game button will have to querry the server to see if the game
 // code is valid and respond back
@@ -47,5 +46,3 @@ export default class JoinGame1 extends React.Component {
     );
   }
 }
-
-

@@ -3,7 +3,7 @@ import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import { LinearGradient } from 'expo';
 import {Font, AppLoading} from 'expo';
 
-import App, { Palette} from '../App'; // App for global variables, Palette for colors
+import Palette from '../UI/defaultStyles/Palette';
 import font from '../assets/fonts/IcelandReg.ttf';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
@@ -31,7 +31,7 @@ export default class MainMenu extends React.Component {
       <View style={baseStyle.container}>
           <Text style={[baseStyle.title, styles.title]}>Assassin </Text>
           <TouchableOpacity style = {baseStyle.button} onPress={()=>navigate("join1")}>
-            <Text style = {baseStyle.text}> Join Game </Text>  
+            <Text style = {baseStyle.text}> Join Game </Text>
           </TouchableOpacity>
           <Text style={{flex: 0.05}}> </Text>{/*spacer*/}
           <TouchableOpacity  style = {baseStyle.button} onPress={()=>navigate("create")}>
@@ -49,17 +49,3 @@ var styles = StyleSheet.create({
     fontSize: 100
   },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

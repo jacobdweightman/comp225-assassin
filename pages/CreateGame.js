@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import Palette from '../UI/defaultStyles/Palette';
 
-import App, { Palette } from '../App';
 
 export default class CreateGame extends React.Component {
   constructor(props) {
@@ -52,7 +52,7 @@ export default class CreateGame extends React.Component {
         <TouchableOpacity style= {baseStyle.button} onPress={this.create.bind(this)}>
           <Text style={baseStyle.text}>Join Game</Text>
         </TouchableOpacity>
-        
+
       </View>
       </LinearGradient>
     );
@@ -67,5 +67,3 @@ var styles = StyleSheet.create({
     flex: 0.20
   },
 });
-
-
