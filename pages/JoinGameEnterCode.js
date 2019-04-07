@@ -4,6 +4,8 @@ import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 
+import global from '../Global';
+
 // TODO: pressing join game button will have to querry the server to see if the game
 // code is valid and respond back
 export default class JoinGame1 extends React.Component {

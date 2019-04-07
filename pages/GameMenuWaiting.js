@@ -6,6 +6,7 @@ import { LinearGradient } from 'expo';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
+import global from '../Global';
 
 export default class GameMenuWaiting extends React.Component {
   doNothing() {

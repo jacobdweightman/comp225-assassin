@@ -23,8 +23,8 @@ export default class MainMenu extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
-      if (!this.state.fontLoading) {
-      return <Expo.AppLoading />;
+    if (!this.state.fontLoading) {
+      return <Expo.AppLoading />
     }
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>

@@ -13,6 +13,31 @@ import global from '../Global';
 export default class JoinGame2 extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: true
+    }
+    global.code = "1303"
+  }
+
+  componentWillMount = async () => {
+    try {
+      const response = await fetch(global.BASE_URL + "test_access/get_game", {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify({
+          game_code: global.code
+        }),
+      })
+      const json = await response.json()
+      global.gameName = json.game_name
+      global.gameRules = json.game_rules
+      this.setState({loading: false})
+
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   submit() {
@@ -36,6 +61,11 @@ export default class JoinGame2 extends React.Component {
   }
 
   render() {
+
+    if(this.state.loading) {
+      return <Expo.AppLoading />
+    }
+
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
