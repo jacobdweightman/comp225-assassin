@@ -14,31 +14,10 @@ export default class JoinGame2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
-    }
-    global.code = "1303"
-  }
-
-  componentWillMount = async () => {
-    try {
-      const response = await fetch(global.BASE_URL + "test_access/get_game", {
-        method: 'POST',
-        headers: {
-          'Content-Type': "application/json",
-        },
-        body: JSON.stringify({
-          game_code: global.code
-        }),
-      })
-      const json = await response.json()
-      global.gameName = json.game_name
-      global.gameRules = json.game_rules
-      this.setState({loading: false})
-
-    } catch (e) {
-      console.error(e)
+      loading: false
     }
   }
+
 
   submit() {
     if (global.firstName.length < 2) { // basic input validation

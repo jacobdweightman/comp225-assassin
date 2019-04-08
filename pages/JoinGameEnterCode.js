@@ -11,13 +11,46 @@ import global from '../Global';
 export default class JoinGame1 extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {resp: 1}
   }
 
-  next() {
-    // TODO: check code that was entered
-    global.creator = false;
-    const {navigate} = this.props.navigation;
-    return navigate("join2");
+  async gameExists() {
+    // Alert.alert("function call")
+    try {
+      const response = await fetch(global.BASE_URL + "test_access/get_game", {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify({
+          game_code: global.code
+        }),
+      })
+
+      let json
+      try {
+      json = await response.json()
+    } catch (e) {
+      Alert.alert("Game does not exist")
+      return false
+    }
+      global.gameName = json.game_name
+      global.gameRules = json.game_rules
+      this.setState({loading: false, resp: this.state.resp + 1})
+      return true
+
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async next() {
+    if (await this.gameExists() === true) {
+      global.creator = false;
+      const {navigate} = this.props.navigation;
+      return navigate("join2");
+    }
   }
 
   render() {
