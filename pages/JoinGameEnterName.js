@@ -19,7 +19,7 @@ export default class JoinGameEnterName extends React.Component {
   }
 
 
-  submit() {
+  async submit() {
     if (global.firstName.length < 2) { // basic input validation
       Alert.alert("Please enter a valid first name");
     }
@@ -27,6 +27,32 @@ export default class JoinGameEnterName extends React.Component {
       Alert.alert("Please enter a valid last name");
     }
     else {
+      try {
+        let response = await fetch(global.BASE_URL + "player_access/add_player", {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            player_first_name: global.firstName,
+            player_last_name: global.lastName,
+            is_creator: global.creator,
+            game_code: global.code
+          }),
+        });
+
+        if(response.status === 200) {
+          return this.props.navigation.navigate("gameWaiting");
+        } else {
+          alert("A network error occurred.");
+          console.log(response);
+        }
+
+      } catch(error) {
+        alert("An error occured while creating your game.");
+        console.log(error);
+      }
+
       // TODO: server check that name is not a duplicate
       global.playerList.push({first: global.firstName, last: global.lastName})
       const {navigate} = this.props.navigation;
