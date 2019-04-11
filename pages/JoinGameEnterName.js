@@ -10,7 +10,7 @@ import global from '../Global';
 
 // TODO: On submit, server has to check if name is duplicate, if not add player and
 // send information for the game waiting / running page
-export default class JoinGame2 extends React.Component {
+export default class JoinGameEnterName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
