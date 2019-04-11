@@ -20,11 +20,11 @@ export default class JoinGameEnterName extends React.Component {
 
 
   async submit() {
-    if (global.firstName.length < 2) { // basic input validation
-      Alert.alert("Please enter a valid first name");
+    if (global.firstName.length === 0) { // basic input validation
+      Alert.alert("Please enter your first name");
     }
-    else if (global.lastName.length < 2) {
-      Alert.alert("Please enter a valid last name");
+    else if (global.lastName.length === 0) {
+      Alert.alert("Please enter your last name");
     }
     else {
       try {
