@@ -16,9 +16,8 @@ export default class JoinGame1 extends React.Component {
   }
 
   async gameExists() {
-    // Alert.alert("function call")
     try {
-      const response = await fetch(global.BASE_URL + "test_access/get_game", {
+      const response = await fetch(global.BASE_URL + "player_access/get_game_info", {
         method: 'POST',
         headers: {
           'Content-Type': "application/json",
@@ -26,22 +25,20 @@ export default class JoinGame1 extends React.Component {
         body: JSON.stringify({
           game_code: global.code
         }),
-      })
+      });
 
-      let json
-      try {
-      json = await response.json()
+      if (response.status === 200) {
+        json = await response.json();
+        global.gameName = json.game_name;
+        global.gameRules = json.game_rules;
+        this.setState({loading: false});
+        return true;
+      } else {
+        Alert.alert("That game does not exist.");
+        return false;
+      }
     } catch (e) {
-      Alert.alert("Game does not exist")
-      return false
-    }
-      global.gameName = json.game_name
-      global.gameRules = json.game_rules
-      this.setState({loading: false, resp: this.state.resp + 1})
-      return true
-
-    } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   }
 
