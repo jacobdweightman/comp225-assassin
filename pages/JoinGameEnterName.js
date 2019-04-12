@@ -10,7 +10,7 @@ import global from '../Global';
 
 // TODO: On submit, server has to check if name is duplicate, if not add player and
 // send information for the game waiting / running page
-export default class JoinGame2 extends React.Component {
+export default class JoinGameEnterName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,14 +19,40 @@ export default class JoinGame2 extends React.Component {
   }
 
 
-  submit() {
-    if (global.firstName.length < 2) { // basic input validation
-      Alert.alert("Please enter a valid first name");
+  async submit() {
+    if (global.firstName.length === 0) { // basic input validation
+      Alert.alert("Please enter your first name");
     }
-    else if (global.lastName.length < 2) {
-      Alert.alert("Please enter a valid last name");
+    else if (global.lastName.length === 0) {
+      Alert.alert("Please enter your last name");
     }
     else {
+      try {
+        let response = await fetch(global.BASE_URL + "player_access/add_player", {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            player_first_name: global.firstName,
+            player_last_name: global.lastName,
+            is_creator: global.creator,
+            game_code: global.code
+          }),
+        });
+
+        if(response.status === 200) {
+          return this.props.navigation.navigate("gameWaiting");
+        } else {
+          alert("A network error occurred.");
+          console.log(response);
+        }
+
+      } catch(error) {
+        alert("An error occured while creating your game.");
+        console.log(error);
+      }
+
       // TODO: server check that name is not a duplicate
       global.playerList.push({first: global.firstName, last: global.lastName})
       const {navigate} = this.props.navigation;

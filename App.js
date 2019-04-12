@@ -3,8 +3,8 @@ import { Platform, StyleSheet} from 'react-native';
 
 import MainMenu from './pages/MainMenu';
 import CreateGame from './pages/CreateGame';
-import JoinGame1 from './pages/JoinGameEnterCode';
-import JoinGame2 from './pages/JoinGameEnterName';
+import JoinGameEnterCode from './pages/JoinGameEnterCode';
+import JoinGameEnterName from './pages/JoinGameEnterName';
 import GameMenuWaiting from './pages/GameMenuWaiting';
 import GameMenuRunning from './pages/GameMenuRunning';
 import DeathYouLose from './pages/DeathYouLose';
@@ -15,8 +15,8 @@ const Navigator = createStackNavigator(
   home: {screen: MainMenu},
   create: {screen: CreateGame}, //creategame!
   loss: {screen: MainMenu},
-  join1: {screen: JoinGame1},
-  join2: {screen: JoinGame2},
+  join1: {screen: JoinGameEnterCode},
+  join2: {screen: JoinGameEnterName},
   gameWaiting: {screen: GameMenuWaiting},
   gameRunning: {screen: GameMenuRunning}
 }, {
