@@ -33,7 +33,7 @@ export default class CreateGame extends React.Component {
 
       if(response.status === 200) {
         let json = await response.json();
-        global.creator = true;
+        global.creator = 1;
         global.code = json.game_code;
         return this.props.navigation.navigate("join2");
       } else {

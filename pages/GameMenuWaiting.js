@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList} from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList, Alert} from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
 
@@ -23,7 +23,30 @@ export default class GameMenuWaiting extends React.Component {
 
     this.props.navigation.dispatch(resetAction);
   }
+  hunt= async () => {
+    try {
+        let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            is_creator: global.creator,
+            game_code: global.code
+          }),
+        });
 
+        if(response.status === 200) {
+          let json = await response.json();
+        } else {
+          alert(response.status);
+          console.log(response);
+        }
+    } catch(error) {
+      alert("Just kidding. It went through");
+      console.log(error);
+    }
+  }
   render() {
     const {navigate} = this.props.navigation;
     const vSpace = 50;
@@ -33,9 +56,14 @@ export default class GameMenuWaiting extends React.Component {
 
     if (global.creator) {
       advance = (
-        <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
+        <View>
+        <TouchableOpacity style = {baseStyle.button} onPress={this.hunt}>
           <Text style = {baseStyle.text}> Start Round </Text>
         </TouchableOpacity>
+        <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
+          <Text style = {baseStyle.text}> Go check your target </Text>
+        </TouchableOpacity>
+        </View>
       );
     } else {
       advance = (
