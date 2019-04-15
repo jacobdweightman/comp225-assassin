@@ -12,23 +12,30 @@ export default class JoinGameEnterCode extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {resp: 1}
+    this.state = {
+      resp: 1,
+      gameCode: "",
+    }
   }
 
   async gameExists() {
     try {
+      console.log(JSON.stringify({
+        game_code: this.state.gameCode
+      }));
       const response = await fetch(global.BASE_URL + "player_access/get_game_info", {
         method: 'POST',
         headers: {
           'Content-Type': "application/json",
         },
         body: JSON.stringify({
-          game_code: global.code
+          game_code: this.state.gameCode,
         }),
       });
 
       if (response.status === 200) {
         json = await response.json();
+        console.log(json);
         global.gameName = json.game_name;
         global.gameRules = json.game_rules;
         this.setState({loading: false});
@@ -39,14 +46,25 @@ export default class JoinGameEnterCode extends React.Component {
       }
     } catch (e) {
       console.error(e);
+      return false;
     }
   }
 
   async next() {
     if (await this.gameExists() === true) {
       global.creator = false;
+      global.code = this.state.gameCode;
       const {navigate} = this.props.navigation;
-      return navigate("join2");
+      return navigate("join2", {
+        player: {
+          creator: false,
+        },
+        game: {
+          code: this.state.gameCode,
+          name: this.state.gameName,
+          rules: this.state.gameRules
+        }
+      });
     }
   }
 
@@ -61,12 +79,12 @@ export default class JoinGameEnterCode extends React.Component {
           <TextInput
               style={baseStyle.inputText}
               keyboardType={"number-pad"}
-              onChangeText={(text) => global.code = text}
-              // onSubmitEditing={event => Alert.alert(global.code)}
+              onChangeText={(gameCode) => this.setState({gameCode})}
               placeholder={"Game code"}
               autoFocus={true}
               maxLength={5}
           />
+          <Text>{this.state.gameCode}</Text>
           <View style={{flex: 1}} />{/*spacer*/}
           <TouchableOpacity style ={baseStyle.widebutton} onPress={this.next.bind(this)}>
             <Text style={baseStyle.text}> Join Game </Text>

@@ -13,17 +13,21 @@ import global from '../Global';
 export default class JoinGameEnterName extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      loading: false
+      player: this.props.navigation.getParam("player"),
+      game: this.props.navigation.getParam("game"),
+      firstName: "",
+      lastName: "",
     }
   }
 
 
   async submit() {
-    if (global.firstName.length === 0) { // basic input validation
+    if (this.state.firstName.length === 0) { // basic input validation
       Alert.alert("Please enter your first name");
     }
-    else if (global.lastName.length === 0) {
+    else if (this.state.lastName.length === 0) {
       Alert.alert("Please enter your last name");
     }
     else {
@@ -34,14 +38,16 @@ export default class JoinGameEnterName extends React.Component {
             'Content-Type': "application/json",
           },
           body: JSON.stringify({
-            player_first_name: global.firstName,
-            player_last_name: global.lastName,
-            is_creator: global.creator,
-            game_code: global.code
+            player_first_name: this.state.firstName,
+            player_last_name: this.state.lastName,
+            is_creator: this.state.player.creator ? 1 : 0,
+            game_code: this.state.game.code,
           }),
         });
 
         if(response.status === 200) {
+          global.firstName = this.state.firstName;
+          global.lastName = this.state.lastName;
           return this.props.navigation.navigate("gameWaiting");
         } else {
           alert("A network error occurred.");
@@ -66,11 +72,6 @@ export default class JoinGameEnterName extends React.Component {
   }
 
   render() {
-
-    if(this.state.loading) {
-      return <Expo.AppLoading />
-    }
-
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
@@ -87,7 +88,7 @@ export default class JoinGameEnterName extends React.Component {
           <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
               style={baseStyle.subTitle}
-              onChangeText={(first) => global.firstName = first}
+              onChangeText={(firstName) => this.setState({firstName})} //(first) => global.firstName = first}
               placeholder={"First name"}
               placeholderTextColor={"#eee"}
               autoFocus={true}
@@ -95,7 +96,7 @@ export default class JoinGameEnterName extends React.Component {
           <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
               style={baseStyle.subTitle}
-              onChangeText={(last) => global.lastName = last}
+              onChangeText={(lastName) => this.setState({lastName})} //(last) => global.lastName = last}
               placeholder={"Last name"}
               placeholderTextColor={"#eee"}
           />
@@ -103,6 +104,8 @@ export default class JoinGameEnterName extends React.Component {
            <TouchableOpacity style={baseStyle.widebutton} onPress={this.submit.bind(this)}>
           <Text style={baseStyle.text}> submit </Text>
         </TouchableOpacity>
+        <Text>{this.state.firstName}</Text>
+        <Text>{this.state.lastName}</Text>
         </View>
         <View style={{flex: 2}} />{/*spacer*/}
       </View>

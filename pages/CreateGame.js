@@ -10,11 +10,16 @@ import global from '../Global';
 export default class CreateGame extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      gameName: "default name",
+      gameRules: "default rules",
+    }
   }
 
   async create() {
     // validate input
-    if (global.gameName.length < 2) {
+    if (this.state.gameName.length < 2) {
       Alert.alert("Please enter a valid game name");
       return;
     }
@@ -26,8 +31,8 @@ export default class CreateGame extends React.Component {
           'Content-Type': "application/json",
         },
         body: JSON.stringify({
-          game_name: global.gameName,
-          game_rules: global.gameRules,
+          game_name: this.state.gameName,
+          game_rules: this.state.gameRules,
         }),
       });
 
@@ -35,7 +40,19 @@ export default class CreateGame extends React.Component {
         let json = await response.json();
         global.creator = 1;
         global.code = json.game_code;
-        return this.props.navigation.navigate("join2");
+        global.gameName = this.state.gameName;
+        global.gameRules = this.state.gameRules;
+
+        return this.props.navigation.navigate("join2", {
+          player: {
+            creator: true,
+          },
+          game: {
+            code: json.game_code,
+            name: this.state.gameName,
+            rules: this.state.gameRules,
+          }
+        });
       } else {
         alert("A network error occurred.");
         console.log(response);
@@ -48,15 +65,13 @@ export default class CreateGame extends React.Component {
   }
 
   render() {
-    const {navigate} = this.props.navigation;
-
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={[baseStyle.container, styles.container]}>
         <Text style={[baseStyle.inputLabel, styles.inputLabel ]}>Game name:</Text>
         <TextInput
             style={baseStyle.inputText}
-            onChangeText={(text) => global.gameName = text}
+            onChangeText={(gameName) => this.setState({gameName})}
             placeholderTextColor= 'white'
             placeholder= "Game Name"
             autoFocus={true}
@@ -68,7 +83,7 @@ export default class CreateGame extends React.Component {
             multiline={true}
             numberOfLines={4}
             textAlignVertical={'top'}
-            onChangeText={(text) => global.gameRules = text}
+            onChangeText={(gameRules) => this.setState({gameRules})}
             placeholder="This is the place to list any safe zones / how players
             will be assassinated"
             placeholderTextColor={"#eee"}
