@@ -40,8 +40,9 @@ export default class JoinGameEnterName extends React.Component {
             game_code: global.code
           }),
         });
-
         if(response.status === 200) {
+          let json = await response.json();
+          global.playerID = json.player_id; 
           return this.props.navigation.navigate("gameWaiting");
         } else {
           alert("A network error occurred.");

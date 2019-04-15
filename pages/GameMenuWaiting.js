@@ -32,18 +32,21 @@ export default class GameMenuWaiting extends React.Component {
           },
           body: JSON.stringify({
             is_creator: global.creator,
-            game_code: global.code
+            game_code: global.code,
+            player_id: global.playerID,
           }),
         });
 
         if(response.status === 200) {
           let json = await response.json();
+          global.playersKillCode = json.player_kill_code;
+          //go to the next screen 
         } else {
           alert(response.status);
           console.log(response);
         }
     } catch(error) {
-      alert("Just kidding. It went through");
+      alert("Just kidding. It went through–haha idk why there's this error");
       console.log(error);
     }
   }

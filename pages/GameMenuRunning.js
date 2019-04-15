@@ -29,6 +29,7 @@ export default class GameMenuRunning extends React.Component {
   }
 
   render() {
+
     const {navigate} = this.props.navigation;
     const vSpace = 50;
     const shouldBeNumber = Math.floor(Math.random() * global.playerList.length); // random int
@@ -61,6 +62,7 @@ export default class GameMenuRunning extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={[baseStyle.container, styles.container]}>
         <Text style={[baseStyle.title, styles.title]}>{global.firstName}</Text>
+        <Text> {global.playersKillCode}</Text>
         <View style={{height: vSpace}}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>You are hunting {target.first} {target.last}</Text>
         <View style={{height: vSpace}}></View>
