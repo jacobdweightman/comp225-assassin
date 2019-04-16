@@ -51,8 +51,6 @@ export default class JoinGameEnterName extends React.Component {
           let json = await response.json();
           global.playerID = json.player_id;
           this.setState({playerID: json.player_id})
-
-          return this.props.navigation.navigate("gameWaiting");
         } else {
           alert("A network error occurred.");
           console.log(response);
