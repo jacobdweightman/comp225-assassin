@@ -19,6 +19,7 @@ export default class JoinGameEnterName extends React.Component {
       game: this.props.navigation.getParam("game"),
       firstName: "",
       lastName: "",
+      playerID: undefined,
     }
   }
 
@@ -49,7 +50,8 @@ export default class JoinGameEnterName extends React.Component {
           global.lastName = this.state.lastName;
           let json = await response.json();
           global.playerID = json.player_id;
-          
+          this.setState({playerID: json.player_id})
+
           return this.props.navigation.navigate("gameWaiting");
         } else {
           alert("A network error occurred.");
@@ -63,11 +65,26 @@ export default class JoinGameEnterName extends React.Component {
 
       // TODO: server check that name is not a duplicate
       global.playerList.push({first: global.firstName, last: global.lastName})
-      const {navigate} = this.props.navigation;
+
+      params = {
+        game: this.state.game,
+        player: this.state.player,
+      }
+      params.player.firstName = this.state.firstName;
+      params.player.lastName = this.state.lastName;
+      params.player.playerID = this.state.playerID;
+
+      console.log("\n\n\nHELLO:");
+      console.log(params);
 
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'gameWaiting' })],
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'gameWaiting',
+            params: params
+          })
+        ],
       });
       this.props.navigation.dispatch(resetAction);
     }
@@ -79,8 +96,8 @@ export default class JoinGameEnterName extends React.Component {
       <View style={baseStyle.container}>
         <View style={{flex: 2.6}} >
           <View style={{flex: 1}} />{/*spacer*/}
-          <Text style={[baseStyle.title, styles.title]}>{global.gameName}</Text>
-          <Text style={baseStyle.subTitle}>Game Code: #{global.code}</Text>
+          <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+          <Text style={baseStyle.subTitle}>Game Code: #{this.state.game.code}</Text>
           <View style={{flex: 0.70}} />{/*spacer*/}
           <Text style={baseStyle.subTitle}>Enter your name!</Text>
           <Text style={baseStyle.infoText}>
@@ -90,7 +107,7 @@ export default class JoinGameEnterName extends React.Component {
           <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
               style={baseStyle.subTitle}
-              onChangeText={(firstName) => this.setState({firstName})} //(first) => global.firstName = first}
+              onChangeText={(firstName) => this.setState({firstName})}
               placeholder={"First name"}
               placeholderTextColor={"#eee"}
               autoFocus={true}
@@ -98,7 +115,7 @@ export default class JoinGameEnterName extends React.Component {
           <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
               style={baseStyle.subTitle}
-              onChangeText={(lastName) => this.setState({lastName})} //(last) => global.lastName = last}
+              onChangeText={(lastName) => this.setState({lastName})}
               placeholder={"Last name"}
               placeholderTextColor={"#eee"}
           />

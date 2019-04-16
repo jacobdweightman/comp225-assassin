@@ -35,7 +35,6 @@ export default class JoinGameEnterCode extends React.Component {
 
       if (response.status === 200) {
         json = await response.json();
-        console.log(json);
         global.gameName = json.game_name;
         global.gameRules = json.game_rules;
         this.setState({loading: false});
