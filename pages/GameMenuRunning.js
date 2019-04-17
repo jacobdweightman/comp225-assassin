@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
@@ -12,8 +12,38 @@ export default class GameMenuRunning extends React.Component {
 
     this.state = {
       iGotGot: false,
-      theyReallyGotGot: false
+      theyReallyGotGot: false,
+      loading: true,
+      targetMessage: null,
     };
+  }
+
+  // Get the player's target before screen loads
+  async componentDidMount(){
+    try {
+      const response = await fetch(global.BASE_URL + "player_access/request_target", {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify({
+          player_id: global.playerID,
+        }),
+      });
+
+      json = await response.json();
+      if (response.status === 200) {
+        global.target = json.target_first_name;
+        this.setState({targetMessage: "You are hunting " + global.target})
+      }
+      else {
+        this.setState({targetMessage: json.message})
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    this.setState({loading: false});
+    return;
   }
 
   gotGot() {
@@ -29,12 +59,12 @@ export default class GameMenuRunning extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <Expo.AppLoading />
+    }
 
     const {navigate} = this.props.navigation;
     const vSpace = 50;
-    const shouldBeNumber = Math.floor(Math.random() * global.playerList.length); // random int
-    // [0,playerlist.length]
-    const target = global.playerList[shouldBeNumber];
     var controls;
     if(this.state.theyGotGot) {
       controls = (
@@ -64,7 +94,7 @@ export default class GameMenuRunning extends React.Component {
         <Text style={[baseStyle.title, styles.title]}>{global.firstName}</Text>
         <Text> {global.playersKillCode}</Text>
         <View style={{height: vSpace}}></View>
-        <Text style={[baseStyle.subTitle, styles.subTitle]}>You are hunting {target.first} {target.last}</Text>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
         <View style={{height: vSpace}}></View>
         {controls}
       </View>
