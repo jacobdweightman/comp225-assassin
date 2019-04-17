@@ -10,13 +10,44 @@ import PlayerList from '../components/PlayerList';
 import global from '../Global';
 
 export default class GameMenuWaiting extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      player: this.props.navigation.getParam("player"),
+      game: this.props.navigation.getParam("game"),
+    }
+
+    this.updateGame();
+  }
+
+  updateGame() {
+    fetch(global.BASE_URL + "player_access/get_game_info", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({
+        game_code: this.state.game.code,
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      let game = this.state.game;
+
+      game.name = json.game_name;
+      game.rules = json.game_rules;
+
+      this.setState({game});
+    })
+    .catch((error) => console.log(error));
+  }
+
   doNothing() {
 
   }
 
   advance() {
-    const {navigate} = this.props.navigation;
-
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'gameRunning' })],
@@ -52,7 +83,6 @@ export default class GameMenuWaiting extends React.Component {
     }
   }
   render() {
-    const {navigate} = this.props.navigation;
     const vSpace = 50;
 
     var advance;
@@ -86,7 +116,7 @@ export default class GameMenuWaiting extends React.Component {
           {global.gameRules}
         </Text>
         <View style={{flex: 0.1}}/>
-        {global.creator && <PlayerList players={[]}></PlayerList>}
+        {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
         {advance}
       </View>
       </LinearGradient>

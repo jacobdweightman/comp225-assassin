@@ -43,8 +43,8 @@ export default class PlayerList extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text style={[baseStyle.subTitle, styles.subTitle]}>Player List:</Text>
+      <View style={this.props.style}>
+        <Text style={baseStyle.subTitle}>Player List:</Text>
         <FlatList
           numColumns={1}
           horizontal={false}
