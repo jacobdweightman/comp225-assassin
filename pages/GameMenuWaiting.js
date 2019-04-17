@@ -109,11 +109,11 @@ export default class GameMenuWaiting extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
-        <Text style={[baseStyle.title, styles.title]}>{global.gameName}</Text>
+        <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
         <View style={{flex: 0.1}}/>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
         <Text style={baseStyle.infoText}>
-          {global.gameRules}
+          {this.state.game.rules}
         </Text>
         <View style={{flex: 0.1}}/>
         {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
