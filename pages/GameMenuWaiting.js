@@ -15,8 +15,6 @@ export default class GameMenuWaiting extends React.Component {
   }
 
   advance() {
-    const {navigate} = this.props.navigation;
-
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'gameRunning' })],
@@ -52,7 +50,6 @@ export default class GameMenuWaiting extends React.Component {
     }
   }
   render() {
-    const {navigate} = this.props.navigation;
     const vSpace = 50;
 
     var advance;
@@ -86,7 +83,7 @@ export default class GameMenuWaiting extends React.Component {
           {global.gameRules}
         </Text>
         <View style={{flex: 0.1}}/>
-        {global.creator && <PlayerList players={[]}></PlayerList>}
+        {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
         {advance}
       </View>
       </LinearGradient>
