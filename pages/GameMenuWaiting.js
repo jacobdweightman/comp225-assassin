@@ -43,10 +43,6 @@ export default class GameMenuWaiting extends React.Component {
     .catch((error) => console.log(error));
   }
 
-  doNothing() {
-
-  }
-
   advance() {
     const resetAction = StackActions.reset({
       index: 0,
@@ -55,7 +51,8 @@ export default class GameMenuWaiting extends React.Component {
 
     this.props.navigation.dispatch(resetAction);
   }
-  hunt= async () => {
+
+  async hunt() {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
           method: 'POST',
@@ -82,6 +79,18 @@ export default class GameMenuWaiting extends React.Component {
       console.log(error);
     }
   }
+
+  startHuntDialog() {
+    Alert.alert(
+      'Are you ready to start the game?',
+      'Additional players cannot be added, and this operation cannot be undone.',
+      [
+        {text: "Start", onPress: this.hunt},
+        {text: "Cancel", onPress: () => {}}
+      ]
+    )
+  }
+
   render() {
     const vSpace = 50;
 
@@ -90,7 +99,7 @@ export default class GameMenuWaiting extends React.Component {
     if (global.creator) {
       advance = (
         <View>
-        <TouchableOpacity style = {baseStyle.button} onPress={this.hunt}>
+        <TouchableOpacity style = {baseStyle.button} onPress={this.startHuntDialog}>
           <Text style = {baseStyle.text}> Start Round </Text>
         </TouchableOpacity>
         <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
