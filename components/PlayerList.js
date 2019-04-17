@@ -1,31 +1,58 @@
 import React from 'react';
+import { FlatList, Text, View } from 'react-native';
+
+import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import global from '../Global';
 
 export default class PlayerList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      players: [],
+      players: props.players || [],
     };
+
+    this.refreshList();
   }
 
   refreshList() {
-    if(!this.props.creator) {
-      // Right now, this just fetches the player list from global. Later, it should
-      // be adapted to use the API.
-      this.setState(prev => {
+    fetch(global.BASE_URL + "creator_access/player_list", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({
+        player_id: global.playerID,
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      let players = [];
 
-      })
-    }
+      for(player of json.players) {
+        players.push({
+          first: player.player_first_name,
+          last: player.player_last_name,
+        });
+      }
+
+      this.setState({players});
+    })
+    .catch((error) => console.log(error));
   }
 
   render() {
-    if(this.props.creator) {
-      return (
-        <View></View>
-      );
-    } else {
-      return <View></View>;
-    }
+    return (
+      <View>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>Player List:</Text>
+        <FlatList
+          numColumns={1}
+          horizontal={false}
+          data={this.state.players}
+          renderItem={({item}) => <Text style={baseStyle.listItem}>{item.last},&#9;&#9;{item.first}</Text>}
+          keyExtractor={(item,index)=>item.last}
+        />
+      </View>
+    );
   }
 }

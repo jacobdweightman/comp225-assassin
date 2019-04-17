@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, FlatList, Alert} from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
 
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
+import PlayerList from '../components/PlayerList';
 import global from '../Global';
 
 export default class GameMenuWaiting extends React.Component {
@@ -40,7 +41,7 @@ export default class GameMenuWaiting extends React.Component {
         if(response.status === 200) {
           let json = await response.json();
           global.playersKillCode = json.player_kill_code;
-          //go to the next screen 
+          //go to the next screen
         } else {
           alert(response.status);
           console.log(response);
@@ -55,7 +56,6 @@ export default class GameMenuWaiting extends React.Component {
     const vSpace = 50;
 
     var advance;
-    var playerList;
 
     if (global.creator) {
       advance = (
@@ -76,16 +76,6 @@ export default class GameMenuWaiting extends React.Component {
       );
     }
 
-    playerList = (
-      <FlatList
-        numColumns={1}
-        horizontal={false}
-        data={global.playerList}
-        renderItem={({item}) => <Text style={baseStyle.listItem}>{item.first},&#9;&#9;{item.last}</Text>}
-        keyExtractor={(item,index)=>item.last}
-      />
-    );
-
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
@@ -96,8 +86,7 @@ export default class GameMenuWaiting extends React.Component {
           {global.gameRules}
         </Text>
         <View style={{flex: 0.1}}/>
-        <Text style={[baseStyle.subTitle, styles.subTitle]}>Player List:</Text>
-        {playerList}
+        {global.creator && <PlayerList players={[]}></PlayerList>}
         {advance}
       </View>
       </LinearGradient>
