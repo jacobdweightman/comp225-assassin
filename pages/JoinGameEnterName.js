@@ -50,6 +50,7 @@ export default class JoinGameEnterName extends React.Component {
           global.lastName = this.state.lastName;
           let json = await response.json();
           global.playerID = json.player_id;
+          global.playersKillCode = json.player_kill_code
           this.setState({playerID: json.player_id})
         } else {
           alert("A network error occurred.");
