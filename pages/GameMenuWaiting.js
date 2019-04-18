@@ -81,7 +81,7 @@ export default class GameMenuWaiting extends React.Component {
       'Are you ready to start the game?',
       'Additional players cannot be added, and this operation cannot be undone.',
       [
-        {text: "Start", onPress= this.hunt},
+        {text: "Start", onPress: this.hunt},
         {text: "Cancel", onPress: () => {}}
       ]
     )
