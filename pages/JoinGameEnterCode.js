@@ -80,7 +80,6 @@ export default class JoinGameEnterCode extends React.Component {
               autoFocus={true}
               maxLength={5}
           />
-          <Text>{this.state.gameCode}</Text>
           <View style={{flex: 1}} />{/*spacer*/}
           <TouchableOpacity style ={baseStyle.widebutton} onPress={this.next.bind(this)}>
             <Text style={baseStyle.text}> Join Game </Text>

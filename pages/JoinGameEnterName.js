@@ -122,8 +122,6 @@ export default class JoinGameEnterName extends React.Component {
            <TouchableOpacity style={baseStyle.widebutton} onPress={this.submit.bind(this)}>
           <Text style={baseStyle.text}> submit </Text>
         </TouchableOpacity>
-        <Text>{this.state.firstName}</Text>
-        <Text>{this.state.lastName}</Text>
         </View>
         <View style={{flex: 2}} />{/*spacer*/}
       </View>
