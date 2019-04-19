@@ -13,7 +13,6 @@ export default class JoinGameEnterCode extends React.Component {
     super(props);
 
     this.state = {
-      resp: 1,
       gameCode: "",
     }
   }
@@ -35,9 +34,7 @@ export default class JoinGameEnterCode extends React.Component {
 
       if (response.status === 200) {
         json = await response.json();
-        global.gameName = json.game_name;
-        global.gameRules = json.game_rules;
-        this.setState({loading: false});
+        this.setState({gameName: json.game_name, gameRules: json.game_rules, loading: false});
         return true;
       } else {
         Alert.alert("That game does not exist.");
