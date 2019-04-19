@@ -28,7 +28,7 @@ export default class GameMenuWaiting extends React.Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  hunt= async()=> {
+  hunt = async()=> {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
           method: 'POST',
@@ -41,18 +41,17 @@ export default class GameMenuWaiting extends React.Component {
         });
 
         if(response.status === 200) {
-          //go to the next screen
+          advance();
         } else {
           alert(response.status);
           console.log(response);
         }
     } catch(error) {
-      alert("Just kidding. It went through–haha idk why there's this error");
       console.log(error);
     }
   }
 
-  startHuntDialog() {
+  startHuntDialog = () => {
     Alert.alert(
       'Are you ready to start the game?',
       'Additional players cannot be added, and this operation cannot be undone.',
@@ -73,9 +72,6 @@ export default class GameMenuWaiting extends React.Component {
         <View>
         <TouchableOpacity style = {baseStyle.button} onPress={this.startHuntDialog}>
           <Text style = {baseStyle.text}> Start Round </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
-          <Text style = {baseStyle.text}> Go check your target </Text>
         </TouchableOpacity>
         </View>
       );
