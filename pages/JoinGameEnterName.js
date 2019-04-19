@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import { LinearGradient } from 'expo';
+import { LinearGradient, SecureStore } from 'expo';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -86,6 +86,38 @@ export default class JoinGameEnterName extends React.Component {
       });
       this.props.navigation.dispatch(resetAction);
     }
+  }
+
+  storeState() {
+    /* Write all of the registration data for this player in this game into
+     * permanent storage. This data is stored as serialized JSON of the
+     * following objects:
+     *
+     * game: {
+     *   code: ...,
+     *   name: ...,
+     *   rules: ...
+     * }
+     *
+     * player: {
+     *   creator: ...,
+     *   firstName: ...,
+     *   lastName: ...,
+     *   playerID: ...,
+     * }
+     */
+    SecureStore.setItemAsync('game', JSON.stringify(this.state.game))
+    .then(() => {console.log("Stored game state")})
+    .catch(() => {console.log("Failed to store game state")});
+
+    let player = this.state.player;
+    player.firstName = this.state.firstName;
+    player.lastName = this.state.lastName;
+    player.playerID = this.state.playerID;
+
+    SecureStore.setItemAsync('player', JSON.stringify(player))
+    .then(() => {console.log("Stored game state")})
+    .catch(() => {console.log("Failed to store game state")});
   }
 
   render() {
