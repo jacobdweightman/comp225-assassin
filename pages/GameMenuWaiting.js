@@ -28,7 +28,7 @@ export default class GameMenuWaiting extends React.Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  async hunt() {
+  hunt= async()=> {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
           method: 'POST',
@@ -36,15 +36,11 @@ export default class GameMenuWaiting extends React.Component {
             'Content-Type': "application/json",
           },
           body: JSON.stringify({
-            is_creator: global.creator,
-            game_code: global.code,
             player_id: global.playerID,
           }),
         });
 
         if(response.status === 200) {
-          let json = await response.json();
-          global.playersKillCode = json.player_kill_code;
           //go to the next screen
         } else {
           alert(response.status);

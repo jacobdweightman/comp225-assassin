@@ -92,7 +92,7 @@ export default class GameMenuRunning extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={[baseStyle.container, styles.container]}>
         <Text style={[baseStyle.title, styles.title]}>{global.firstName}</Text>
-        <Text> {global.playersKillCode}</Text>
+        <Text style= {baseStyle.subTitle}> {global.playersKillCode}</Text>
         <View style={{height: vSpace}}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
         <View style={{height: vSpace}}></View>
