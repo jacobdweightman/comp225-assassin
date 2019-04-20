@@ -19,10 +19,10 @@ export default class GameMenuWaiting extends React.Component {
     }
   }
 
-  advance() {
+  advance(screen) {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'gameRunning' })],
+      actions: [NavigationActions.navigate({ routeName: screen })],
     });
 
     this.props.navigation.dispatch(resetAction);
@@ -41,7 +41,9 @@ export default class GameMenuWaiting extends React.Component {
         });
 
         if(response.status === 200) {
-          advance();
+          json = await response.json();
+          screen = json.win ? "win" : "gameRunning";
+          this.advance(screen);
         } else {
           alert(response.status);
           console.log(response);
