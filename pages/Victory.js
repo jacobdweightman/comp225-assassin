@@ -11,7 +11,7 @@ export default class Victory extends React.Component {
   }
   goingHome(){
   const {navigate} = this.props.navigation;
-  return navigate("loss");
+  return navigate("home");
   }
   render() {
     return (
