@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
@@ -11,10 +12,11 @@ export default class GameMenuRunning extends React.Component {
     super(props);
 
     this.state = {
-      iGotGot: false,
-      theyReallyGotGot: false,
+      theyGotGot: false,
       loading: true,
-      targetMessage: null,
+      targetMessage: undefined,
+      playerID: this.props.navigation.getParam("player").playerID,
+      killCode: null,
     };
   }
 
@@ -33,8 +35,8 @@ export default class GameMenuRunning extends React.Component {
 
       json = await response.json();
       if (response.status === 200) {
-        global.target = json.target_first_name;
-        this.setState({targetMessage: "You are hunting " + global.target})
+        const target = json.target_first_name + " " + json.target_last_name;
+        this.setState({targetMessage: "You are hunting " + target})
       }
       else {
         this.setState({targetMessage: json.message})
@@ -46,16 +48,54 @@ export default class GameMenuRunning extends React.Component {
     return;
   }
 
-  gotGot() {
+  // Show or hide the text input for kill code
+  enterKillCode() {
     this.setState(() => ({
-      theyGotGot: true
+      theyGotGot: !this.state.theyGotGot
     }));
   }
 
-  approvedGot(){
-    this.setState(() => ({
-      theyReallyGotGot: true
-    }));
+  // Check the inputed kill code
+  async verifyKillCode() {
+    try {
+      let response = await fetch(global.BASE_URL + "player_access/got_target", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          player_id: this.state.playerID,
+          guessed_target_kill_code: this.state.killCode,
+        }),
+      });
+
+      json = await response.json();
+      if (response.status === 200) {
+        screen = json.win ? "win" : "gameRunning";
+        this.advance(screen);
+      } else {
+        Alert.alert("Psych! That's the wrong number!");
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Navigates to either the win or gameRunning screen
+  advance(screen) {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({
+        routeName: screen,
+        params: {
+          player: {
+            playerID: this.state.playerID
+          },
+        },
+      })],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   render() {
@@ -63,27 +103,29 @@ export default class GameMenuRunning extends React.Component {
       return <Expo.AppLoading />
     }
 
-    const {navigate} = this.props.navigation;
     const vSpace = 50;
     var controls;
     if(this.state.theyGotGot) {
       controls = (
         <View>
-         <TextInput
-        style={baseStyle.subTitle}
-        onChangeText={(code) => global.killCode = code}
-        placeholder={"Life Code"}
-        placeholderTextColor={"white"}
-        autoFocus={true}
+        <TextInput
+            style={baseStyle.subTitle}
+            onChangeText={(c) => this.setState({killCode: c})}
+            placeholder={"Kill code"}
+            placeholderTextColor={"white"}
+            autoFocus={true}
         />
-        <Text> </Text>
-        <TouchableOpacity style = {baseStyle.button} onPress= {this.approvedGot.bind(this)}>
-      <Text style= {baseStyle.text}> Die </Text>
-      </TouchableOpacity>
-      </View>);
+        <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
+          <Text style= {baseStyle.text}> Verify code </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {baseStyle.button} onPress= {this.enterKillCode.bind(this)}>
+          <Text style= {baseStyle.text}> Cancel </Text>
+        </TouchableOpacity>
+        </View>
+      );
     } else {
       controls = (
-      <TouchableOpacity style = {baseStyle.button} onPress={this.gotGot.bind(this)}>
+      <TouchableOpacity style = {baseStyle.button} onPress={this.enterKillCode.bind(this)}>
         <Text style= {baseStyle.text}> They got got </Text>
       </TouchableOpacity>);
     }

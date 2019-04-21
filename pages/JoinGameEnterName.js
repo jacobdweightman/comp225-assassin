@@ -62,8 +62,6 @@ export default class JoinGameEnterName extends React.Component {
         console.log(error);
       }
 
-      // TODO: server check that name is not a duplicate
-      global.playerList.push({first: global.firstName, last: global.lastName})
 
       params = {
         game: this.state.game,

@@ -32,12 +32,12 @@ export default class JoinGameEnterCode extends React.Component {
         }),
       });
 
+      json = await response.json();
       if (response.status === 200) {
-        json = await response.json();
         this.setState({gameName: json.game_name, gameRules: json.game_rules, loading: false});
         return true;
       } else {
-        Alert.alert("That game does not exist.");
+        Alert.alert(json.message);
         return false;
       }
     } catch (e) {
