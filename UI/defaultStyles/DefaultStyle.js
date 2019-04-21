@@ -22,11 +22,17 @@ export default StyleSheet.create({
 
   inputText: {
     fontSize: 20,
-    color: 'white',
+    width: "96%",
+    paddingHorizontal: 12,
+    marginTop: 5,
+    color: 'black',
     fontFamily: 'font',
-    borderColor: "gray",
+    borderColor: 'lightgrey',
+    backgroundColor: 'lightgrey',
+    borderStyle: 'solid',
+    borderRadius: 25,
     borderWidth: 1,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flex: 0.15
   },
     infoText: {
