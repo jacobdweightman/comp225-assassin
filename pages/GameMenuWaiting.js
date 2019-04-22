@@ -40,7 +40,7 @@ export default class GameMenuWaiting extends React.Component {
         if(response.status === 200) {
           json = await response.json();
           if(json.game_state === 1) {
-            this.advance();
+            this.advance("gameRunning");
           }
         } else {
           alert(response.status);
@@ -51,16 +51,19 @@ export default class GameMenuWaiting extends React.Component {
     }
   }
 
-  advance() {
+  advance(screen) {
     // Do not continue to poll on the next screen!
     if(this.interval !== undefined) {
       clearInterval(this.interval);
     }
+
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'gameRunning' })],
+      actions: [NavigationActions.navigate({
+        routeName: screen,
+        params: this.props.navigation.state.params,
+      })],
     });
-
     this.props.navigation.dispatch(resetAction);
   }
 
@@ -76,10 +79,12 @@ export default class GameMenuWaiting extends React.Component {
           }),
         });
 
-        if(response.status === 200) {
-          advance();
+        json = await response.json();
+        if (response.status === 200) {
+          screen = json.win ? "win" : "gameRunning";
+          this.advance(screen);
         } else {
-          alert(response.status);
+          alert(json.message);
           console.log(response);
         }
     } catch(error) {
@@ -113,8 +118,8 @@ export default class GameMenuWaiting extends React.Component {
       );
     } else {
       advance = (
-        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: 'black'}]}>
-          Waiting for game creator to start game
+        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: '#831a19'}]}>
+          Waiting for all assassins
         </Text>
       );
     }
@@ -123,6 +128,8 @@ export default class GameMenuWaiting extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
         <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+        <View style={{flex: 0.01}}/>
+        <Text style={baseStyle.subTitle}> Game Code: {global.code} </Text>
         <View style={{flex: 0.1}}/>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
         <Text style={baseStyle.infoText}>

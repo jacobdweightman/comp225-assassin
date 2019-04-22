@@ -62,8 +62,6 @@ export default class JoinGameEnterName extends React.Component {
         console.log(error);
       }
 
-      // TODO: server check that name is not a duplicate
-      global.playerList.push({first: global.firstName, last: global.lastName})
 
       params = {
         game: this.state.game,
@@ -105,18 +103,18 @@ export default class JoinGameEnterName extends React.Component {
           </Text>
           <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
-              style={baseStyle.subTitle}
+              style={[baseStyle.subTitle, styles.subTitle]}
               onChangeText={(firstName) => this.setState({firstName})}
               placeholder={"First name"}
-              placeholderTextColor={"#eee"}
+              placeholderTextColor={"#708090"}
               autoFocus={true}
           />
           <View style={{flex: 0.20}} />{/*spacer*/}
           <TextInput
-              style={baseStyle.subTitle}
+              style={[baseStyle.subTitle, styles.subTitle]}
               onChangeText={(lastName) => this.setState({lastName})}
               placeholder={"Last name"}
-              placeholderTextColor={"#eee"}
+              placeholderTextColor={"#708090"}
           />
           <View style={{flex: 0.7}} />{/*spacer*/}
            <TouchableOpacity style={baseStyle.widebutton} onPress={this.submit.bind(this)}>
@@ -134,4 +132,7 @@ var styles = StyleSheet.create({
   title: {
     fontSize: 50
   },
+   subTitle:{
+    color:'black'
+   }
 });
