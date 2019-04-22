@@ -74,20 +74,20 @@ export default class CreateGame extends React.Component {
             onChangeText={(gameName) => this.setState({gameName})}
             placeholder= "Game Name"
             autoFocus={true}
-            placeholderTextColor= '#b5b5b5' 
+            placeholderTextColor= '#708090'
         />
         <View style={{flex: 0.05}} />
-        <Text style={baseStyle.inputLabel}>Game rules:</Text>
+        <Text style={[baseStyle.inputLabel, styles.inputLabel]}>Game rules:</Text>
         <TextInput
-            style={baseStyle.inputText}
+            style={[baseStyle.inputText, styles.inputText]}
             multiline={true}
             numberOfLines={4}
             textAlignVertical={'top'}
             onChangeText={(gameRules) => this.setState({gameRules})}
             placeholder="List your safe zones and or how players can kill their target"
-            placeholderTextColor= '#b5b5b5'
+            placeholderTextColor= '#708090'
         />
-        <View style={{flex: 0.1}} />
+        <View style={{flex: 0.07}} />
         <TouchableOpacity style= {baseStyle.button} onPress={this.create.bind(this)}>
           <Text style={baseStyle.text}>Join Game</Text>
         </TouchableOpacity>
@@ -99,9 +99,16 @@ export default class CreateGame extends React.Component {
 
 var styles = StyleSheet.create({
   container:{
-    flex:0.60
+    flex:0.60,
+    justifyContent: 'flex-start',
+    top:"4%"
   },
   inputLabel: {
-    flex: 0.20
+    flex: 0.10,
+    paddingRight: "50%"
+  }, 
+  inputText:{
+    flex: 0.35, 
+    padding: 10 
   }
 });

@@ -14,8 +14,7 @@ export default StyleSheet.create({
    color: "white",
   },
   inputLabel: {
-    textAlign:'center',
-    fontSize: 50,
+    fontSize: 35,
     color: "white",
     fontFamily: 'font'
   },
@@ -27,13 +26,13 @@ export default StyleSheet.create({
     marginTop: 5,
     color: 'black',
     fontFamily: 'font',
-    borderColor: 'lightgrey',
-    backgroundColor: 'lightgrey',
+    borderColor: 'slategray',
+    backgroundColor: '#b6c0c8',
     borderStyle: 'solid',
     borderRadius: 25,
     borderWidth: 1,
     alignItems: 'center',
-    flex: 0.15
+    flex: 0.13
   },
     infoText: {
     fontSize: 23,
@@ -56,6 +55,7 @@ export default StyleSheet.create({
     height:50,
     backgroundColor: 'slategray',
     borderRadius:50,
+    alignItems: 'center',
     justifyContent: 'center'
   },
    widebutton:{
