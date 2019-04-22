@@ -81,8 +81,8 @@ export default class GameMenuWaiting extends React.Component {
       );
     } else {
       advance = (
-        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: 'black'}]}>
-          Waiting for game creator to start game
+        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: '#831a19'}]}>
+          Waiting for all assassins
         </Text>
       );
     }
@@ -91,6 +91,8 @@ export default class GameMenuWaiting extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
         <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+        <View style={{flex: 0.01}}/>
+        <Text style={baseStyle.subTitle}> Game Code: {global.code} </Text>
         <View style={{flex: 0.1}}/>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
         <Text style={baseStyle.infoText}>
