@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity,StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -67,13 +67,13 @@ export default class JoinGameEnterCode extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={baseStyle.container}>
+      <View style={[baseStyle.container, {alignItems: 'center'}]}>
         <View style={{flex: 1}} />{/*spacer*/}
         <View style={{flex: 2}} >
-          <Text style={baseStyle.inputLabel}>Enter game code:</Text>
+          <Text style={[baseStyle.inputLabel, {fontSize: 45}]}>Enter game code:</Text>
           <View style={{flex: .2}} />{/*spacer*/}
           <TextInput
-              style={baseStyle.inputText}
+              style={[baseStyle.inputText, styles.inputText]}
               keyboardType={"number-pad"}
               onChangeText={(gameCode) => this.setState({gameCode})}
               placeholder={"Game code"}
@@ -91,3 +91,14 @@ export default class JoinGameEnterCode extends React.Component {
     );
   }
 }
+
+var styles = StyleSheet.create({
+  inputText:{
+    flex: 0.8, 
+    paddingLeft: "6%"
+  }
+});
+
+
+
+

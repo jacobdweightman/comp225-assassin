@@ -74,7 +74,7 @@ export default class CreateGame extends React.Component {
             onChangeText={(gameName) => this.setState({gameName})}
             placeholder= "Game Name"
             autoFocus={true}
-            placeholderTextColor= '#708090'
+            placeholderTextColor= '#a9a9a9'
         />
         <View style={{flex: 0.05}} />
         <Text style={[baseStyle.inputLabel, styles.inputLabel]}>Game rules:</Text>
@@ -85,7 +85,7 @@ export default class CreateGame extends React.Component {
             textAlignVertical={'top'}
             onChangeText={(gameRules) => this.setState({gameRules})}
             placeholder="List your safe zones and or how players can kill their target"
-            placeholderTextColor= '#708090'
+            placeholderTextColor= '#a9a9a9'
         />
         <View style={{flex: 0.07}} />
         <TouchableOpacity style= {baseStyle.button} onPress={this.create.bind(this)}>
@@ -109,6 +109,6 @@ var styles = StyleSheet.create({
   }, 
   inputText:{
     flex: 0.35, 
-    padding: 10 
+    padding: 10
   }
 });
