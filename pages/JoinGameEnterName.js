@@ -90,37 +90,34 @@ export default class JoinGameEnterName extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={baseStyle.container}>
-        <View style={{flex: 2.6}} >
-          <View style={{flex: 1}} />{/*spacer*/}
+      <View style={[baseStyle.container, styles.container]}>
           <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
           <Text style={baseStyle.subTitle}>Game Code: #{this.state.game.code}</Text>
-          <View style={{flex: 0.70}} />{/*spacer*/}
-          <Text style={baseStyle.subTitle}>Enter your name!</Text>
-          <Text style={baseStyle.infoText}>
+          <View style={{flex: 0.07}} />{/*spacer*/}
+          <Text style={[baseStyle.subTitle, {paddingRight: "40%"}]}>Enter your name!</Text>
+          <Text style={[baseStyle.infoText, {fontSize:17}, {paddingLeft: '4%'}]}>
             This should be your real name, so that people in the game know who you
             are.
           </Text>
-          <View style={{flex: 0.20}} />{/*spacer*/}
+          <View style={{flex: 0.07}} />{/*spacer*/}
           <TextInput
-              style={[baseStyle.subTitle, styles.subTitle]}
+              style={[baseStyle.inputText, styles.inputText]}
               onChangeText={(firstName) => this.setState({firstName})}
               placeholder={"First name"}
-              placeholderTextColor={"#708090"}
+              placeholderTextColor={"#a9a9a9"}
               autoFocus={true}
           />
-          <View style={{flex: 0.20}} />{/*spacer*/}
+          <View style={{flex: 0.06}} />{/*spacer*/}
           <TextInput
-              style={[baseStyle.subTitle, styles.subTitle]}
+              style={[baseStyle.inputText,styles.inputText]}
               onChangeText={(lastName) => this.setState({lastName})}
               placeholder={"Last name"}
-              placeholderTextColor={"#708090"}
+              placeholderTextColor={"#a9a9a9"}
           />
-          <View style={{flex: 0.7}} />{/*spacer*/}
-           <TouchableOpacity style={baseStyle.widebutton} onPress={this.submit.bind(this)}>
+          <View style={{flex: 0.10}} />{/*spacer*/}
+           <TouchableOpacity style={baseStyle.button} onPress={this.submit.bind(this)}>
           <Text style={baseStyle.text}> submit </Text>
         </TouchableOpacity>
-        </View>
         <View style={{flex: 2}} />{/*spacer*/}
       </View>
       </LinearGradient>
@@ -129,10 +126,18 @@ export default class JoinGameEnterName extends React.Component {
 }
 
 var styles = StyleSheet.create({
+  container:{
+    justifyContent: 'flex-start',
+    top:"3%"
+  },
   title: {
     fontSize: 50
   },
    subTitle:{
     color:'black'
+   },
+   inputText:{
+    flex: 0.35,
+    fontSize: 23
    }
 });
