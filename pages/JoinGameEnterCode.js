@@ -67,9 +67,8 @@ export default class JoinGameEnterCode extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={[baseStyle.container, {alignItems: 'center'}]}>
+      <View style={[baseStyle.container]}>
         <View style={{flex: 1}} />{/*spacer*/}
-        <View style={{flex: 2}} >
           <Text style={[baseStyle.inputLabel, {fontSize: 45}]}>Enter game code:</Text>
           <View style={{flex: .2}} />{/*spacer*/}
           <TextInput
@@ -81,10 +80,9 @@ export default class JoinGameEnterCode extends React.Component {
               maxLength={5}
           />
           <View style={{flex: 1}} />{/*spacer*/}
-          <TouchableOpacity style ={baseStyle.widebutton} onPress={this.next.bind(this)}>
+          <TouchableOpacity style ={baseStyle.button} onPress={this.next.bind(this)}>
             <Text style={baseStyle.text}> Join Game </Text>
           </TouchableOpacity>
-        </View>
         <View style={{flex: 3}} />{/*spacer*/}
       </View>
        </LinearGradient>
@@ -94,8 +92,10 @@ export default class JoinGameEnterCode extends React.Component {
 
 var styles = StyleSheet.create({
   inputText:{
-    flex: 0.8, 
-    paddingLeft: "6%"
+    flex: 0.50,
+    width: '35%',
+    alignItems: 'center',
+    paddingLeft: '6%'
   }
 });
 
