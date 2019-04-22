@@ -71,7 +71,6 @@ export default class JoinGameEnterName extends React.Component {
       params.player.lastName = this.state.lastName;
       params.player.playerID = this.state.playerID;
 
-      console.log("\n\n\nHELLO:");
       console.log(params);
 
       const resetAction = StackActions.reset({

@@ -19,13 +19,11 @@ export default class GameMenuWaiting extends React.Component {
     }
 
     if(!this.state.player.creator) {
-      console.log("not creator!");
       this.interval = setInterval(this.pollGameStart, 3000);
     }
   }
 
   pollGameStart = async() => {
-    console.log("poll game start");
     try {
         let response = await fetch(global.BASE_URL + "status_access/is_game_started", {
           method: 'POST',

@@ -19,9 +19,6 @@ export default class JoinGameEnterCode extends React.Component {
 
   async gameExists() {
     try {
-      console.log(JSON.stringify({
-        game_code: this.state.gameCode
-      }));
       const response = await fetch(global.BASE_URL + "player_access/get_game_info", {
         method: 'POST',
         headers: {
