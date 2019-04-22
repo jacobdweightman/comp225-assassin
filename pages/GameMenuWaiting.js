@@ -17,9 +17,45 @@ export default class GameMenuWaiting extends React.Component {
       player: this.props.navigation.getParam("player"),
       game: this.props.navigation.getParam("game"),
     }
+
+    if(!this.state.player.creator) {
+      console.log("not creator!");
+      this.interval = setInterval(this.pollGameStart, 3000);
+    }
+  }
+
+  pollGameStart = async() => {
+    console.log("poll game start");
+    try {
+        let response = await fetch(global.BASE_URL + "status_access/is_game_started", {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            game_code: global.code,
+          }),
+        });
+
+        if(response.status === 200) {
+          json = await response.json();
+          if(json.game_state === 1) {
+            this.advance();
+          }
+        } else {
+          alert(response.status);
+          console.log(response);
+        }
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   advance() {
+    // Do not continue to poll on the next screen!
+    if(this.interval !== undefined) {
+      clearInterval(this.interval);
+    }
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'gameRunning' })],
