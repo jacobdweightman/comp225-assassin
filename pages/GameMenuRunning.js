@@ -18,6 +18,8 @@ export default class GameMenuRunning extends React.Component {
       playerID: this.props.navigation.getParam("player").playerID,
       killCode: null,
     };
+
+    this.interval = setInterval(this.pollIsAlive, 3000);
   }
 
   // Get the player's target before screen loads
@@ -46,6 +48,32 @@ export default class GameMenuRunning extends React.Component {
     }
     this.setState({loading: false});
     return;
+  }
+
+  pollIsAlive = async() => {
+    try {
+        let response = await fetch(global.BASE_URL + "status_access/is_alive", {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            player_id: global.playerID,
+          }),
+        });
+
+        if(response.status === 200) {
+          json = await response.json();
+          if(json.is_alive === 0) {
+            this.advance("loss");
+          }
+        } else {
+          alert(response.status);
+          console.log(response);
+        }
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   // Show or hide the text input for kill code
@@ -84,6 +112,9 @@ export default class GameMenuRunning extends React.Component {
 
   // Navigates to either the win or gameRunning screen
   advance(screen) {
+    // Do not continue to poll on the next screen!
+    clearInterval(this.interval);
+
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({

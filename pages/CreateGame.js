@@ -106,9 +106,9 @@ var styles = StyleSheet.create({
   inputLabel: {
     flex: 0.10,
     paddingRight: "50%"
-  }, 
+  },
   inputText:{
-    flex: 0.35, 
+    flex: 0.35,
     padding: 10
   }
 });
