@@ -14,11 +14,12 @@ const Navigator = createStackNavigator(
 { // Navigator for pages
   home: {screen: MainMenu},
   create: {screen: CreateGame}, //creategame!
-  loss: {screen: MainMenu},
   join1: {screen: JoinGameEnterCode},
   join2: {screen: JoinGameEnterName},
   gameWaiting: {screen: GameMenuWaiting},
-  gameRunning: {screen: GameMenuRunning}
+  gameRunning: {screen: GameMenuRunning},
+  loss: {screen: DeathYouLose},
+  win: {screen: Victory},
 }, {
   headerMode: Platform.OS === 'ios' ? 'float' : 'none',
   initialRouteName: 'home'

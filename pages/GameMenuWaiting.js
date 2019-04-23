@@ -18,41 +18,54 @@ export default class GameMenuWaiting extends React.Component {
       game: this.props.navigation.getParam("game"),
     }
 
-    this.updateGame();
+    if(!this.state.player.creator) {
+      this.interval = setInterval(this.pollGameStart, 3000);
+    }
   }
 
-  updateGame() {
-    fetch(global.BASE_URL + "player_access/get_game_info", {
-      method: 'POST',
-      headers: {
-        'Content-Type': "application/json",
-      },
-      body: JSON.stringify({
-        game_code: this.state.game.code,
-      }),
-    })
-    .then((response) => response.json())
-    .then((json) => {
-      let game = this.state.game;
+  pollGameStart = async() => {
+    try {
+        let response = await fetch(global.BASE_URL + "status_access/is_game_started", {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            game_code: global.code,
+          }),
+        });
 
-      game.name = json.game_name;
-      game.rules = json.game_rules;
-
-      this.setState({game});
-    })
-    .catch((error) => console.log(error));
+        if(response.status === 200) {
+          json = await response.json();
+          if(json.game_state === 1) {
+            this.advance("gameRunning");
+          }
+        } else {
+          alert(response.status);
+          console.log(response);
+        }
+    } catch(error) {
+      console.log(error);
+    }
   }
 
-  advance() {
+  advance(screen) {
+    // Do not continue to poll on the next screen!
+    if(this.interval !== undefined) {
+      clearInterval(this.interval);
+    }
+
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'gameRunning' })],
+      actions: [NavigationActions.navigate({
+        routeName: screen,
+        params: this.props.navigation.state.params,
+      })],
     });
-
     this.props.navigation.dispatch(resetAction);
   }
 
-  async hunt() {
+  hunt = async()=> {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
           method: 'POST',
@@ -60,27 +73,24 @@ export default class GameMenuWaiting extends React.Component {
             'Content-Type': "application/json",
           },
           body: JSON.stringify({
-            is_creator: global.creator,
-            game_code: global.code,
             player_id: global.playerID,
           }),
         });
 
-        if(response.status === 200) {
-          let json = await response.json();
-          global.playersKillCode = json.player_kill_code;
-          //go to the next screen
+        json = await response.json();
+        if (response.status === 200) {
+          screen = json.win ? "win" : "gameRunning";
+          this.advance(screen);
         } else {
-          alert(response.status);
+          alert(json.message);
           console.log(response);
         }
     } catch(error) {
-      alert("Just kidding. It went through–haha idk why there's this error");
       console.log(error);
     }
   }
 
-  startHuntDialog() {
+  startHuntDialog = () => {
     Alert.alert(
       'Are you ready to start the game?',
       'Additional players cannot be added, and this operation cannot be undone.',
@@ -102,15 +112,12 @@ export default class GameMenuWaiting extends React.Component {
         <TouchableOpacity style = {baseStyle.button} onPress={this.startHuntDialog}>
           <Text style = {baseStyle.text}> Start Round </Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
-          <Text style = {baseStyle.text}> Go check your target </Text>
-        </TouchableOpacity>
         </View>
       );
     } else {
       advance = (
-        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: 'black'}]}>
-          Waiting for game creator to start game
+        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: '#831a19'}]}>
+          Waiting for all assassins
         </Text>
       );
     }
@@ -119,6 +126,8 @@ export default class GameMenuWaiting extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
         <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+        <View style={{flex: 0.01}}/>
+        <Text style={baseStyle.subTitle}> Game Code: {global.code} </Text>
         <View style={{flex: 0.1}}/>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
         <Text style={baseStyle.infoText}>
