@@ -18,7 +18,6 @@ and
 
 along with changing package lock and all that junk
 
----
 
 we'll need to install cocoapods, package manager for ios
 
@@ -41,6 +40,22 @@ At this point Analeidi's computer ran out of space
 
 When we get it on xcode, run it on simulator
 
-_After that works, ask paul for help getting it on actual device!!!_
+__After that works, ask paul for help getting it on actual device!!!__
 
 # How to build to android :|
+
+While in the project directory
+```
+expo eject
+```
+
+then run
+```
+expo start
+```
+
+While this is running, open up android Studio.
+
+__Don't update Gradle even if it says to__
+
+Just run it on your phone
