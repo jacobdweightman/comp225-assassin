@@ -29,10 +29,10 @@ export default class JoinGameEnterName extends React.Component {
     this.state.lastName= this.state.lastName.trim()
 
     if (this.state.firstName.length === 0) { // basic input validation
-      Alert.alert("Please enter your first name. It must have at least a character other than space.");
+      Alert.alert("Please enter your first name. There must be a character other than space.");
     }
     else if (this.state.lastName.length === 0) {
-      Alert.alert("Please enter your last name. It must have at least a character other than space.");
+      Alert.alert("Please enter your last name. There must be a character other than space.");
     }
     else {
       try {
