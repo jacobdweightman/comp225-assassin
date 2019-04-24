@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import { LinearGradient } from 'expo';
 import {Font, AppLoading} from 'expo';
+import { Dimensions } from 'react-native';
 
 import Palette from '../UI/defaultStyles/Palette';
 import font from '../assets/fonts/IcelandReg.ttf';
@@ -45,7 +46,6 @@ export default class MainMenu extends React.Component {
 
 var styles = StyleSheet.create({
   title: {
-    flex: 0.30,
-    fontSize: 100
+    flex: 0.30
   },
 });

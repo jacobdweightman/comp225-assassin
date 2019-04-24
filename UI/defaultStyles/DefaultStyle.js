@@ -1,5 +1,17 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import { Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
+
+//Guideline sizes are based on standard ~5" screen mobile device
+const guidelineBaseWidth = 350;
+const guidelineBaseHeight = 680;
+const scale = size => width / guidelineBaseWidth * size;
+const verticalScale = size => height / guidelineBaseHeight * size;
+const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
+
+export {scale, verticalScale, moderateScale};
+
 
 
 export default StyleSheet.create({
@@ -12,25 +24,26 @@ export default StyleSheet.create({
  title: {
    fontFamily: 'font',
    color: "white",
+   fontSize: scale(94) //b/f 100
   },
   inputLabel: {
-    fontSize: 35,
+    fontSize: scale(29),
     color: "white",
     fontFamily: 'font'
   },
 
   inputText: {
-    fontSize: 20,
+    fontSize: scale(17),
     width: "96%",
-    paddingHorizontal: 12,
-    marginTop: 5,
+    paddingHorizontal: scale(12),
+    marginTop: scale(5),
     color: 'black',
     fontFamily: 'font',
     borderColor: '#778899',
     backgroundColor: 'slategray',
     borderStyle: 'solid',
-    borderRadius: 25,
-    borderWidth: 1,
+    borderRadius: scale(25),
+    borderWidth: scale(1),
     alignItems: 'center',
     flex: 0.13
   },
@@ -56,12 +69,6 @@ export default StyleSheet.create({
     backgroundColor: 'slategray',
     borderRadius:50,
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-   widebutton:{
-    height:50,
-    backgroundColor: 'slategray',
-    borderRadius:50,
     justifyContent: 'center'
   },
   text:{
