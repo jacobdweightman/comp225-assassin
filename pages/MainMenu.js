@@ -8,6 +8,7 @@ import Palette from '../UI/defaultStyles/Palette';
 import font from '../assets/fonts/IcelandReg.ttf';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 
+
 export default class MainMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ export default class MainMenu extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
-          <Text style={[baseStyle.title, styles.title]}>Assassin </Text>
+          <Text style={[baseStyle.title, styles.title]}> Assassin </Text>
           <TouchableOpacity style = {baseStyle.button} onPress={()=>navigate("join1")}>
             <Text style = {baseStyle.text}> Join Game </Text>
           </TouchableOpacity>
