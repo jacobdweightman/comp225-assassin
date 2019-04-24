@@ -19,6 +19,7 @@ export default class CreateGame extends React.Component {
 
   async create() {
     // validate input
+    this.state.gameName= this.state.gameName.trim();
     if (this.state.gameName.length < 2) {
       Alert.alert("Please enter a valid game name");
       return;
