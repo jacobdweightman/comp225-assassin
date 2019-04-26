@@ -81,8 +81,9 @@ export default class GameMenuRunning extends React.Component {
   async verifyKillCode() {
     try {
       let response = await fetch(global.BASE_URL + "player_access/got_target", {
-        method: 'GET',
+        method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'Aiuthorization': 'Bearer' + global.accessToken,
         },
         body: JSON.stringify({
