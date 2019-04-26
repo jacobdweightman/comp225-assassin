@@ -68,13 +68,10 @@ export default class GameMenuWaiting extends React.Component {
   hunt = async()=> {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Content-Type': "application/json",
-          },
-          body: JSON.stringify({
-            player_id: global.playerID,
-          }),
+            'Authorization' : 'Bearer '+ global.accessToken,
+          }
         });
 
         json = await response.json();

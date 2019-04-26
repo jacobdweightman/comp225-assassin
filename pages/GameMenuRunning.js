@@ -28,7 +28,7 @@ export default class GameMenuRunning extends React.Component {
       const response = await fetch(global.BASE_URL + "player_access/request_target", {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer' + global.accessToken,
+          'Authorization': 'Bearer ' + global.accessToken,
         }
       });
 
@@ -52,7 +52,7 @@ export default class GameMenuRunning extends React.Component {
         let response = await fetch(global.BASE_URL + "status_access/is_alive", {
           method: 'GET',
           headers: {
-            'Authorization': 'Bearer' + global.accessToken,
+            'Authorization': 'Bearer ' + global.accessToken,
           }
         });
 
@@ -84,7 +84,7 @@ export default class GameMenuRunning extends React.Component {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Aiuthorization': 'Bearer' + global.accessToken,
+          'Authorization': 'Bearer ' + global.accessToken,
         },
         body: JSON.stringify({
           guessed_target_kill_code: this.state.killCode,
