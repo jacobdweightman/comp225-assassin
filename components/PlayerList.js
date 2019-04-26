@@ -17,13 +17,10 @@ export default class PlayerList extends React.Component {
 
   refreshList() {
     fetch(global.BASE_URL + "creator_access/player_list", {
-      method: 'POST',
+      method: 'GET',
       headers: {
-        'Content-Type': "application/json",
-      },
-      body: JSON.stringify({
-        player_id: global.playerID,
-      }),
+        'Authorization': 'Bearer ' + global.accessToken,
+      }
     })
     .then((response) => response.json())
     .then((json) => {
