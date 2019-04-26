@@ -65,16 +65,14 @@ export default class GameMenuWaiting extends React.Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  hunt = async()=> {
+  hunt = async() => {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': "application/json",
+            'Authorization': 'Bearer ' + global.accessToken,
           },
-          body: JSON.stringify({
-            player_id: global.playerID,
-          }),
         });
 
         json = await response.json();
@@ -102,8 +100,6 @@ export default class GameMenuWaiting extends React.Component {
   }
 
   render() {
-    const vSpace = 50;
-
     var advance;
 
     if (global.creator) {
