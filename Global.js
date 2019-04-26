@@ -19,6 +19,7 @@ class Global {
         // NOTE: this is the loopback address for Android Studio, using localhost / 127.0.0.1 will not work
         // see:   https://developer.android.com/studio/run/emulator-networking
         this.target;
+        this.accessToken;
     }
 }
 
