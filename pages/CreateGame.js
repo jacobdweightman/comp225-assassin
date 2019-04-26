@@ -13,7 +13,7 @@ export default class CreateGame extends React.Component {
 
     this.state = {
       gameName: "default name",
-      gameRules: "default rules",
+      gameRules: "",
     }
   }
 
