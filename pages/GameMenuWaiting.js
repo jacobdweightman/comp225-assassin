@@ -25,7 +25,7 @@ export default class GameMenuWaiting extends React.Component {
 
   pollGameStart = async() => {
     try {
-        let response = await fetch(global.BASE_URL + "status_access/is_game_started", {
+        let response = await fetch(global.BASE_URL + "status_access/game_state", {
           method: 'POST',
           headers: {
             'Content-Type': "application/json",
