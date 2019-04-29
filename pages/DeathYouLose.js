@@ -4,15 +4,35 @@ import { LinearGradient } from 'expo';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
+import global from '../Global';
 
 export default class DeathYouLose extends React.Component {
   constructor(props) {
     super(props);
   }
-  goingHome(){
-  const {navigate} = this.props.navigation;
-  return navigate("home");
+
+  goingHome = async () => {
+    try {
+      const response = await fetch(global.BASE_URL + "player_access/remove_from_game", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + global.accessToken,
+        },
+      });
+
+      if (response.status === 200) {
+        const {navigate} = this.props.navigation;
+        return navigate("home");
+      }
+      else {
+        json = await response.json();
+        Alert.alert(json.message);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
+
   render() {
     return (
       <LinearGradient colors= {Palette.deathColors} style ={Palette.place}>
