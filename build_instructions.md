@@ -1,9 +1,7 @@
 # How to Download the App on Android / iOS
-```java
-public static void main 
-```
-## How to build to iOS 🍎
 
+## How to build to iOS 🍎
+###### 
 https://docs.expo.io/versions/latest/expokit/expokit/
 
 Notes:
@@ -64,5 +62,5 @@ __Don't update Gradle even if it says to__
 
 Just run it on your phone
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNjQ1NDAxOTJdfQ==
+eyJoaXN0b3J5IjpbLTEwODE2MDUyNl19
 -->
