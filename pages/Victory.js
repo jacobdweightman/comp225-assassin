@@ -17,7 +17,7 @@ export default class Victory extends React.Component {
     return (
       <LinearGradient colors= {Palette.winColors} style ={Palette.place}>
       <View style={baseStyle.container}>
-        <Text style= {[baseStyle.title, styles.title]}> Victor!</Text>
+        <Text style= {[baseStyle.title, styles.title]}> You Won!</Text>
         <Text> </Text>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style = {[baseStyle.button, styles.button]} onPress={this.goingHome.bind(this)}>
