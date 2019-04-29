@@ -1,4 +1,4 @@
-# How to build to ios :O
+## How to build to ios :O
 
 https://docs.expo.io/versions/latest/expokit/expokit/
 
@@ -59,3 +59,6 @@ While this is running, open up android Studio.
 __Don't update Gradle even if it says to__
 
 Just run it on your phone
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMjAwMTk5NTkzOF19
+-->
