@@ -1,4 +1,4 @@
-   
+  # How to Download the App on Android / iOS
 
 ## How to build to ios :O
 
@@ -62,5 +62,5 @@ __Don't update Gradle even if it says to__
 
 Just run it on your phone
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxOTk4ODM2OV19
+eyJoaXN0b3J5IjpbLTY2MjY1MzE4MV19
 -->
