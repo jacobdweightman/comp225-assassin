@@ -1,3 +1,5 @@
+   
+
 ## How to build to ios :O
 
 https://docs.expo.io/versions/latest/expokit/expokit/
@@ -42,7 +44,7 @@ When we get it on xcode, run it on simulator
 
 __After that works, ask paul for help getting it on actual device!!!__
 
-# How to build to android :|
+## How to build to android :|
 
 While in the project directory
 ```
@@ -60,5 +62,5 @@ __Don't update Gradle even if it says to__
 
 Just run it on your phone
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAwMTk5NTkzOF19
+eyJoaXN0b3J5IjpbLTMxOTk4ODM2OV19
 -->
