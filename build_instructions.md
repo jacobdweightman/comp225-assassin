@@ -45,6 +45,7 @@ __After that works, ask paul for help getting it on actual device!!!__
 
 ## How to build to Android 🤖
 
+1) 
 While in the project directory
 ```
 expo eject
@@ -61,5 +62,5 @@ __Don't update Gradle even if it says to__
 
 Just run it on your phone
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkwOTg2ODI0Ml19
+eyJoaXN0b3J5IjpbODgwMDE2MzAyLC05MDk4NjgyNDJdfQ==
 -->
