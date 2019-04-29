@@ -96,7 +96,7 @@ export default class GameMenuRunning extends React.Component {
         screen = json.win ? "win" : "gameRunning";
         this.advance(screen);
       } else {
-        Alert.alert("Psych! That's the wrong number!");
+        Alert.alert("That's not your target's kill code");
       }
 
     } catch (error) {
@@ -135,13 +135,16 @@ export default class GameMenuRunning extends React.Component {
         <View>
         <TextInput
             style={baseStyle.subTitle}
+            keyboardType={"number-pad"}
             onChangeText={(c) => this.setState({killCode: c})}
-            placeholder={"Kill code"}
+            placeholder={"Kill Code"}
             placeholderTextColor={"white"}
             autoFocus={true}
+            maxLength={5}
         />
+        <View style={{flex: 0.06}} />{/*spacer*/}
         <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
-          <Text style= {baseStyle.text}> Verify code </Text>
+          <Text style= {baseStyle.text}> Verify Kill Code </Text>
         </TouchableOpacity>
         <TouchableOpacity style = {baseStyle.button} onPress= {this.enterKillCode.bind(this)}>
           <Text style= {baseStyle.text}> Cancel </Text>
@@ -151,15 +154,15 @@ export default class GameMenuRunning extends React.Component {
     } else {
       controls = (
       <TouchableOpacity style = {baseStyle.button} onPress={this.enterKillCode.bind(this)}>
-        <Text style= {baseStyle.text}> They got got </Text>
+        <Text style= {baseStyle.text}> Got Target </Text>
       </TouchableOpacity>);
     }
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={[baseStyle.container, styles.container]}>
+      <View style={[baseStyle.container, styles.container, {flex: 0.1}]}>
         <Text style={[baseStyle.title, styles.title]}>{global.firstName}</Text>
-        <Text style= {baseStyle.subTitle}> {"Your Kill Code: " + global.playersKillCode}</Text>
+        <Text style= {baseStyle.subTitle}> {"Your Kill Code is: " + global.playersKillCode}</Text>
         <View style={{height: vSpace}}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
         <View style={{height: vSpace}}></View>
