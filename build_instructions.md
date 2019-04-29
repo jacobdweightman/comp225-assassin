@@ -44,6 +44,7 @@ When we get it on xcode, run it on simulator
 __After that works, ask paul for help getting it on actual device!!!__
 
 ## How to build to Android 🤖
+For more help see https://docs.expo.io/versions/v32.0.0/distribution/building-standalone-apps/
 
 1) Navigate to the project directory and run
 
@@ -62,5 +63,11 @@ __After that works, ask paul for help getting it on actual device!!!__
 	- and try ```expo build:android``` again
 
 3. Expo should then build your app. It will output a URL where you can monitor the progress of the build. When it is done you should see a message like"*Successfully built standalone app: link-to-your-app*"
-4. To see your project on Expo go to: [https://expo.io/@username/project-name](https://expo.io/@coreyjpieper/elcoanja) and click on 'builds'. From here you should see a history of all your compelted builds.
+4. If you plan on submitting the app to the Play Store be sure to save the keystore by doing
+
+		expo fetch:android:keystore
+		
+	All future updates will need to be signed with this keystore.
+	
+5. To see your project on Expo go to: [https://expo.io/@username/project-name](https://expo.io/@coreyjpieper/elcoanja) and click on 'builds'. From here you should see a history of all your compelted builds.
 
