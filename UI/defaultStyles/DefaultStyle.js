@@ -16,7 +16,7 @@ export {scale, verticalScale, moderateScale};
 
 export default StyleSheet.create({
  container : {
-  flex: 1, 
+  flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
   padding:20,
@@ -24,6 +24,10 @@ export default StyleSheet.create({
  title: {
    fontFamily: 'font',
    color: "white",
+   alignContent: 'center',
+   alignSelf : 'center',
+   justifyContent: 'center',
+   textAlign: 'center',
    fontSize: screenWidth * 0.25 //b/f 100
   },
   inputLabel: {
@@ -49,12 +53,12 @@ export default StyleSheet.create({
   },
     infoText: {
     fontSize: 23,
-    color: "white", 
+    color: "white",
     fontFamily: 'font'
   },
     subTitle: {
     fontSize: 28,
-    color: "white", 
+    color: "white",
     fontFamily: 'font'
   },
   listItem: {
@@ -64,7 +68,7 @@ export default StyleSheet.create({
   },
 
    button:{
-    width: 250, //Has width whereas the other botton type does not 
+    width: 250, //Has width whereas the other botton type does not
     height:50,
     backgroundColor: 'slategray',
     borderRadius:50,
@@ -72,7 +76,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   text:{
-    color:'white', 
+    color:'white',
     fontSize:24,
     textAlign: 'center',
     fontFamily: 'font'

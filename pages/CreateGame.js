@@ -97,6 +97,7 @@ export default class CreateGame extends React.Component {
             placeholder= "Game Name"
             autoFocus={true}
             placeholderTextColor= '#a9a9a9'
+            maxLength={50}
         />
         <View style={{flex: 0.05}} />
         <Text style={[baseStyle.inputLabel, styles.inputLabel]}>Game rules:</Text>
@@ -108,6 +109,7 @@ export default class CreateGame extends React.Component {
             onChangeText={(gameRules) => this.setState({gameRules})}
             placeholder="List your safe zones and or how players can kill their target"
             placeholderTextColor= '#a9a9a9'
+            maxLength={1000}
         />
         <View style={{flex: 0.07}} />
         <TouchableOpacity style= {baseStyle.button} onPress={this.create.bind(this)}>

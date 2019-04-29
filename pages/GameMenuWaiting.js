@@ -21,6 +21,7 @@ export default class GameMenuWaiting extends React.Component {
     if(!this.state.player.creator) {
       this.interval = setInterval(this.pollGameStart, 3000);
     }
+
   }
 
   pollGameStart = async() => {
@@ -122,9 +123,9 @@ export default class GameMenuWaiting extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
-        <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+        <Text style={[baseStyle.title, styles.title]}> Game Code: {global.code} </Text>
         <View style={{flex: 0.01}}/>
-        <Text style={baseStyle.subTitle}> Game Code: {global.code} </Text>
+        <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
         <View style={{flex: 0.1}}/>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
         <Text style={baseStyle.infoText}>
@@ -141,7 +142,7 @@ export default class GameMenuWaiting extends React.Component {
 
 var styles = StyleSheet.create({
   title: {
-    fontSize: 50,
+    fontSize: 40,
   },
 
   subTitle: {
