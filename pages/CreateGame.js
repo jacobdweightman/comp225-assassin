@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, BackHandler} from 'react-native';
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -15,6 +15,7 @@ export default class CreateGame extends React.Component {
       gameName: "default name",
       gameRules: "",
     }
+    onBackPress = () =>{ this.onBackPress.bind(this)}
   }
 
   async create() {
@@ -63,6 +64,26 @@ export default class CreateGame extends React.Component {
       alert("An error occured while creating your game.");
       console.log(error);
     }
+  }
+
+  componentWillMount(){
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () =>{
+    Alert.alert(
+      'Your information will not be saved!',
+      'Do you still wish to continue?',
+      [
+        {text: 'Yes', onPress: () => this.props.navigation.goBack(null)},
+        {text: 'No', onPress: () => {}}
+      ]
+    );
+    return true;
   }
 
   render() {
