@@ -47,7 +47,7 @@ export default class MainMenu extends React.Component {
 
 var styles = StyleSheet.create({
   title: {
-    fontSize: wp("15%"),
+    fontSize: wp("25%"),
     flex: 0.30
   },
 });

@@ -1,5 +1,22 @@
 # Ellen's style opinions
 
+4/30
+
+Test on the lib!
+
+- GameMenuRunning
+  - Make killcode smaller
+  - Add spacing between things
+  - Make kill code a normal input
+  - Add space between the buttons
+
+- JoinGameEnterName
+  - Request to enter name should be smaller
+
+- GameMenuWaiting
+  - Move game name to top
+
+4/29
 - JoinGameEnterCode
   - We should have a message to users that game codes come from the creator
   - We may also want to make the game code input box bigger

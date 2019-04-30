@@ -132,13 +132,13 @@ export default class GameMenuWaiting extends React.Component {
           <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
           <View style={styles.spacer}/>
           <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
-          <ScrollView style = {{height:"10%"}}>
+          <ScrollView style = {{height:hp("5%")}}>
             <Text style={baseStyle.infoText}>
               {this.state.game.rules}
             </Text>
           </ScrollView>
           <View style={styles.spacer}/>
-          {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
+          {global.creator && <PlayerList players={[]} style={{flex: 3, justifyContent:"flex-start"}}></PlayerList>}
           <View style={styles.spacer}/>
           {advance}
         </View>
@@ -153,6 +153,6 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   spacer:{
-    flex:0.1
+    height:hp("3%")
   },
 });

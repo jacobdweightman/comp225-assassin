@@ -103,7 +103,7 @@ export default class CreateGame extends React.Component {
             maxLength={50}
         />
         <View style={styles.spacer} />
-        <Text style={[baseStyle.inputLabel, styles.inputLabel]}>Game rules:</Text>
+        <Text style={[baseStyle.inputLabel]}>Game rules:</Text>
         <View style={styles.spacer} />
         <TextInput
             style={[baseStyle.inputText, styles.inputText]}
@@ -131,9 +131,7 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     top:hp("4%")
   },
-  inputLabel: {
-    flex: 0.10,
-  },
+
   inputText:{
     flex: 0.35,
   },

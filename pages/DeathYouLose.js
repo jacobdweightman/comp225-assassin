@@ -5,6 +5,8 @@ import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 import global from '../Global';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 export default class DeathYouLose extends React.Component {
   constructor(props) {
@@ -52,12 +54,11 @@ export default class DeathYouLose extends React.Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 90,
+    fontSize: wp("25%"),
     textAlign:'center',
     flex: 0.3
   },
   button:{
-    width: 150,
     backgroundColor: 'black'
   }
 });
