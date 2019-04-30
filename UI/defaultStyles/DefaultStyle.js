@@ -15,20 +15,20 @@ export {scale, verticalScale, moderateScale};
 
 
 export default StyleSheet.create({
- container : {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding:20,
+  container : {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:"5%",
   },
- title: {
-   fontFamily: 'font',
-   color: "white",
-   alignContent: 'center',
-   alignSelf : 'center',
-   justifyContent: 'center',
-   textAlign: 'center',
-   fontSize: screenWidth * 0.25 //b/f 100
+  title: {
+    fontFamily: 'font',
+    color: "white",
+    alignContent: 'center',
+    alignSelf : 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: screenWidth * 0.25 //b/f 100
   },
   inputLabel: {
     fontSize: scale(29),
@@ -59,16 +59,18 @@ export default StyleSheet.create({
     subTitle: {
     fontSize: 28,
     color: "white",
-    fontFamily: 'font'
+    fontFamily: 'font',
+    textAlign: 'center',
   },
   listItem: {
     fontFamily: 'font',
     fontSize: 23,
-    color: "#ddd"
+    color: "#ddd",
+    textAlign: 'center',
   },
 
    button:{
-    width: 250, //Has width whereas the other botton type does not
+    width: "90%", //Has width whereas the other button type does not
     height:50,
     backgroundColor: 'slategray',
     borderRadius:50,

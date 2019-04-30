@@ -106,11 +106,9 @@ export default class GameMenuWaiting extends React.Component {
 
     if (global.creator) {
       advance = (
-        <View>
         <TouchableOpacity style = {baseStyle.button} onPress={this.startHuntDialog}>
           <Text style = {baseStyle.text}> Start Round </Text>
         </TouchableOpacity>
-        </View>
       );
     } else {
       advance = (
@@ -122,19 +120,19 @@ export default class GameMenuWaiting extends React.Component {
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={baseStyle.container}>
-        <Text style={[baseStyle.title, styles.title]}> Game Code: {global.code} </Text>
-        <View style={{flex: 0.01}}/>
-        <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
-        <View style={{flex: 0.1}}/>
-        <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
-        <Text style={baseStyle.infoText}>
-          {this.state.game.rules}
-        </Text>
-        <View style={{flex: 0.1}}/>
-        {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
-        {advance}
-      </View>
+        <View style={[baseStyle.container, styles.container]}>
+          <Text style={[baseStyle.title, styles.title]}> Game Code: {global.code} </Text>
+          <View style={{flex: 0.01}}/>
+          <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
+          <View style={{flex: 0.1}}/>
+          <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
+          <Text style={baseStyle.infoText}>
+            {this.state.game.rules}
+          </Text>
+          <View style={{flex: 0.1}}/>
+          {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
+          {advance}    
+        </View>
       </LinearGradient>
     );
   }
@@ -149,6 +147,10 @@ var styles = StyleSheet.create({
     fontSize: 35,
     color: 'white',
     textDecorationLine: "underline"
-  }
+  },
 
+  container:{
+    justifyContent: 'flex-start',
+    top:"3%"
+  },
 });

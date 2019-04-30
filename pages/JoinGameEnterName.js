@@ -92,38 +92,37 @@ export default class JoinGameEnterName extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={[baseStyle.container, styles.container]}>
-          <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
-          <Text style={baseStyle.subTitle}>Game Code: #{this.state.game.code}</Text>
-          <View style={{flex: 0.07}} />{/*spacer*/}
-          <Text style={[baseStyle.subTitle, {justifyContent:'center'}]}>Enter your name!</Text>
-          <Text style={[baseStyle.infoText, {fontSize:17}, {paddingLeft: '4%'}]}>
-            This should be your real name, so that people in the game know who you
-            are.
-          </Text>
-          <View style={{flex: 0.07}} />{/*spacer*/}
-          <TextInput
-              style={[baseStyle.inputText, styles.inputText]}
-              onChangeText={(firstName) => this.setState({firstName})}
-              placeholder={"First name"}
-              placeholderTextColor={"#a9a9a9"}
-              autoFocus={true}
-              maxLength={50}
-          />
-          <View style={{flex: 0.06}} />{/*spacer*/}
-          <TextInput
-              style={[baseStyle.inputText,styles.inputText]}
-              onChangeText={(lastName) => this.setState({lastName})}
-              placeholder={"Last name"}
-              placeholderTextColor={"#a9a9a9"}
-              maxLength={50}
-          />
-          <View style={{flex: 0.10}} />{/*spacer*/}
-           <TouchableOpacity style={baseStyle.button} onPress={this.submit.bind(this)}>
-          <Text style={baseStyle.text}> Submit </Text>
-        </TouchableOpacity>
-        <View style={{flex: 2}} />{/*spacer*/}
-      </View>
+        <View style={[baseStyle.container, styles.container]}>
+            <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+            <View style={{flex: 0.07}} />{/*spacer*/}
+            <Text style={[baseStyle.subTitle, {justifyContent:'center'}]}>Enter your name!</Text>
+            <Text style={[baseStyle.infoText, {fontSize:20, textAlign: 'center'}, {paddingLeft: '4%'}]}>
+              This should be your real name, so that people in the game know who you
+              are.
+            </Text>
+            <View style={{flex: 0.07}} />{/*spacer*/}
+            <TextInput
+                style={[baseStyle.inputText, styles.inputText]}
+                onChangeText={(firstName) => this.setState({firstName})}
+                placeholder={"First name"}
+                placeholderTextColor={"#a9a9a9"}
+                autoFocus={true}
+                maxLength={50}
+            />
+            <View style={{flex: 0.06}} />{/*spacer*/}
+            <TextInput
+                style={[baseStyle.inputText,styles.inputText]}
+                onChangeText={(lastName) => this.setState({lastName})}
+                placeholder={"Last name"}
+                placeholderTextColor={"#a9a9a9"}
+                maxLength={50}
+            />
+            <View style={{flex: 0.10}} />{/*spacer*/}
+            <TouchableOpacity style={baseStyle.button} onPress={this.submit.bind(this)}>
+              <Text style={baseStyle.text}> Submit </Text>
+            </TouchableOpacity>
+            <View style={{flex: 2}} />{/*spacer*/}
+        </View>
       </LinearGradient>
     );
   }
