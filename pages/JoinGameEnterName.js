@@ -93,9 +93,9 @@ export default class JoinGameEnterName extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
-            <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
+            <Text style={[baseStyle.subTitle]}>{this.state.game.name}</Text>
             <View style={{flex: 0.07}} />{/*spacer*/}
-            <Text style={[baseStyle.subTitle, {justifyContent:'center'}]}>Enter your name!</Text>
+            <Text style={[baseStyle.title]}>Enter your name!</Text>
             <Text style={[baseStyle.infoText, {fontSize:20, textAlign: 'center'}, {paddingLeft: '4%'}]}>
               This should be your real name, so that people in the game know who you
               are.
@@ -133,14 +133,9 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     top:"3%"
   },
-  title: {
-    fontSize: 50
-  },
-   subTitle:{
-    color:'black'
-   },
-   inputText:{
+
+  inputText:{
     flex: 0.35,
     fontSize: 23
-   }
+  }
 });

@@ -93,6 +93,7 @@ export default class CreateGame extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={[baseStyle.container, styles.container]}>
         <Text style={[baseStyle.inputLabel, styles.inputLabel ]}>Game name:</Text>
+        <View style={styles.spacer} />
         <TextInput
             style={baseStyle.inputText}
             onChangeText={(gameName) => this.setState({gameName})}
@@ -103,6 +104,7 @@ export default class CreateGame extends React.Component {
         />
         <View style={styles.spacer} />
         <Text style={[baseStyle.inputLabel, styles.inputLabel]}>Game rules:</Text>
+        <View style={styles.spacer} />
         <TextInput
             style={[baseStyle.inputText, styles.inputText]}
             multiline={true}

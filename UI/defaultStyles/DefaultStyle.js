@@ -39,8 +39,7 @@ export default StyleSheet.create({
 
   inputText: {
     fontSize: wp("6%"),
-    width: wp("96%"),
-    marginTop: wp("2%")),
+    width: wp("90%"),
     paddingHorizontal: wp("5%"),
     paddingVertical: wp("2%"),
     color: 'black',
@@ -48,7 +47,7 @@ export default StyleSheet.create({
     borderColor: '#778899',
     backgroundColor: 'slategray',
     borderStyle: 'solid',
-    borderRadius: wp("7%"),
+    borderRadius: wp("5%"),
     borderWidth: wp(".5%"),
     alignItems: 'center',
     flex: 0.13,
