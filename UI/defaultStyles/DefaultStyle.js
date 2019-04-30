@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import { Dimensions } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 //Guideline sizes are based on standard ~5" screen mobile device
@@ -19,7 +20,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding:"5%",
+    padding:wp("5%"),
   },
   title: {
     fontFamily: 'font',
@@ -28,52 +29,53 @@ export default StyleSheet.create({
     alignSelf : 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    fontSize: screenWidth * 0.25 //b/f 100
+    fontSize: wp("15%") //b/f 100
   },
   inputLabel: {
-    fontSize: scale(29),
+    fontSize: wp("10%"),
     color: "white",
     fontFamily: 'font'
   },
 
   inputText: {
-    fontSize: scale(20),
-    width: "96%",
-    paddingHorizontal: scale(12),
-    marginTop: scale(5),
+    fontSize: wp("6%"),
+    width: wp("96%"),
+    marginTop: wp("2%")),
+    paddingHorizontal: wp("5%"),
+    paddingVertical: wp("2%"),
     color: 'black',
     fontFamily: 'font',
     borderColor: '#778899',
     backgroundColor: 'slategray',
     borderStyle: 'solid',
-    borderRadius: scale(25),
-    borderWidth: scale(1),
+    borderRadius: wp("7%"),
+    borderWidth: wp(".5%"),
     alignItems: 'center',
-    flex: 0.13
+    flex: 0.13,
   },
     infoText: {
-    fontSize: 23,
+    fontSize: wp("6%"),
     color: "white",
     fontFamily: 'font'
   },
     subTitle: {
-    fontSize: 28,
+    fontSize: wp("10%"),
     color: "white",
     fontFamily: 'font',
     textAlign: 'center',
   },
   listItem: {
     fontFamily: 'font',
-    fontSize: 23,
+    fontSize: wp("5%"),
     color: "#ddd",
     textAlign: 'center',
   },
 
    button:{
-    width: "90%", //Has width whereas the other button type does not
-    height:50,
+    width: wp("85%"), //Has width whereas the other button type does not
+    height: hp("8%"),
     backgroundColor: 'slategray',
-    borderRadius:50,
+    borderRadius:wp("8%"),
     alignItems: 'center',
     justifyContent: 'center'
   },

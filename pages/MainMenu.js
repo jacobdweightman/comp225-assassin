@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native';
 import Palette from '../UI/defaultStyles/Palette';
 import font from '../assets/fonts/IcelandReg.ttf';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class MainMenu extends React.Component {
   constructor(props) {
@@ -47,6 +47,7 @@ export default class MainMenu extends React.Component {
 
 var styles = StyleSheet.create({
   title: {
+    fontSize: wp("15%"),
     flex: 0.30
   },
 });

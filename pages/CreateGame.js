@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, BackHandler
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 import global from '../Global';
 
@@ -125,15 +127,13 @@ var styles = StyleSheet.create({
   container:{
     flex:0.60,
     justifyContent: 'flex-start',
-    top:"4%"
+    top:hp("4%")
   },
   inputLabel: {
     flex: 0.10,
-    paddingRight: "50%"
   },
   inputText:{
     flex: 0.35,
-    padding: 10
   },
   spacer:{
     flex:0.07,

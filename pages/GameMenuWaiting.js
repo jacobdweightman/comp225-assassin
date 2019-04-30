@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
@@ -121,7 +122,8 @@ export default class GameMenuWaiting extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
-          <Text style={[baseStyle.title, styles.title]}> Game Code: {global.code} </Text>
+          <View style={{height:"1%"}}/>
+          <Text style={[baseStyle.title]}> Game Code: {global.code} </Text>
           <View style={{height:"1%"}}/>
           <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
             Give players this code to let them join your game
@@ -130,9 +132,11 @@ export default class GameMenuWaiting extends React.Component {
           <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
           <View style={styles.spacer}/>
           <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
-          <Text style={baseStyle.infoText}>
-            {this.state.game.rules}
-          </Text>
+          <ScrollView style = {{height:"10%"}}>
+            <Text style={baseStyle.infoText}>
+              {this.state.game.rules}
+            </Text>
+          </ScrollView>
           <View style={styles.spacer}/>
           {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
           <View style={styles.spacer}/>
@@ -144,13 +148,7 @@ export default class GameMenuWaiting extends React.Component {
 }
 
 var styles = StyleSheet.create({
-  title: {
-    fontSize: 40,
-  },
-  subTitle: {
-    fontSize: 28,
-    color: 'white',
-  },
+
   container:{
     justifyContent: 'flex-start',
   },
