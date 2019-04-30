@@ -122,6 +122,10 @@ export default class GameMenuWaiting extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
           <Text style={[baseStyle.title, styles.title]}> Game Code: {global.code} </Text>
+          <View style={{height:"1%"}}/>
+          <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
+            Give players this code to let them join your game
+          </Text>
           <View style={styles.spacer}/>
           <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
           <View style={styles.spacer}/>

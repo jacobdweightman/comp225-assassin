@@ -66,7 +66,6 @@ export default class JoinGameEnterCode extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container]}>
           <View style={{flex: 1}} />{/*spacer*/}
-
           <Text style={[baseStyle.inputLabel, {fontSize: 45, textAlign:'center'}]}>Enter game code:</Text>
           <View style={{flex: .2}} />{/*spacer*/}
           <TextInput
@@ -78,7 +77,9 @@ export default class JoinGameEnterCode extends React.Component {
             maxLength={4}
           />
           <View style={{flex: .2}} />{/*spacer*/}
-          <Text style={[baseStyle.infoText, {textAlign:'center'}]}> To join a game, ask the game creator for their game code </Text>
+          <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
+            To join a game, ask the game creator for their game code
+          </Text>
           <View style={{flex: 1}} />{/*spacer*/}
           <TouchableOpacity style ={baseStyle.button} onPress={this.next.bind(this)}>
             <Text style={baseStyle.text}> Join Game </Text>
