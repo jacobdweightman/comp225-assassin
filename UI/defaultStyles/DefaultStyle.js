@@ -37,7 +37,7 @@ export default StyleSheet.create({
   },
 
   inputText: {
-    fontSize: scale(17),
+    fontSize: scale(20),
     width: "96%",
     paddingHorizontal: scale(12),
     marginTop: scale(5),

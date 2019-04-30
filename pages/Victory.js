@@ -29,7 +29,7 @@ export default class Victory extends React.Component {
       }
       else {
         json = await response.json();
-        Alert.alert(json.message);
+        console.log(json.message);
       }
     } catch (e) {
       console.error(e);
@@ -56,12 +56,10 @@ export default class Victory extends React.Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 90,
-    textAlign:'center',
+    fontSize: 70,
     flex: 0.3
   },
   button:{
-    width: 150,
     backgroundColor: '#DAA520'
   }
 });

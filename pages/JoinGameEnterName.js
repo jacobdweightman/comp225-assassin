@@ -107,7 +107,7 @@ export default class JoinGameEnterName extends React.Component {
                 placeholder={"First name"}
                 placeholderTextColor={"#a9a9a9"}
                 autoFocus={true}
-                maxLength={50}
+                maxLength={30}
             />
             <View style={{flex: 0.06}} />{/*spacer*/}
             <TextInput
@@ -115,7 +115,7 @@ export default class JoinGameEnterName extends React.Component {
                 onChangeText={(lastName) => this.setState({lastName})}
                 placeholder={"Last name"}
                 placeholderTextColor={"#a9a9a9"}
-                maxLength={50}
+                maxLength={30}
             />
             <View style={{flex: 0.10}} />{/*spacer*/}
             <TouchableOpacity style={baseStyle.button} onPress={this.submit.bind(this)}>
