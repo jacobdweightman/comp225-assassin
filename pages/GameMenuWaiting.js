@@ -126,13 +126,13 @@ export default class GameMenuWaiting extends React.Component {
           <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
           <View style={styles.spacer}/>
           <Text style={[baseStyle.title]}> Game Code: {global.code} </Text>
-          <View style={styles.spacer}/>
+          <View style={{height:hp("1%")}}/>
           <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
             Give players this code to let them join your game
           </Text>
           <View style={styles.spacer}/>
           <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
-          <ScrollView style = {{height:hp("5%")}}>
+          <ScrollView style = {{height:hp("8%")}}>
             <Text style={baseStyle.infoText}>
               {this.state.game.rules}
             </Text>
