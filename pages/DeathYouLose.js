@@ -40,8 +40,8 @@ export default class DeathYouLose extends React.Component {
       <LinearGradient colors= {Palette.deathColors} style ={Palette.place}>
       <View style={baseStyle.container}>
         <Text style= {[baseStyle.title, styles.title]}> You Got Got!</Text>
-        <Text> </Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{height:hp("1%")}}></View>
+        <View style={{flex:0.3}}>
           <TouchableOpacity style = {[baseStyle.button, styles.button]} onPress={this.goingHome.bind(this)}>
             <Text style = {baseStyle.text}> Home </Text>
           </TouchableOpacity>
@@ -54,7 +54,7 @@ export default class DeathYouLose extends React.Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: wp("25%"),
+    fontSize: wp("22%"),
     textAlign:'center',
     flex: 0.3
   },

@@ -43,8 +43,8 @@ export default class Victory extends React.Component {
       <LinearGradient colors= {Palette.winColors} style ={Palette.place}>
       <View style={baseStyle.container}>
         <Text style= {[baseStyle.title, styles.title]}> You Won!</Text>
-        <Text> </Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{height:hp("1%")}}></View>
+        <View style={{flex: 0.3}}>
           <TouchableOpacity style = {[baseStyle.button, styles.button]} onPress={this.goingHome.bind(this)}>
             <Text style = {baseStyle.text}> Home </Text>
           </TouchableOpacity>
@@ -58,7 +58,7 @@ export default class Victory extends React.Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: wp("25%"),
+    fontSize: wp("22%"),
     flex: 0.3
   },
   button:{
