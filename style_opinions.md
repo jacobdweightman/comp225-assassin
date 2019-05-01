@@ -9,13 +9,11 @@ Test on the lib!
   - Add spacing between things
   - Make kill code a normal input
   - Add space between the buttons
-
 - JoinGameEnterName
   - Request to enter name should be smaller
-
 - GameMenuWaiting
-  - Move game name to top
-
+  - Move game name to top   
+  
 4/29
 - JoinGameEnterCode
   - We should have a message to users that game codes come from the creator

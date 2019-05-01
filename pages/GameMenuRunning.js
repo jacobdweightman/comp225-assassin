@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -142,10 +143,13 @@ export default class GameMenuRunning extends React.Component {
               autoFocus={true}
               maxLength={4}
           />
-          <View style={{flex: 0.06}} />{/*spacer*/}
+          <View style={{height:hp("1%")}}></View>
+          <Text style={baseStyle.infoText}> Enter your target's kill code to confirm their assassination </Text>
+          <View style={styles.spacer} />{/*spacer*/}
           <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
             <Text style= {baseStyle.text}> Verify Kill Code </Text>
           </TouchableOpacity>
+          <View style={{height:hp("0.5%")}}></View>
           <TouchableOpacity style = {baseStyle.button} onPress= {this.enterKillCode.bind(this)}>
             <Text style= {baseStyle.text}> Cancel </Text>
           </TouchableOpacity>
@@ -153,19 +157,22 @@ export default class GameMenuRunning extends React.Component {
       );
     } else {
       controls = (
-      <TouchableOpacity style = {baseStyle.button} onPress={this.enterKillCode.bind(this)}>
-        <Text style= {baseStyle.text}> Got Target </Text>
-      </TouchableOpacity>);
+      <View style={[baseStyle.container, styles.container]}>
+        <TouchableOpacity style = {baseStyle.button} onPress={this.enterKillCode.bind(this)}>
+          <Text style= {baseStyle.text}> Got Target </Text>
+        </TouchableOpacity>
+      </View>);
     }
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
-          <Text style= {baseStyle.subTitle}> {"Your Kill Code is: " + global.playersKillCode}</Text>
-          <View style={{height: "5%"}}></View>
-          <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
-          <View style={{height: "5%"}}></View>
-          {controls}
+        <View style={styles.spacer}></View>
+        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + global.playersKillCode}</Text>
+        <View style={styles.spacer}></View>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
+        <View style={styles.spacer}></View>
+        {controls}
         </View>
       </LinearGradient>
     );
@@ -176,9 +183,17 @@ const styles = StyleSheet.create({
   container:{
     justifyContent:"flex-start"
   },
+
+  subTitle:{
+    fontSize:wp("8%")
+  },
+
   inputText:{
-    width: '50%',
+    width: wp('50%'),
     textAlign:'center',
   },
 
+  spacer:{
+    height: hp("4%")
+  },
 });
