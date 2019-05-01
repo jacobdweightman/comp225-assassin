@@ -12,7 +12,7 @@
     "orientation": "portrait",
     "icon": "./assets/ios.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ios.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
