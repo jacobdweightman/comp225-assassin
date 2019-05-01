@@ -73,7 +73,6 @@ export default class JoinGameEnterCode extends React.Component {
             keyboardType={"number-pad"}
             onChangeText={(gameCode) => this.setState({gameCode})}
             placeholder={"Game code"}
-            autoFocus={true}
             maxLength={4}
           />
           <View style={{flex: .2}} />{/*spacer*/}

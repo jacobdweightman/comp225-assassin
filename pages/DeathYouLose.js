@@ -28,7 +28,7 @@ export default class DeathYouLose extends React.Component {
       }
       else {
         json = await response.json();
-        Alert.alert(json.message);
+        alert("A network error occurred.");
       }
     } catch (e) {
       console.error(e);

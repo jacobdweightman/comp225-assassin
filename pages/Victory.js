@@ -31,7 +31,7 @@ export default class Victory extends React.Component {
       }
       else {
         json = await response.json();
-        console.log(json.message);
+        alert("A network error occurred.");
       }
     } catch (e) {
       console.error(e);
