@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -29,10 +32,10 @@ export default class JoinGameEnterName extends React.Component {
     this.state.lastName= this.state.lastName.trim()
 
     if (this.state.firstName.length === 0) { // basic input validation
-      Alert.alert("Please enter your first name. There must be a character other than space.");
+      Alert.alert("Please enter your first name.","There must be a character other than space.");
     }
     else if (this.state.lastName.length === 0) {
-      Alert.alert("Please enter your last name. There must be a character other than space.");
+      Alert.alert("Please enter your last name.","There must be a character other than space.");
     }
     else {
       try {
@@ -95,14 +98,14 @@ export default class JoinGameEnterName extends React.Component {
         <View style={[baseStyle.container, styles.container]}>
             <Text style={[baseStyle.subTitle]}>{this.state.game.name}</Text>
             <View style={{flex: 0.07}} />{/*spacer*/}
-            <Text style={[baseStyle.title]}>Enter your name!</Text>
+            <Text style={[baseStyle.title, styles.title]}>Enter your name!</Text>
             <Text style={[baseStyle.infoText, {fontSize:20, textAlign: 'center'}, {paddingLeft: '4%'}]}>
               This should be your real name, so that people in the game know who you
               are.
             </Text>
             <View style={{flex: 0.07}} />{/*spacer*/}
             <TextInput
-                style={[baseStyle.inputText, styles.inputText]}
+                style={[baseStyle.inputText]}
                 onChangeText={(firstName) => this.setState({firstName})}
                 placeholder={"First name"}
                 placeholderTextColor={"#a9a9a9"}
@@ -111,7 +114,7 @@ export default class JoinGameEnterName extends React.Component {
             />
             <View style={{flex: 0.06}} />{/*spacer*/}
             <TextInput
-                style={[baseStyle.inputText,styles.inputText]}
+                style={[baseStyle.inputText]}
                 onChangeText={(lastName) => this.setState({lastName})}
                 placeholder={"Last name"}
                 placeholderTextColor={"#a9a9a9"}
@@ -135,7 +138,11 @@ var styles = StyleSheet.create({
   },
 
   inputText:{
-    flex: 0.35,
-    fontSize: 23
+    flex:.25
+  },
+
+
+  title:{
+    fontSize:wp("12%")
   }
 });

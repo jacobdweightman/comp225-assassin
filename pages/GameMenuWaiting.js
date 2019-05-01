@@ -122,14 +122,14 @@ export default class GameMenuWaiting extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
-          <View style={{height:"1%"}}/>
+          <View style={styles.spacer}/>
+          <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
+          <View style={styles.spacer}/>
           <Text style={[baseStyle.title]}> Game Code: {global.code} </Text>
-          <View style={{height:"1%"}}/>
+          <View style={styles.spacer}/>
           <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
             Give players this code to let them join your game
           </Text>
-          <View style={styles.spacer}/>
-          <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
           <View style={styles.spacer}/>
           <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
           <ScrollView style = {{height:hp("5%")}}>
@@ -138,7 +138,7 @@ export default class GameMenuWaiting extends React.Component {
             </Text>
           </ScrollView>
           <View style={styles.spacer}/>
-          {global.creator && <PlayerList players={[]} style={{flex: 3, justifyContent:"flex-start"}}></PlayerList>}
+          {global.creator && <PlayerList players={[]} style={{flex: 5, justifyContent:"flex-start"}}></PlayerList>}
           <View style={styles.spacer}/>
           {advance}
         </View>
@@ -155,4 +155,7 @@ var styles = StyleSheet.create({
   spacer:{
     height:hp("3%")
   },
+  subTitle:{
+    fontSize:wp("8%")
+  }
 });

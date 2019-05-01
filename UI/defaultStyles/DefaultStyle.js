@@ -65,7 +65,7 @@ export default StyleSheet.create({
   },
   listItem: {
     fontFamily: 'font',
-    fontSize: wp("5%"),
+    fontSize: wp("6%"),
     color: "#ddd",
     textAlign: 'center',
   },
@@ -80,7 +80,7 @@ export default StyleSheet.create({
   },
   text:{
     color:'white',
-    fontSize:24,
+    fontSize: wp("7%"),
     textAlign: 'center',
     fontFamily: 'font'
   }
