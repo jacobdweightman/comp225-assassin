@@ -15,9 +15,14 @@ export default class PlayerList extends React.Component {
     };
 
     this.refreshList();
+    this.interval = setInterval(this.refreshList, 5000);
   }
 
-  refreshList() {
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  refreshList = () => {
     fetch(global.BASE_URL + "creator_access/player_list", {
       method: 'GET',
       headers: {
