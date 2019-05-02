@@ -38,7 +38,7 @@ export default class JoinGameEnterCode extends React.Component {
         return false;
       }
     } catch (e) {
-      console.error(e);
+      console.log(e);
       return false;
     }
   }
