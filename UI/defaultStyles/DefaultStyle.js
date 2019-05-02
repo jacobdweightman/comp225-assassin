@@ -71,7 +71,7 @@ export default StyleSheet.create({
   },
 
    button:{
-    width: wp("85%"), //Has width whereas the other button type does not
+    width: wp("65%"), //Has width whereas the other button type does not
     height: hp("8%"),
     backgroundColor: 'slategray',
     borderRadius:wp("8%"),
