@@ -61,8 +61,8 @@ export default class JoinGameEnterName extends React.Component {
 
           this.advance();
         } else {
-          alert("A network error occurred.");
-          console.log(response);
+          let json = await response.json();
+          alert(json.message);
         }
 
       } catch(error) {
