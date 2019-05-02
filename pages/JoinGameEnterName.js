@@ -58,6 +58,8 @@ export default class JoinGameEnterName extends React.Component {
           global.accessToken = json.access_token;
           global.playersKillCode = json.player_kill_code
           this.setState({accessToken: json.access_token})
+
+          this.advance();
         } else {
           alert("A network error occurred.");
           console.log(response);
@@ -67,29 +69,31 @@ export default class JoinGameEnterName extends React.Component {
         alert("An error occured while creating your game.");
         console.log(error);
       }
-
-
-      params = {
-        game: this.state.game,
-        player: this.state.player,
-      }
-      params.player.firstName = this.state.firstName;
-      params.player.lastName = this.state.lastName;
-      params.player.playerID = this.state.playerID;
-
-      console.log(params);
-
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'gameWaiting',
-            params: params
-          })
-        ],
-      });
-      this.props.navigation.dispatch(resetAction);
     }
+  }
+
+  advance() {
+    params = {
+      game: this.state.game,
+      player: this.state.player,
+    };
+
+    params.player.firstName = this.state.firstName;
+    params.player.lastName = this.state.lastName;
+    params.player.playerID = this.state.playerID;
+
+    console.log(params);
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'gameWaiting',
+          params: params
+        })
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   render() {
