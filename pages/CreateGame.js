@@ -13,20 +13,32 @@ export default class CreateGame extends React.Component {
   constructor(props) {
     super(props);
 
+    this.pendingRequest = false;
+    console.log("pending <- false");
+
     this.state = {
-      gameName: "Game Name",
+      gameName: "",
       gameRules: "",
     }
     onBackPress = () =>{ this.onBackPress.bind(this)}
   }
 
   async create() {
+    // prevent multiple requests from being sent
+    if(this.pendingRequest) {
+      console.log("request already in progress");
+      return;
+    }
+
     // validate input
     this.state.gameName= this.state.gameName.trim();
     if (this.state.gameName.length < 2) {
       Alert.alert("Please enter a valid game name");
       return;
     }
+
+    this.pendingRequest = true;
+    console.log("pending <- true");
 
     try {
       let response = await fetch(global.BASE_URL + "creator_access/create_game", {
@@ -47,6 +59,8 @@ export default class CreateGame extends React.Component {
         global.gameName = this.state.gameName;
         global.gameRules = this.state.gameRules;
 
+        console.log("pending <- false");
+
         return this.props.navigation.navigate("join2", {
           player: {
             creator: true,
@@ -58,11 +72,15 @@ export default class CreateGame extends React.Component {
           }
         });
       } else {
+        this.pendingRequest = false;
+        console.log("pending <- false");
         alert("A network error occurred.");
         console.log(response);
       }
 
     } catch(error) {
+      this.pendingRequest = false;
+      console.log("pending <- false");
       alert("An error occured while creating your game.");
       console.log(error);
     }
