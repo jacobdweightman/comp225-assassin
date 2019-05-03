@@ -13,8 +13,9 @@ export default class CreateGame extends React.Component {
   constructor(props) {
     super(props);
 
+    // sending multiple requests to create_game causes app and server to get out
+    // of sync. We use this flag to prevent duplicate requests.
     this.pendingRequest = false;
-    console.log("pending <- false");
 
     this.state = {
       gameName: "",
@@ -26,7 +27,6 @@ export default class CreateGame extends React.Component {
   async create() {
     // prevent multiple requests from being sent
     if(this.pendingRequest) {
-      console.log("request already in progress");
       return;
     }
 
@@ -38,7 +38,6 @@ export default class CreateGame extends React.Component {
     }
 
     this.pendingRequest = true;
-    console.log("pending <- true");
 
     try {
       let response = await fetch(global.BASE_URL + "creator_access/create_game", {
@@ -59,8 +58,6 @@ export default class CreateGame extends React.Component {
         global.gameName = this.state.gameName;
         global.gameRules = this.state.gameRules;
 
-        console.log("pending <- false");
-
         return this.props.navigation.navigate("join2", {
           player: {
             creator: true,
@@ -73,14 +70,12 @@ export default class CreateGame extends React.Component {
         });
       } else {
         this.pendingRequest = false;
-        console.log("pending <- false");
         alert("A network error occurred.");
         console.log(response);
       }
 
     } catch(error) {
       this.pendingRequest = false;
-      console.log("pending <- false");
       alert("An error occured while creating your game.");
       console.log(error);
     }
