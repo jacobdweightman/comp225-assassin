@@ -42,7 +42,7 @@ export default class GameMenuRunning extends React.Component {
         this.setState({targetMessage: json.message})
       }
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
     this.setState({loading: false});
     return;
