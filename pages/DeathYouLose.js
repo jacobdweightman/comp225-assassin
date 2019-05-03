@@ -38,7 +38,7 @@ export default class DeathYouLose extends React.Component {
         alert("A network error occurred.");
       }
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
   }
 
