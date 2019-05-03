@@ -13,7 +13,7 @@ export default class GameMenuRunning extends React.Component {
     super(props);
 
     this.state = {
-      theyGotGot: false,
+      showInput: false, // controls whether to show input for entering kill code
       loading: true,
       targetMessage: undefined,
       playerID: this.props.navigation.getParam("player").playerID,
@@ -98,18 +98,18 @@ export default class GameMenuRunning extends React.Component {
     }
   }
 
-  quitGame() {
+  confirmQuit() {
     Alert.alert(
       'Are you sure you want to leave the game?',
       null,
       [
-        {text: 'Yes', onPress: this.removeFromGame.bind(this)},
+        {text: 'Yes', onPress: this.quitGame.bind(this)},
         {text: 'No', onPress: () => {}}
       ]
     );
   }
 
-  async removeFromGame() {
+  async quitGame() {
     try {
       const response = await fetch(global.BASE_URL + "player_access/quit_game", {
         method: 'GET',
@@ -131,7 +131,7 @@ export default class GameMenuRunning extends React.Component {
   }
 
 
-  // Navigates to either the win or gameRunning screen
+  // Navigates to either the win, loss, or gameRunning based on screen parameter
   advance(screen) {
     // Do not continue to poll on the next screen!
     clearInterval(this.interval);
@@ -157,7 +157,7 @@ export default class GameMenuRunning extends React.Component {
 
 
     var controls;
-    if(this.state.theyGotGot) {
+    if(this.state.showInput) {
       controls = (
         <View style={[baseStyle.container, styles.container]}>
           <TextInput
@@ -176,7 +176,7 @@ export default class GameMenuRunning extends React.Component {
             <Text style= {baseStyle.text}> Verify Kill Code </Text>
           </TouchableOpacity>
           <View style={{height:hp("1%")}}></View>
-          <TouchableOpacity style = {baseStyle.button} onPress= {() => this.setState({theyGotGot: !this.state.theyGotGot})}>
+          <TouchableOpacity style = {baseStyle.button} onPress= {() => this.setState({showInput: !this.state.showInput})}>
             <Text style= {baseStyle.text}> Cancel </Text>
           </TouchableOpacity>
         </View>
@@ -184,11 +184,11 @@ export default class GameMenuRunning extends React.Component {
     } else {
       controls = (
       <View style={[baseStyle.container, styles.container]}>
-        <TouchableOpacity style = {baseStyle.button} onPress={() => this.setState({theyGotGot: !this.state.theyGotGot})}>
+        <TouchableOpacity style = {baseStyle.button} onPress={() => this.setState({showInput: !this.state.showInput})}>
           <Text style= {baseStyle.text}> Got Target </Text>
         </TouchableOpacity>
         <View style={{height:hp("1%")}}></View>
-        <TouchableOpacity style = {[baseStyle.button, {backgroundColor: '#990F0F'}]} onPress= {this.quitGame.bind(this)}>
+        <TouchableOpacity style = {[baseStyle.button, {backgroundColor: '#990F0F'}]} onPress= {this.confirmQuit.bind(this)}>
           <Text style= {baseStyle.text}> Quit Game </Text>
         </TouchableOpacity>
       </View>);

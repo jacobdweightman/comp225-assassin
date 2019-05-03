@@ -100,6 +100,38 @@ export default class GameMenuWaiting extends React.Component {
     )
   }
 
+  confirmQuit() {
+    Alert.alert(
+      'Are you sure you want to leave the game?',
+      null,
+      [
+        {text: 'Yes', onPress: this.quitGame.bind(this)},
+        {text: 'No', onPress: () => {}}
+      ]
+    );
+  }
+
+  async quitGame() {
+    try {
+      const response = await fetch(global.BASE_URL + "player_access/quit_game", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + global.accessToken,
+        }
+      });
+
+      if (response.status === 200) {
+        this.advance('home');
+      } else {
+        json = await response.json();
+        Alert.alert(json.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     const vSpace = 50;
 
@@ -113,9 +145,15 @@ export default class GameMenuWaiting extends React.Component {
       );
     } else {
       advance = (
-        <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: '#831a19'}]}>
+        <View style={baseStyle.container}>
+          <Text style={[baseStyle.subTitle, {textDecorationLine: "none"}, {color: '#831a19'}]}>
           Waiting for all assassins
-        </Text>
+          </Text>
+          <View style={{height:hp("1%")}}></View>
+          <TouchableOpacity style = {[baseStyle.button, {backgroundColor: '#990F0F'}]} onPress= {this.confirmQuit.bind(this)}>
+            <Text style= {baseStyle.text}> Quit Game </Text>
+          </TouchableOpacity>
+        </View>
       );
     }
 
