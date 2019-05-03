@@ -119,7 +119,6 @@ export default class GameMenuRunning extends React.Component {
       });
 
       if (response.status === 200) {
-        Alert.alert("success");
         this.advance('home');
       } else {
         json = await response.json();
