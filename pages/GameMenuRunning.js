@@ -71,13 +71,6 @@ export default class GameMenuRunning extends React.Component {
     }
   }
 
-  // Show or hide the text input for kill code
-  enterKillCode() {
-    this.setState(() => ({
-      theyGotGot: !this.state.theyGotGot
-    }));
-  }
-
   // Check the inputed kill code
   async verifyKillCode() {
     try {
@@ -104,6 +97,40 @@ export default class GameMenuRunning extends React.Component {
       console.log(error);
     }
   }
+
+  quitGame() {
+    Alert.alert(
+      'Are you sure you want to leave the game?',
+      null,
+      [
+        {text: 'Yes', onPress: this.removeFromGame.bind(this)},
+        {text: 'No', onPress: () => {}}
+      ]
+    );
+  }
+
+  async removeFromGame() {
+    try {
+      const response = await fetch(global.BASE_URL + "player_access/quit_game", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + global.accessToken,
+        }
+      });
+
+      if (response.status === 200) {
+        Alert.alert("success");
+        this.advance('home');
+      } else {
+        json = await response.json();
+        Alert.alert(json.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   // Navigates to either the win or gameRunning screen
   advance(screen) {
@@ -137,7 +164,7 @@ export default class GameMenuRunning extends React.Component {
           <TextInput
               style={[baseStyle.inputText, styles.inputText]}
               keyboardType={"number-pad"}
-              onChangeText={(c) => this.setState({killCode: c})}
+              onChangeText={(killCode) => this.setState({killCode})}
               placeholder={"Kill Code"}
               placeholderTextColor={"#a9a9a9"}
               autoFocus={true}
@@ -149,8 +176,8 @@ export default class GameMenuRunning extends React.Component {
           <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
             <Text style= {baseStyle.text}> Verify Kill Code </Text>
           </TouchableOpacity>
-          <View style={{height:hp("0.5%")}}></View>
-          <TouchableOpacity style = {baseStyle.button} onPress= {this.enterKillCode.bind(this)}>
+          <View style={{height:hp("1%")}}></View>
+          <TouchableOpacity style = {baseStyle.button} onPress= {() => this.setState({theyGotGot: !this.state.theyGotGot})}>
             <Text style= {baseStyle.text}> Cancel </Text>
           </TouchableOpacity>
         </View>
@@ -158,8 +185,12 @@ export default class GameMenuRunning extends React.Component {
     } else {
       controls = (
       <View style={[baseStyle.container, styles.container]}>
-        <TouchableOpacity style = {baseStyle.button} onPress={this.enterKillCode.bind(this)}>
+        <TouchableOpacity style = {baseStyle.button} onPress={() => this.setState({theyGotGot: !this.state.theyGotGot})}>
           <Text style= {baseStyle.text}> Got Target </Text>
+        </TouchableOpacity>
+        <View style={{height:hp("1%")}}></View>
+        <TouchableOpacity style = {[baseStyle.button, {backgroundColor: '#990F0F'}]} onPress= {this.quitGame.bind(this)}>
+          <Text style= {baseStyle.text}> Quit Game </Text>
         </TouchableOpacity>
       </View>);
     }
