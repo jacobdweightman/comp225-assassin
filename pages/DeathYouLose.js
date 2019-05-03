@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
+import { StackActions, NavigationActions } from 'react-navigation';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 import global from '../Global';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 export default class DeathYouLose extends React.Component {
@@ -23,9 +24,15 @@ export default class DeathYouLose extends React.Component {
       });
 
       if (response.status === 200) {
-        const {navigate} = this.props.navigation;
-        return navigate("home");
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({
+            routeName: "home",
+          })],
+        });
+        this.props.navigation.dispatch(resetAction);
       }
+
       else {
         json = await response.json();
         alert("A network error occurred.");
