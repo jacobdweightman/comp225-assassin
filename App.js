@@ -21,6 +21,7 @@ const Navigator = createStackNavigator(
   gameRunning: {screen: GameMenuRunning},
   loss: {screen: DeathYouLose},
   win: {screen: Victory},
+  congrats: {screen:CongratsGotYourTarget},
 }, {
   headerMode: Platform.OS === 'ios' ? 'float' : 'none',
   initialRouteName: 'home'

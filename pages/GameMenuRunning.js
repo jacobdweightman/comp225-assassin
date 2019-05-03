@@ -87,7 +87,7 @@ export default class GameMenuRunning extends React.Component {
 
       json = await response.json();
       if (response.status === 200) {
-        screen = json.win ? "win" : "gameRunning";
+        screen = json.win ? "win" : "congrats";
         this.advance(screen);
       } else {
         Alert.alert("That's not your target's kill code");
