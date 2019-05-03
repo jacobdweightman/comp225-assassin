@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, BackHandler} from 'react-native';
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 import global from '../Global';
 
@@ -11,18 +13,32 @@ export default class CreateGame extends React.Component {
   constructor(props) {
     super(props);
 
+    this.pendingRequest = false;
+    console.log("pending <- false");
+
     this.state = {
-      gameName: "default name",
-      gameRules: "default rules",
+      gameName: "",
+      gameRules: "",
     }
+    onBackPress = () =>{ this.onBackPress.bind(this)}
   }
 
   async create() {
+    // prevent multiple requests from being sent
+    if(this.pendingRequest) {
+      console.log("request already in progress");
+      return;
+    }
+
     // validate input
+    this.state.gameName= this.state.gameName.trim();
     if (this.state.gameName.length < 2) {
       Alert.alert("Please enter a valid game name");
       return;
     }
+
+    this.pendingRequest = true;
+    console.log("pending <- true");
 
     try {
       let response = await fetch(global.BASE_URL + "creator_access/create_game", {
@@ -43,6 +59,8 @@ export default class CreateGame extends React.Component {
         global.gameName = this.state.gameName;
         global.gameRules = this.state.gameRules;
 
+        console.log("pending <- false");
+
         return this.props.navigation.navigate("join2", {
           player: {
             creator: true,
@@ -54,14 +72,38 @@ export default class CreateGame extends React.Component {
           }
         });
       } else {
+        this.pendingRequest = false;
+        console.log("pending <- false");
         alert("A network error occurred.");
         console.log(response);
       }
 
     } catch(error) {
+      this.pendingRequest = false;
+      console.log("pending <- false");
       alert("An error occured while creating your game.");
       console.log(error);
     }
+  }
+
+  componentWillMount(){
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () =>{
+    Alert.alert(
+      'Your information will not be saved!',
+      'Do you still wish to continue?',
+      [
+        {text: 'Yes', onPress: () => this.props.navigation.goBack(null)},
+        {text: 'No', onPress: () => {}}
+      ]
+    );
+    return true;
   }
 
   render() {
@@ -69,15 +111,18 @@ export default class CreateGame extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={[baseStyle.container, styles.container]}>
         <Text style={[baseStyle.inputLabel, styles.inputLabel ]}>Game name:</Text>
+        <View style={styles.spacer} />
         <TextInput
             style={baseStyle.inputText}
             onChangeText={(gameName) => this.setState({gameName})}
             placeholder= "Game Name"
             autoFocus={true}
             placeholderTextColor= '#a9a9a9'
+            maxLength={50}
         />
-        <View style={{flex: 0.05}} />
-        <Text style={[baseStyle.inputLabel, styles.inputLabel]}>Game rules:</Text>
+        <View style={styles.spacer} />
+        <Text style={[baseStyle.inputLabel]}>Game rules:</Text>
+        <View style={styles.spacer} />
         <TextInput
             style={[baseStyle.inputText, styles.inputText]}
             multiline={true}
@@ -86,8 +131,9 @@ export default class CreateGame extends React.Component {
             onChangeText={(gameRules) => this.setState({gameRules})}
             placeholder="List your safe zones and or how players can kill their target"
             placeholderTextColor= '#a9a9a9'
+            maxLength={500}
         />
-        <View style={{flex: 0.07}} />
+        <View style={styles.spacer} />
         <TouchableOpacity style= {baseStyle.button} onPress={this.create.bind(this)}>
           <Text style={baseStyle.text}>Join Game</Text>
         </TouchableOpacity>
@@ -101,14 +147,13 @@ var styles = StyleSheet.create({
   container:{
     flex:0.60,
     justifyContent: 'flex-start',
-    top:"4%"
+    top:hp("4%")
   },
-  inputLabel: {
-    flex: 0.10,
-    paddingRight: "50%"
-  },
+
   inputText:{
     flex: 0.35,
-    padding: 10
+  },
+  spacer:{
+    flex:0.07,
   }
 });

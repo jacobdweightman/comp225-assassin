@@ -10,11 +10,11 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ios.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ios.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#666666"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +23,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.elcoanja.assassin"
     },
     "android": {
       "package": "com.elcoanja.assassin"

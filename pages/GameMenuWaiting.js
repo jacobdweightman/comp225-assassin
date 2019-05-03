@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
@@ -21,11 +22,12 @@ export default class GameMenuWaiting extends React.Component {
     if(!this.state.player.creator) {
       this.interval = setInterval(this.pollGameStart, 3000);
     }
+
   }
 
   pollGameStart = async() => {
     try {
-        let response = await fetch(global.BASE_URL + "status_access/is_game_started", {
+        let response = await fetch(global.BASE_URL + "status_access/game_state", {
           method: 'POST',
           headers: {
             'Content-Type': "application/json",
@@ -68,13 +70,10 @@ export default class GameMenuWaiting extends React.Component {
   hunt = async()=> {
     try {
         let response = await fetch(global.BASE_URL + "creator_access/start_hunt", {
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Content-Type': "application/json",
-          },
-          body: JSON.stringify({
-            player_id: global.playerID,
-          }),
+            'Authorization' : 'Bearer '+ global.accessToken,
+          }
         });
 
         json = await response.json();
@@ -108,11 +107,9 @@ export default class GameMenuWaiting extends React.Component {
 
     if (global.creator) {
       advance = (
-        <View>
         <TouchableOpacity style = {baseStyle.button} onPress={this.startHuntDialog}>
           <Text style = {baseStyle.text}> Start Round </Text>
         </TouchableOpacity>
-        </View>
       );
     } else {
       advance = (
@@ -124,33 +121,41 @@ export default class GameMenuWaiting extends React.Component {
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={baseStyle.container}>
-        <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
-        <View style={{flex: 0.01}}/>
-        <Text style={baseStyle.subTitle}> Game Code: {global.code} </Text>
-        <View style={{flex: 0.1}}/>
-        <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
-        <Text style={baseStyle.infoText}>
-          {this.state.game.rules}
-        </Text>
-        <View style={{flex: 0.1}}/>
-        {global.creator && <PlayerList players={[]} style={{flex: 1}}></PlayerList>}
-        {advance}
-      </View>
+        <View style={[baseStyle.container, styles.container]}>
+          <View style={styles.spacer}/>
+          <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
+          <View style={styles.spacer}/>
+          <Text style={[baseStyle.title]}> Game Code: {global.code} </Text>
+          <View style={{height:hp("1%")}}/>
+          <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
+            Give players this code to let them join your game
+          </Text>
+          <View style={styles.spacer}/>
+          <Text style={[baseStyle.subTitle, styles.subTitle]}>Game Rules:</Text>
+          <ScrollView style = {{height:hp("8%")}}>
+            <Text style={baseStyle.infoText}>
+              {this.state.game.rules}
+            </Text>
+          </ScrollView>
+          <View style={styles.spacer}/>
+          {global.creator && <PlayerList players={[]} style={{flex: 5, justifyContent:"flex-start"}}></PlayerList>}
+          <View style={styles.spacer}/>
+          {advance}
+        </View>
       </LinearGradient>
     );
   }
 }
 
 var styles = StyleSheet.create({
-  title: {
-    fontSize: 50,
+
+  container:{
+    justifyContent: 'flex-start',
   },
-
-  subTitle: {
-    fontSize: 35,
-    color: 'white',
-    textDecorationLine: "underline"
+  spacer:{
+    height:hp("3%")
+  },
+  subTitle:{
+    fontSize:wp("8%")
   }
-
 });

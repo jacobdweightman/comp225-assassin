@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -26,13 +27,10 @@ export default class GameMenuRunning extends React.Component {
   async componentDidMount(){
     try {
       const response = await fetch(global.BASE_URL + "player_access/request_target", {
-        method: 'POST',
+        method: 'GET',
         headers: {
-          'Content-Type': "application/json",
-        },
-        body: JSON.stringify({
-          player_id: global.playerID,
-        }),
+          'Authorization': 'Bearer ' + global.accessToken,
+        }
       });
 
       json = await response.json();
@@ -44,7 +42,7 @@ export default class GameMenuRunning extends React.Component {
         this.setState({targetMessage: json.message})
       }
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
     this.setState({loading: false});
     return;
@@ -53,13 +51,10 @@ export default class GameMenuRunning extends React.Component {
   pollIsAlive = async() => {
     try {
         let response = await fetch(global.BASE_URL + "status_access/is_alive", {
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Content-Type': "application/json",
-          },
-          body: JSON.stringify({
-            player_id: global.playerID,
-          }),
+            'Authorization': 'Bearer ' + global.accessToken,
+          }
         });
 
         if(response.status === 200) {
@@ -76,13 +71,6 @@ export default class GameMenuRunning extends React.Component {
     }
   }
 
-  // Show or hide the text input for kill code
-  enterKillCode() {
-    this.setState(() => ({
-      theyGotGot: !this.state.theyGotGot
-    }));
-  }
-
   // Check the inputed kill code
   async verifyKillCode() {
     try {
@@ -90,25 +78,58 @@ export default class GameMenuRunning extends React.Component {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + global.accessToken,
         },
         body: JSON.stringify({
-          player_id: this.state.playerID,
           guessed_target_kill_code: this.state.killCode,
         }),
       });
 
       json = await response.json();
       if (response.status === 200) {
-        screen = json.win ? "win" : "gameRunning";
+        screen = json.win ? "win" : "congrats";
         this.advance(screen);
       } else {
-        Alert.alert("Psych! That's the wrong number!");
+        Alert.alert("That's not your target's kill code");
       }
 
     } catch (error) {
       console.log(error);
     }
   }
+
+  quitGame() {
+    Alert.alert(
+      'Are you sure you want to leave the game?',
+      null,
+      [
+        {text: 'Yes', onPress: this.removeFromGame.bind(this)},
+        {text: 'No', onPress: () => {}}
+      ]
+    );
+  }
+
+  async removeFromGame() {
+    try {
+      const response = await fetch(global.BASE_URL + "player_access/quit_game", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + global.accessToken,
+        }
+      });
+
+      if (response.status === 200) {
+        this.advance('home');
+      } else {
+        json = await response.json();
+        Alert.alert(json.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   // Navigates to either the win or gameRunning screen
   advance(screen) {
@@ -134,43 +155,55 @@ export default class GameMenuRunning extends React.Component {
       return <Expo.AppLoading />
     }
 
-    const vSpace = 50;
+
     var controls;
     if(this.state.theyGotGot) {
       controls = (
-        <View>
-        <TextInput
-            style={baseStyle.subTitle}
-            onChangeText={(c) => this.setState({killCode: c})}
-            placeholder={"Kill code"}
-            placeholderTextColor={"white"}
-            autoFocus={true}
-        />
-        <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
-          <Text style= {baseStyle.text}> Verify code </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {baseStyle.button} onPress= {this.enterKillCode.bind(this)}>
-          <Text style= {baseStyle.text}> Cancel </Text>
-        </TouchableOpacity>
+        <View style={[baseStyle.container, styles.container]}>
+          <TextInput
+              style={[baseStyle.inputText, styles.inputText]}
+              keyboardType={"number-pad"}
+              onChangeText={(killCode) => this.setState({killCode})}
+              placeholder={"Kill Code"}
+              placeholderTextColor={"#a9a9a9"}
+              autoFocus={true}
+              maxLength={4}
+          />
+          <View style={{height:hp("1%")}}></View>
+          <Text style={baseStyle.infoText}> Enter your target's kill code to confirm their assassination </Text>
+          <View style={styles.spacer} />{/*spacer*/}
+          <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
+            <Text style= {baseStyle.text}> Verify Kill Code </Text>
+          </TouchableOpacity>
+          <View style={{height:hp("1%")}}></View>
+          <TouchableOpacity style = {baseStyle.button} onPress= {() => this.setState({theyGotGot: !this.state.theyGotGot})}>
+            <Text style= {baseStyle.text}> Cancel </Text>
+          </TouchableOpacity>
         </View>
       );
     } else {
       controls = (
-      <TouchableOpacity style = {baseStyle.button} onPress={this.enterKillCode.bind(this)}>
-        <Text style= {baseStyle.text}> They got got </Text>
-      </TouchableOpacity>);
+      <View style={[baseStyle.container, styles.container]}>
+        <TouchableOpacity style = {baseStyle.button} onPress={() => this.setState({theyGotGot: !this.state.theyGotGot})}>
+          <Text style= {baseStyle.text}> Got Target </Text>
+        </TouchableOpacity>
+        <View style={{height:hp("1%")}}></View>
+        <TouchableOpacity style = {[baseStyle.button, {backgroundColor: '#990F0F'}]} onPress= {this.quitGame.bind(this)}>
+          <Text style= {baseStyle.text}> Quit Game </Text>
+        </TouchableOpacity>
+      </View>);
     }
 
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={[baseStyle.container, styles.container]}>
-        <Text style={[baseStyle.title, styles.title]}>{global.firstName}</Text>
-        <Text style= {baseStyle.subTitle}> {global.playersKillCode}</Text>
-        <View style={{height: vSpace}}></View>
+        <View style={[baseStyle.container, styles.container]}>
+        <View style={styles.spacer}></View>
+        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + global.playersKillCode}</Text>
+        <View style={styles.spacer}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
-        <View style={{height: vSpace}}></View>
+        <View style={styles.spacer}></View>
         {controls}
-      </View>
+        </View>
       </LinearGradient>
     );
   }
@@ -181,10 +214,16 @@ const styles = StyleSheet.create({
     justifyContent:"flex-start"
   },
 
-  title: {
-    fontSize: 40
+  subTitle:{
+    fontSize:wp("8%")
   },
-  subTitle: {
-    fontSize: 30
-  }
+
+  inputText:{
+    width: wp('50%'),
+    textAlign:'center',
+  },
+
+  spacer:{
+    height: hp("4%")
+  },
 });

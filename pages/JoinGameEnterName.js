@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient, SecureStore } from 'expo';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -25,11 +28,14 @@ export default class JoinGameEnterName extends React.Component {
 
 
   async submit() {
+    this.state.firstName= this.state.firstName.trim()
+    this.state.lastName= this.state.lastName.trim()
+
     if (this.state.firstName.length === 0) { // basic input validation
-      Alert.alert("Please enter your first name");
+      Alert.alert("Please enter your first name.","There must be a character other than space.");
     }
     else if (this.state.lastName.length === 0) {
-      Alert.alert("Please enter your last name");
+      Alert.alert("Please enter your last name.","There must be a character other than space.");
     }
     else {
       try {
@@ -49,41 +55,45 @@ export default class JoinGameEnterName extends React.Component {
           global.firstName = this.state.firstName;
           global.lastName = this.state.lastName;
           let json = await response.json();
-          global.playerID = json.player_id;
+          global.accessToken = json.access_token;
           global.playersKillCode = json.player_kill_code
-          this.setState({playerID: json.player_id})
+          this.setState({accessToken: json.access_token})
+
+          this.advance();
         } else {
-          alert("A network error occurred.");
-          console.log(response);
+          let json = await response.json();
+          alert(json.message);
         }
 
       } catch(error) {
         alert("An error occured while creating your game.");
         console.log(error);
       }
-
-
-      params = {
-        game: this.state.game,
-        player: this.state.player,
-      }
-      params.player.firstName = this.state.firstName;
-      params.player.lastName = this.state.lastName;
-      params.player.playerID = this.state.playerID;
-
-      console.log(params);
-
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'gameWaiting',
-            params: params
-          })
-        ],
-      });
-      this.props.navigation.dispatch(resetAction);
     }
+  }
+
+  advance() {
+    params = {
+      game: this.state.game,
+      player: this.state.player,
+    };
+
+    params.player.firstName = this.state.firstName;
+    params.player.lastName = this.state.lastName;
+    params.player.playerID = this.state.playerID;
+
+    console.log(params);
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'gameWaiting',
+          params: params
+        })
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   storeState() {
@@ -121,36 +131,37 @@ export default class JoinGameEnterName extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={[baseStyle.container, styles.container]}>
-          <Text style={[baseStyle.title, styles.title]}>{this.state.game.name}</Text>
-          <Text style={baseStyle.subTitle}>Game Code: #{this.state.game.code}</Text>
-          <View style={{flex: 0.07}} />{/*spacer*/}
-          <Text style={[baseStyle.subTitle, {paddingRight: "40%"}]}>Enter your name!</Text>
-          <Text style={[baseStyle.infoText, {fontSize:17}, {paddingLeft: '4%'}]}>
-            This should be your real name, so that people in the game know who you
-            are.
-          </Text>
-          <View style={{flex: 0.07}} />{/*spacer*/}
-          <TextInput
-              style={[baseStyle.inputText, styles.inputText]}
-              onChangeText={(firstName) => this.setState({firstName})}
-              placeholder={"First name"}
-              placeholderTextColor={"#a9a9a9"}
-              autoFocus={true}
-          />
-          <View style={{flex: 0.06}} />{/*spacer*/}
-          <TextInput
-              style={[baseStyle.inputText,styles.inputText]}
-              onChangeText={(lastName) => this.setState({lastName})}
-              placeholder={"Last name"}
-              placeholderTextColor={"#a9a9a9"}
-          />
-          <View style={{flex: 0.10}} />{/*spacer*/}
-           <TouchableOpacity style={baseStyle.button} onPress={this.submit.bind(this)}>
-          <Text style={baseStyle.text}> submit </Text>
-        </TouchableOpacity>
-        <View style={{flex: 2}} />{/*spacer*/}
-      </View>
+        <View style={[baseStyle.container, styles.container]}>
+            <Text style={[baseStyle.subTitle]}>{this.state.game.name}</Text>
+            <View style={{flex: 0.07}} />{/*spacer*/}
+            <Text style={[baseStyle.title, styles.title]}>Enter your name!</Text>
+            <Text style={[baseStyle.infoText, {fontSize:20, textAlign: 'center'}, {paddingLeft: '4%'}]}>
+              This should be your real name, so that people in the game know who you
+              are.
+            </Text>
+            <View style={{flex: 0.07}} />{/*spacer*/}
+            <TextInput
+                style={[baseStyle.inputText]}
+                onChangeText={(firstName) => this.setState({firstName})}
+                placeholder={"First name"}
+                placeholderTextColor={"#a9a9a9"}
+                autoFocus={true}
+                maxLength={30}
+            />
+            <View style={{flex: 0.06}} />{/*spacer*/}
+            <TextInput
+                style={[baseStyle.inputText]}
+                onChangeText={(lastName) => this.setState({lastName})}
+                placeholder={"Last name"}
+                placeholderTextColor={"#a9a9a9"}
+                maxLength={30}
+            />
+            <View style={{flex: 0.10}} />{/*spacer*/}
+            <TouchableOpacity style={baseStyle.button} onPress={this.submit.bind(this)}>
+              <Text style={baseStyle.text}> Submit </Text>
+            </TouchableOpacity>
+            <View style={{flex: 2}} />{/*spacer*/}
+        </View>
       </LinearGradient>
     );
   }
@@ -161,14 +172,13 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     top:"3%"
   },
-  title: {
-    fontSize: 50
+
+  inputText:{
+    flex:.25
   },
-   subTitle:{
-    color:'black'
-   },
-   inputText:{
-    flex: 0.35,
-    fontSize: 23
-   }
+
+
+  title:{
+    fontSize:wp("12%")
+  }
 });

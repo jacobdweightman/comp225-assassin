@@ -9,6 +9,7 @@ import GameMenuWaiting from './pages/GameMenuWaiting';
 import GameMenuRunning from './pages/GameMenuRunning';
 import DeathYouLose from './pages/DeathYouLose';
 import Victory from './pages/Victory';
+import CongratsGotYourTarget from './pages/CongratsGotYourTarget';
 
 const Navigator = createStackNavigator(
 { // Navigator for pages
@@ -20,6 +21,7 @@ const Navigator = createStackNavigator(
   gameRunning: {screen: GameMenuRunning},
   loss: {screen: DeathYouLose},
   win: {screen: Victory},
+  congrats: {screen:CongratsGotYourTarget},
 }, {
   headerMode: Platform.OS === 'ios' ? 'float' : 'none',
   initialRouteName: 'home'

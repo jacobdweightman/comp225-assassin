@@ -1,5 +1,7 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View, StyleSheet } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import global from '../Global';
@@ -13,17 +15,19 @@ export default class PlayerList extends React.Component {
     };
 
     this.refreshList();
+    this.interval = setInterval(this.refreshList, 5000);
   }
 
-  refreshList() {
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  refreshList = () => {
     fetch(global.BASE_URL + "creator_access/player_list", {
-      method: 'POST',
+      method: 'GET',
       headers: {
-        'Content-Type': "application/json",
-      },
-      body: JSON.stringify({
-        player_id: global.playerID,
-      }),
+        'Authorization': 'Bearer ' + global.accessToken,
+      }
     })
     .then((response) => response.json())
     .then((json) => {
@@ -44,7 +48,7 @@ export default class PlayerList extends React.Component {
   render() {
     return (
       <View style={this.props.style}>
-        <Text style={baseStyle.subTitle}>Player List:</Text>
+        <Text style={[baseStyle.subTitle, styles.subTitle]}>Player List:</Text>
         <FlatList
           numColumns={1}
           horizontal={false}
@@ -56,3 +60,9 @@ export default class PlayerList extends React.Component {
     );
   }
 }
+
+var styles = StyleSheet.create({
+  subTitle:{
+    fontSize:wp("8%")
+  }
+});

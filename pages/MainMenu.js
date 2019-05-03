@@ -1,10 +1,17 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+<<<<<<< HEAD
 import { AppLoading, Font, LinearGradient, SecureStore } from 'expo';
+=======
+import { LinearGradient } from 'expo';
+import {Font, AppLoading} from 'expo';
+import { Dimensions } from 'react-native';
+>>>>>>> origin/master
 
 import Palette from '../UI/defaultStyles/Palette';
 import font from '../assets/fonts/IcelandReg.ttf';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class MainMenu extends React.Component {
   constructor(props) {
@@ -81,7 +88,7 @@ export default class MainMenu extends React.Component {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
-          <Text style={[baseStyle.title, styles.title]}>Assassin </Text>
+          <Text style={[baseStyle.title, styles.title]}> Assassin </Text>
           <TouchableOpacity style = {baseStyle.button} onPress={()=>navigate("join1")}>
             <Text style = {baseStyle.text}> Join Game </Text>
           </TouchableOpacity>
@@ -97,7 +104,7 @@ export default class MainMenu extends React.Component {
 
 var styles = StyleSheet.create({
   title: {
-    flex: 0.30,
-    fontSize: 100
+    fontSize: wp("25%"),
+    flex: 0.30
   },
 });

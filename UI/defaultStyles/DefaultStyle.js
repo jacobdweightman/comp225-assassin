@@ -1,72 +1,86 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+//Guideline sizes are based on standard ~5" screen mobile device
+const guidelineBaseWidth = 350;
+const guidelineBaseHeight = 680;
+const scale = size => screenWidth / guidelineBaseWidth * size;
+const verticalScale = size => screenHeight / guidelineBaseHeight * size;
+const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
+
+export {scale, verticalScale, moderateScale};
+
 
 
 export default StyleSheet.create({
- container : {
-  flex: 1, 
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding:20,
+  container : {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:wp("5%"),
   },
- title: {
-   fontFamily: 'font',
-   color: "white",
+  title: {
+    fontFamily: 'font',
+    color: "white",
+    alignContent: 'center',
+    alignSelf : 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: wp("15%") //b/f 100
   },
   inputLabel: {
-    fontSize: 35,
+    fontSize: wp("10%"),
     color: "white",
     fontFamily: 'font'
   },
 
   inputText: {
-    fontSize: 20,
-    width: "96%",
-    paddingHorizontal: 12,
-    marginTop: 5,
+    fontSize: wp("6%"),
+    width: wp("90%"),
+    paddingHorizontal: wp("5%"),
+    paddingVertical: wp("2%"),
     color: 'black',
     fontFamily: 'font',
     borderColor: '#778899',
     backgroundColor: 'slategray',
     borderStyle: 'solid',
-    borderRadius: 25,
-    borderWidth: 1,
+    borderRadius: wp("5%"),
+    borderWidth: wp(".5%"),
     alignItems: 'center',
-    flex: 0.13
+    flex: 0.13,
   },
     infoText: {
-    fontSize: 23,
-    color: "white", 
+    fontSize: wp("6%"),
+    color: "white",
     fontFamily: 'font'
   },
     subTitle: {
-    fontSize: 28,
-    color: "white", 
-    fontFamily: 'font'
+    fontSize: wp("10%"),
+    color: "white",
+    fontFamily: 'font',
+    textAlign: 'center',
   },
   listItem: {
     fontFamily: 'font',
-    fontSize: 23,
-    color: "#ddd"
+    fontSize: wp("6%"),
+    color: "#ddd",
+    textAlign: 'center',
   },
 
    button:{
-    width: 250, //Has width whereas the other botton type does not 
-    height:50,
+    width: wp("65%"), //Has width whereas the other button type does not
+    height: hp("8%"),
     backgroundColor: 'slategray',
-    borderRadius:50,
+    borderRadius:wp("8%"),
     alignItems: 'center',
     justifyContent: 'center'
   },
-   widebutton:{
-    height:50,
-    backgroundColor: 'slategray',
-    borderRadius:50,
-    justifyContent: 'center'
-  },
   text:{
-    color:'white', 
-    fontSize:24,
+    color:'white',
+    fontSize: wp("7%"),
     textAlign: 'center',
     fontFamily: 'font'
   }

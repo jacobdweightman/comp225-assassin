@@ -38,7 +38,7 @@ export default class JoinGameEnterCode extends React.Component {
         return false;
       }
     } catch (e) {
-      console.error(e);
+      console.log(e);
       return false;
     }
   }
@@ -64,25 +64,28 @@ export default class JoinGameEnterCode extends React.Component {
   render() {
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
-      <View style={[baseStyle.container]}>
-        <View style={{flex: 1}} />{/*spacer*/}
-          <Text style={[baseStyle.inputLabel, {fontSize: 45}]}>Enter game code:</Text>
+        <View style={[baseStyle.container]}>
+          <View style={{flex: 1}} />{/*spacer*/}
+          <Text style={[baseStyle.inputLabel, {fontSize: 45, textAlign:'center'}]}>Enter game code:</Text>
           <View style={{flex: .2}} />{/*spacer*/}
           <TextInput
-              style={[baseStyle.inputText, styles.inputText]}
-              keyboardType={"number-pad"}
-              onChangeText={(gameCode) => this.setState({gameCode})}
-              placeholder={"Game code"}
-              autoFocus={true}
-              maxLength={5}
+            style={[baseStyle.inputText, styles.inputText]}
+            keyboardType={"number-pad"}
+            onChangeText={(gameCode) => this.setState({gameCode})}
+            placeholder={"Game code"}
+            maxLength={4}
           />
+          <View style={{flex: .2}} />{/*spacer*/}
+          <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
+            To join a game, ask the game creator for their game code
+          </Text>
           <View style={{flex: 1}} />{/*spacer*/}
           <TouchableOpacity style ={baseStyle.button} onPress={this.next.bind(this)}>
             <Text style={baseStyle.text}> Join Game </Text>
           </TouchableOpacity>
-        <View style={{flex: 3}} />{/*spacer*/}
-      </View>
-       </LinearGradient>
+          <View style={{flex: 3}} />{/*spacer*/}
+        </View>
+      </LinearGradient>
     );
   }
 }
@@ -90,8 +93,8 @@ export default class JoinGameEnterCode extends React.Component {
 var styles = StyleSheet.create({
   inputText:{
     flex: 0.50,
-    width: '35%',
+    width: '50%',
     alignItems: 'center',
-    paddingLeft: '6%'
+    textAlign:'center',
   }
 });
