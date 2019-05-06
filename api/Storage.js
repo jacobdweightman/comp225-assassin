@@ -26,6 +26,10 @@ export default class Storage {
     SecureStore.setItemAsync('state', JSON.stringify(state));
   }
 
+  static async clearState() {
+    SecureStore.deleteItemAsync('state');
+  }
+
   static async readPreviousState() {
     return SecureStore.getItemAsync('state')
     .then((state) => {
