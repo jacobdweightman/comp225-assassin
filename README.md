@@ -1,7 +1,7 @@
 # COMP225 Assassin
 
-A project by:
-* Analeidi Barrera
-* Ellen Graham
-* Corey Pieper
-* Jacob Weightman
+__A project by:__
+* _Analeidi Barrera_
+* _Ellen Graham_
+* _Corey Pieper_
+* _Jacob Weightman_
