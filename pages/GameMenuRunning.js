@@ -21,6 +21,18 @@ export default class GameMenuRunning extends React.Component {
     };
 
     this.interval = setInterval(this.pollIsAlive, 3000);
+
+    fetch(global.BASE_URL + "player_access/request_kill_code", {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + global.accessToken,
+      }
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      this.setState({killCode: json.player_kill_code});
+    });
   }
 
   // Get the player's target before screen loads
@@ -198,7 +210,7 @@ export default class GameMenuRunning extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
         <View style={styles.spacer}></View>
-        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + global.playersKillCode}</Text>
+        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + this.state.killCode}</Text>
         <View style={styles.spacer}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
         <View style={styles.spacer}></View>

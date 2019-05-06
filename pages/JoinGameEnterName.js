@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import { LinearGradient, SecureStore } from 'expo';
+import { LinearGradient } from 'expo';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
@@ -10,6 +10,7 @@ import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 
 import global from '../Global';
+import Storage from '../api/Storage';
 
 // TODO: On submit, server has to check if name is duplicate, if not add player and
 // send information for the game waiting / running page
@@ -22,7 +23,7 @@ export default class JoinGameEnterName extends React.Component {
       game: this.props.navigation.getParam("game"),
       firstName: "",
       lastName: "",
-      playerID: undefined,
+      accessToken: undefined,
     }
   }
 
@@ -80,9 +81,10 @@ export default class JoinGameEnterName extends React.Component {
 
     params.player.firstName = this.state.firstName;
     params.player.lastName = this.state.lastName;
-    params.player.playerID = this.state.playerID;
+    params.player.accessToken = this.state.accessToken;
 
     console.log(params);
+    Storage.storeState(params);
 
     const resetAction = StackActions.reset({
       index: 0,
@@ -94,38 +96,6 @@ export default class JoinGameEnterName extends React.Component {
       ],
     });
     this.props.navigation.dispatch(resetAction);
-  }
-
-  storeState() {
-    /* Write all of the registration data for this player in this game into
-     * permanent storage. This data is stored as serialized JSON of the
-     * following objects:
-     *
-     * game: {
-     *   code: ...,
-     *   name: ...,
-     *   rules: ...
-     * }
-     *
-     * player: {
-     *   creator: ...,
-     *   firstName: ...,
-     *   lastName: ...,
-     *   playerID: ...,
-     * }
-     */
-    SecureStore.setItemAsync('game', JSON.stringify(this.state.game))
-    .then(() => {console.log("Stored game state")})
-    .catch(() => {console.log("Failed to store game state")});
-
-    let player = this.state.player;
-    player.firstName = this.state.firstName;
-    player.lastName = this.state.lastName;
-    player.playerID = this.state.playerID;
-
-    SecureStore.setItemAsync('player', JSON.stringify(player))
-    .then(() => {console.log("Stored game state")})
-    .catch(() => {console.log("Failed to store game state")});
   }
 
   render() {

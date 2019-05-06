@@ -1,17 +1,17 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
-<<<<<<< HEAD
-import { AppLoading, Font, LinearGradient, SecureStore } from 'expo';
-=======
 import { LinearGradient } from 'expo';
 import {Font, AppLoading} from 'expo';
 import { Dimensions } from 'react-native';
->>>>>>> origin/master
+import { StackActions, NavigationActions } from 'react-navigation';
 
 import Palette from '../UI/defaultStyles/Palette';
 import font from '../assets/fonts/IcelandReg.ttf';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+import Storage from '../api/Storage';
+import global from '../Global';
 
 export default class MainMenu extends React.Component {
   constructor(props) {
@@ -20,60 +20,32 @@ export default class MainMenu extends React.Component {
     this.state = {
       fontLoading: false,
     }
-
-    this.loadState();
   }
 
   async componentWillMount(){
     await Expo.Font.loadAsync({
       font,
+    })
+    .then(() => {
+      Storage.readPreviousState()
+      .then((state) => {
+        if(state.game.code) {
+          this.setState({debug: JSON.stringify(state)});
+          global.accessToken = state.player.accessToken;
+          this.jumpToGame(state);
+        }
+      });
     });
     this.setState({fontLoading:true});
   }
 
-  async loadState() {
-    /* Load registration data from persistent storage, and navigate to the
-     * game menu if the player is in a game already. */
-    let player, game; // undefined, not null
-
-    SecureStore.getItemAsync('player')
-    .then((storedPlayer) => {
-      player = JSON.parse(storedPlayer);
-
-      // if player exists in the key store
-      if(player !== null) {
-        // if game exists in the key store and has been loaded
-        if(game !== undefined && game !== null) {
-          this.jumpToGame(player, game);
-      }
-    });
-
-    SecureStore.getItemAsync('game')
-    .then((storedGame) => {
-      game = JSON.parse(storedGame);
-
-      // if game exists in the key store
-      if(game !== null) {
-        // if player exists in the key store and has been loaded
-        if(player !== undefined && player !== null) {
-          this.jumpToGame(player, game);
-        }
-      }
-    });
-  }
-
-  jumpToGame(player, game) {
-    let param = {
-      player: player,
-      game: game,
-    }
-
+  jumpToGame(state) {
     const resetAction = StackActions.reset({
       index: 0,
       actions: [
         NavigationActions.navigate({
           routeName: 'gameWaiting',
-          params: params
+          params: state
         })
       ],
     });

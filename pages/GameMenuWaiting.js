@@ -22,7 +22,6 @@ export default class GameMenuWaiting extends React.Component {
     if(!this.state.player.creator) {
       this.interval = setInterval(this.pollGameStart, 3000);
     }
-
   }
 
   pollGameStart = async() => {
@@ -33,7 +32,7 @@ export default class GameMenuWaiting extends React.Component {
             'Content-Type': "application/json",
           },
           body: JSON.stringify({
-            game_code: global.code,
+            game_code: this.state.game.code,
           }),
         });
 
@@ -105,7 +104,7 @@ export default class GameMenuWaiting extends React.Component {
 
     var advance;
 
-    if (global.creator) {
+    if (this.state.player.creator) {
       advance = (
         <TouchableOpacity style = {baseStyle.button} onPress={this.startHuntDialog}>
           <Text style = {baseStyle.text}> Start Round </Text>
@@ -125,7 +124,7 @@ export default class GameMenuWaiting extends React.Component {
           <View style={styles.spacer}/>
           <Text style={baseStyle.subTitle}>{this.state.game.name}</Text>
           <View style={styles.spacer}/>
-          <Text style={[baseStyle.title]}> Game Code: {global.code} </Text>
+          <Text style={[baseStyle.title]}> Game Code: {this.state.game.code} </Text>
           <View style={{height:hp("1%")}}/>
           <Text style={[baseStyle.infoText, {textAlign:'center'}]}>
             Give players this code to let them join your game
@@ -138,7 +137,7 @@ export default class GameMenuWaiting extends React.Component {
             </Text>
           </ScrollView>
           <View style={styles.spacer}/>
-          {global.creator && <PlayerList players={[]} style={{flex: 5, justifyContent:"flex-start"}}></PlayerList>}
+          {this.state.player.creator && <PlayerList players={[]} style={{flex: 5, justifyContent:"flex-start"}}></PlayerList>}
           <View style={styles.spacer}/>
           {advance}
         </View>
