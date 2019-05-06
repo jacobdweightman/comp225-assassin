@@ -5,22 +5,25 @@ import { StackActions, NavigationActions } from 'react-navigation';
 
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
-import global from '../Global';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class Victory extends React.Component {
-  advance() {
-    // Do not continue to poll on the next screen!
-    clearInterval(this.interval);
+  constructor(props) {
+    super(props);
 
+    console.log(this.props.navigation);
+    this.state = {
+      player: this.props.navigation.getParam("player"),
+    };
+  }
+
+  advance() {
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({
         routeName: "gameRunning",
         params: {
-          player: {
-            playerID: this.props.navigation.getParam("player").playerID,
-          },
+          player: this.state.player,
         },
       })],
     });
@@ -31,7 +34,7 @@ render() {
     return (
       <LinearGradient colors= {Palette.gotAnother} style ={Palette.place}>
       <View style={[baseStyle.container, {justifyContent:'flex-start'}, {paddingTop :wp("40%")}]}>
-        <Text style= {[baseStyle.title, {color: 'white'}]}> {global.firstName}, you got someone!</Text>
+        <Text style= {[baseStyle.title, {color: 'white'}]}> {this.state.player.firstName}, you got someone!</Text>
         <Text style={{flex: 0.50}}> </Text>
         <TouchableOpacity style = {baseStyle.button} onPress={this.advance.bind(this)}>
           <Text style = {baseStyle.text}> Get Your Next Target </Text>
@@ -41,4 +44,3 @@ render() {
     );
   }
 }
-

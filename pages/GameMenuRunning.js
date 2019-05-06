@@ -17,7 +17,7 @@ export default class GameMenuRunning extends React.Component {
       theyGotGot: false,
       loading: true,
       targetMessage: undefined,
-      playerID: this.props.navigation.getParam("player").playerID,
+      player: this.props.navigation.getParam("player"),
       killCode: null,
     };
 
@@ -155,9 +155,7 @@ export default class GameMenuRunning extends React.Component {
       actions: [NavigationActions.navigate({
         routeName: screen,
         params: {
-          player: {
-            playerID: this.state.playerID
-          },
+          player: this.state.player,
         },
       })],
     });
