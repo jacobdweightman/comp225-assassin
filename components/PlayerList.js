@@ -29,10 +29,15 @@ export default class PlayerList extends React.Component {
         'Authorization': 'Bearer ' + global.accessToken,
       }
     })
-    .then((response) => response.json())
+    .then((response) => {
+      if(response.status === 200) {
+        return response.json();
+      } else {
+        return {players: []};
+      }
+    })
     .then((json) => {
       let players = [];
-
       for(player of json.players) {
         players.push({
           first: player.player_first_name,
