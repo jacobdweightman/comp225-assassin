@@ -54,12 +54,6 @@ export default class CreateGame extends React.Component {
 
       if(response.status === 200) {
         let json = await response.json();
-        global.creator = 1;
-        global.code = json.game_code;
-        global.gameName = this.state.gameName;
-        global.gameRules = this.state.gameRules;
-
-        console.log("pending <- false");
 
         return this.props.navigation.navigate("join2", {
           player: {

@@ -53,11 +53,8 @@ export default class JoinGameEnterName extends React.Component {
           }),
         });
         if(response.status === 200) {
-          global.firstName = this.state.firstName;
-          global.lastName = this.state.lastName;
           let json = await response.json();
           global.accessToken = json.access_token;
-          global.playersKillCode = json.player_kill_code
           this.setState({accessToken: json.access_token})
 
           this.advance();

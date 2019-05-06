@@ -45,8 +45,6 @@ export default class JoinGameEnterCode extends React.Component {
 
   async next() {
     if (await this.gameExists() === true) {
-      global.creator = false;
-      global.code = this.state.gameCode;
       const {navigate} = this.props.navigation;
       return navigate("join2", {
         player: {

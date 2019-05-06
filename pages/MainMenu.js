@@ -16,27 +16,6 @@ import global from '../Global';
 export default class MainMenu extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      fontLoading: false,
-    }
-  }
-
-  async componentWillMount(){
-    await Expo.Font.loadAsync({
-      font,
-    })
-    .then(() => {
-      Storage.readPreviousState()
-      .then((state) => {
-        if(state !== null && state.game.code) {
-          this.setState({debug: JSON.stringify(state)});
-          global.accessToken = state.player.accessToken;
-          this.jumpToGame(state);
-        }
-      });
-    });
-    this.setState({fontLoading:true});
   }
 
   jumpToGame(state) {
@@ -54,9 +33,7 @@ export default class MainMenu extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
-    if (!this.state.fontLoading) {
-      return <Expo.AppLoading />
-    }
+    
     return (
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
       <View style={baseStyle.container}>
