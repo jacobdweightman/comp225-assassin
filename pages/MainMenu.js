@@ -29,7 +29,7 @@ export default class MainMenu extends React.Component {
     .then(() => {
       Storage.readPreviousState()
       .then((state) => {
-        if(state.game.code) {
+        if(state !== null && state.game.code) {
           this.setState({debug: JSON.stringify(state)});
           global.accessToken = state.player.accessToken;
           this.jumpToGame(state);
