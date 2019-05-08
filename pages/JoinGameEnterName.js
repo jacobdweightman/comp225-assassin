@@ -4,13 +4,10 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import { LinearGradient } from 'expo';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-
-
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 
 import global from '../Global';
-import Storage from '../api/Storage';
 
 // TODO: On submit, server has to check if name is duplicate, if not add player and
 // send information for the game waiting / running page
@@ -78,10 +75,8 @@ export default class JoinGameEnterName extends React.Component {
 
     params.player.firstName = this.state.firstName;
     params.player.lastName = this.state.lastName;
-    params.player.accessToken = this.state.accessToken;
 
-    console.log(params);
-    Storage.storeState(params);
+    global.storeAccessToken(this.state.accessToken);
 
     const resetAction = StackActions.reset({
       index: 0,

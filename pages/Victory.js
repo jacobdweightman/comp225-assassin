@@ -7,7 +7,6 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 import global from '../Global';
-import Storage from '../api/Storage';
 
 export default class Victory extends React.Component {
   constructor(props) {
@@ -27,7 +26,8 @@ export default class Victory extends React.Component {
       });
 
       if (response.status === 200) {
-        Storage.clearState();
+        global.clearAccessToken();
+        
         const resetAction = StackActions.reset({
           index: 0,
           actions: [NavigationActions.navigate({

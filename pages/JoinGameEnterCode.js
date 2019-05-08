@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity,StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
@@ -31,7 +31,7 @@ export default class JoinGameEnterCode extends React.Component {
 
       json = await response.json();
       if (response.status === 200) {
-        this.setState({gameName: json.game_name, gameRules: json.game_rules, loading: false});
+        this.setState({gameName: json.game_name, gameRules: json.game_rules});
         return true;
       } else {
         Alert.alert(json.message);

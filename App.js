@@ -13,7 +13,7 @@ import DeathYouLose from './pages/DeathYouLose';
 import Victory from './pages/Victory';
 import CongratsGotYourTarget from './pages/CongratsGotYourTarget';
 
-import Storage from './api/Storage';
+import global from './Global';
 
 const Navigator = createStackNavigator(
 { // Navigator for pages
@@ -43,6 +43,9 @@ export default class App extends React.Component {
   }
 
   async componentWillMount(){
+    // global.accessToken must be loaded before any API calls!
+    await global.loadAccessToken();
+
     await Expo.Font.loadAsync({
       font,
     });

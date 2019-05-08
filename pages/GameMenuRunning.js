@@ -7,7 +7,6 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import baseStyle from '../UI/defaultStyles/DefaultStyle';
 import Palette from '../UI/defaultStyles/Palette';
 import global from '../Global';
-import Stroage from '../api/Storage';
 
 export default class GameMenuRunning extends React.Component {
   constructor(props) {
@@ -132,7 +131,8 @@ export default class GameMenuRunning extends React.Component {
       });
 
       if (response.status === 200) {
-        Storage.clearState();
+        global.clearAccessToken();
+        
         this.advance('home');
       } else {
         json = await response.json();

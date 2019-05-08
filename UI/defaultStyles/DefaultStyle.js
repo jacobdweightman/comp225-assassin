@@ -1,19 +1,19 @@
-import React from 'react';
 import {StyleSheet} from 'react-native';
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
+
 //Guideline sizes are based on standard ~5" screen mobile device
 const guidelineBaseWidth = 350;
 const guidelineBaseHeight = 680;
+
 const scale = size => screenWidth / guidelineBaseWidth * size;
 const verticalScale = size => screenHeight / guidelineBaseHeight * size;
 const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
 
 export {scale, verticalScale, moderateScale};
-
-
 
 export default StyleSheet.create({
   container : {
