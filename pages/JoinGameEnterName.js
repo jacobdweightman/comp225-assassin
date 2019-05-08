@@ -20,7 +20,6 @@ export default class JoinGameEnterName extends React.Component {
       game: this.props.navigation.getParam("game"),
       firstName: "",
       lastName: "",
-      accessToken: undefined,
     }
   }
 
@@ -51,10 +50,8 @@ export default class JoinGameEnterName extends React.Component {
         });
         if(response.status === 200) {
           let json = await response.json();
-          global.accessToken = json.access_token;
-          this.setState({accessToken: json.access_token})
-
-          this.advance();
+          global.storeAccessToken(json.access_token);
+          this.advance(json.player_kill_code);
         } else {
           let json = await response.json();
           alert(json.message);
@@ -67,7 +64,7 @@ export default class JoinGameEnterName extends React.Component {
     }
   }
 
-  advance() {
+  advance(killCode) {
     params = {
       game: this.state.game,
       player: this.state.player,
@@ -75,8 +72,7 @@ export default class JoinGameEnterName extends React.Component {
 
     params.player.firstName = this.state.firstName;
     params.player.lastName = this.state.lastName;
-
-    global.storeAccessToken(this.state.accessToken);
+    params.player.killCode = killCode;
 
     const resetAction = StackActions.reset({
       index: 0,

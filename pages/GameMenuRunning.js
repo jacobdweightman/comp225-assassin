@@ -17,30 +17,11 @@ export default class GameMenuRunning extends React.Component {
       loading: true,
       targetMessage: undefined,
       player: this.props.navigation.getParam("player"),
-      killCode: null,
+      enteredKillCode: undefined,
     };
 
     this.interval = setInterval(this.pollIsAlive, 3000);
-
-    fetch(global.BASE_URL + "player_access/request_kill_code", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + global.accessToken,
-      }
-    })
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-
-      // if JWT is corrupted/lost/invalid, exit the game and notify the user
-      if(json.error_id === 12) {
-        global.clearAccessToken();
-        Alert.alert("An error has occurred. You have been removed from your game.");
-        this.advance("home");
-      }
-
-      this.setState({killCode: json.player_kill_code});
-    });
+    this.pollIsAlive(); // poll once immediately in case player died while app was closed
   }
 
   // Get the player's target before screen loads
@@ -57,8 +38,12 @@ export default class GameMenuRunning extends React.Component {
       if (response.status === 200) {
         const target = json.target_first_name + " " + json.target_last_name;
         this.setState({targetMessage: "You are hunting " + target})
-      }
-      else {
+      } else if(response.status === 422) {
+        // JWT is corrupted/lost
+        global.clearAccessToken();
+        Alert.alert("An error has occurred. You have been removed from your game.");
+        this.advance("home");
+      } else {
         this.setState({targetMessage: json.message})
       }
     } catch (e) {
@@ -101,7 +86,7 @@ export default class GameMenuRunning extends React.Component {
           'Authorization': 'Bearer ' + global.accessToken,
         },
         body: JSON.stringify({
-          guessed_target_kill_code: this.state.killCode,
+          guessed_target_kill_code: this.state.enteredKillCode,
         }),
       });
 
@@ -138,9 +123,8 @@ export default class GameMenuRunning extends React.Component {
         }
       });
 
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 500) {
         global.clearAccessToken();
-
         this.advance('home');
       } else {
         json = await response.json();
@@ -183,7 +167,7 @@ export default class GameMenuRunning extends React.Component {
           <TextInput
               style={[baseStyle.inputText, styles.inputText]}
               keyboardType={"number-pad"}
-              onChangeText={(killCode) => this.setState({killCode})}
+              onChangeText={(enteredKillCode) => this.setState({enteredKillCode})}
               placeholder={"Kill Code"}
               placeholderTextColor={"#a9a9a9"}
               autoFocus={true}
@@ -218,7 +202,7 @@ export default class GameMenuRunning extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
         <View style={styles.spacer}></View>
-        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + this.state.killCode}</Text>
+        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + this.state.player.killCode}</Text>
         <View style={styles.spacer}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
         <View style={styles.spacer}></View>

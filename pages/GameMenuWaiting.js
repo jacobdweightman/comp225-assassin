@@ -19,6 +19,11 @@ export default class GameMenuWaiting extends React.Component {
       game: this.props.navigation.getParam("game"),
     }
 
+    // if access token is gone, exit the game
+    if(global.accessToken === null) {
+      this.advance('home');
+    }
+
     if(!this.state.player.creator) {
       this.interval = setInterval(this.pollGameStart, 3000);
     }
@@ -123,6 +128,7 @@ export default class GameMenuWaiting extends React.Component {
         global.clearAccessToken();
         this.advance('home');
       } else {
+        console.log(response);
         json = await response.json();
         Alert.alert(json.message);
       }
