@@ -120,6 +120,7 @@ export default class GameMenuWaiting extends React.Component {
       });
 
       if (response.status === 200) {
+        global.clearAccessToken();
         this.advance('home');
       } else {
         json = await response.json();
