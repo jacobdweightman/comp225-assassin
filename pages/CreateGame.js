@@ -89,14 +89,18 @@ export default class CreateGame extends React.Component {
   }
 
   onBackPress = () =>{
-    Alert.alert(
-      'Your information will not be saved!',
-      'Do you still wish to continue?',
-      [
-        {text: 'Yes', onPress: () => this.props.navigation.goBack(null)},
-        {text: 'No', onPress: () => {}}
-      ]
-    );
+    if(this.state.gameName !== "" || this.state.gameRules !== "") {
+      Alert.alert(
+        'Your information will not be saved!',
+        'Do you still wish to continue?',
+        [
+          {text: 'Yes', onPress: () => this.props.navigation.goBack(null)},
+          {text: 'No', onPress: () => {}}
+        ]
+      );
+    } else {
+      this.props.navigation.goBack(null);
+    }
     return true;
   }
 
