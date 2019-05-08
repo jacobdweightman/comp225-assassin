@@ -79,7 +79,7 @@ export default class GameMenuRunning extends React.Component {
 
         if(response.status === 200) {
           json = await response.json();
-          if(json.is_alive === 0) {
+          if(json.is_alive === false) {
             this.advance("loss");
           }
         } else {

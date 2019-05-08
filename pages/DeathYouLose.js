@@ -49,7 +49,7 @@ export default class DeathYouLose extends React.Component {
     return (
       <LinearGradient colors= {Palette.deathColors} style ={Palette.place}>
       <View style={baseStyle.container}>
-        <Text style= {[baseStyle.title, styles.title]}> You Got Got!</Text>
+        <Text style= {[baseStyle.title, styles.title]}>You Lost</Text>
         <View style={{height:hp("1%")}}></View>
         <View style={{flex:0.3}}>
           <TouchableOpacity style = {[baseStyle.button, styles.button]} onPress={this.goingHome.bind(this)}>
