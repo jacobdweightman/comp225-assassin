@@ -59,7 +59,7 @@ export default class PlayerList extends React.Component {
           horizontal={false}
           data={this.state.players}
           renderItem={({item}) => <Text style={baseStyle.listItem}>{item.last},&#9;&#9;{item.first}</Text>}
-          keyExtractor={(item,index)=>item.last}
+          keyExtractor={(item,index) => "item-" + index}
         />
       </View>
     );
