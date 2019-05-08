@@ -9,7 +9,7 @@ class Global {
     }
 
     async storeAccessToken(token) {
-      this.accessToken = accessToken;
+      this.accessToken = token;
       await SecureStore.setItemAsync('accessToken', token);
     }
 
@@ -17,7 +17,6 @@ class Global {
     async loadAccessToken() {
       await SecureStore.getItemAsync('accessToken')
       .then((accessToken) => {
-        console.log("token REstored!");
         this.accessToken = accessToken;
       });
     }

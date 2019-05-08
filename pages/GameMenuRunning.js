@@ -31,6 +31,14 @@ export default class GameMenuRunning extends React.Component {
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
+
+      // if JWT is corrupted/lost/invalid, exit the game and notify the user
+      if(json.error_id === 12) {
+        global.clearAccessToken();
+        Alert.alert("An error has occurred. You have been removed from your game.");
+        this.advance("home");
+      }
+
       this.setState({killCode: json.player_kill_code});
     });
   }
@@ -132,7 +140,7 @@ export default class GameMenuRunning extends React.Component {
 
       if (response.status === 200) {
         global.clearAccessToken();
-        
+
         this.advance('home');
       } else {
         json = await response.json();
