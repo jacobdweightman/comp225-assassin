@@ -16,11 +16,13 @@ export default class GameMenuRunning extends React.Component {
       showInput: false, // controls whether to show input for entering kill code
       loading: true,
       targetMessage: undefined,
+      game: this.props.navigation.getParam("game"),
       player: this.props.navigation.getParam("player"),
       enteredKillCode: undefined,
     };
 
     this.interval = setInterval(this.pollIsAlive, 3000);
+    this.interval2 = setInterval(this.pollDidWin, 3000);
     this.pollIsAlive(); // poll once immediately in case player died while app was closed
   }
 
@@ -74,6 +76,28 @@ export default class GameMenuRunning extends React.Component {
     } catch(error) {
       console.log(error);
     }
+  }
+
+  pollDidWin = async() => {
+    await fetch(global.BASE_URL + "status_access/game_state", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        game_code: this.state.game.code,
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json.game_state);
+      if(json.game_state == 2) {
+        this.advance("win");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   // Check the inputed kill code
@@ -141,6 +165,7 @@ export default class GameMenuRunning extends React.Component {
   advance(screen) {
     // Do not continue to poll on the next screen!
     clearInterval(this.interval);
+    clearInterval(this.interval2);
 
     const resetAction = StackActions.reset({
       index: 0,

@@ -23,7 +23,6 @@ class Global {
 
     // this function should be called whenever the user leaves a game
     async clearAccessToken() {
-        console.log("token cleared!");
       await SecureStore.deleteItemAsync('accessToken');
     }
 }

@@ -26,6 +26,7 @@ export default class GameMenuWaiting extends React.Component {
 
     if(!this.state.player.creator) {
       this.interval = setInterval(this.pollGameStart, 3000);
+      this.pollGameStart(); // poll once immediately in case game started while app was closed
     }
   }
 
