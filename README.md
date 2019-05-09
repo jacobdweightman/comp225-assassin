@@ -10,7 +10,7 @@ __A project by:__
 
 ## Description
 
-Our app is for the real life game Assassin where people try to eliminate one another in the pursuit to be the last one standing. For more information about the game click [here](https://en.wikipedia.org/wiki/Assassin_(game)). Our app is designed to help the game host give the players their target and keep track of who is still in the game. It also facilitates how players declare that they have eliminated their target.
+Our app is for the real life game Assassin where people try to eliminate one another in the pursuit to be the last one standing. For more information about the game click [here](https://en.wikipedia.org/wiki/Assassin_(game)). Our app is designed to help the game host give the players their target and keep track of who is still in the game. It also facilitates how players declare that they have eliminated their target. An android build can be found [here](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40egraham2/elcoanja-207dae5dbde141e98c8e589864ba08c4-signed.apk).
 
 ## Getting Started
 
