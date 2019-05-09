@@ -173,6 +173,7 @@ export default class GameMenuRunning extends React.Component {
         routeName: screen,
         params: {
           player: this.state.player,
+          game: this.state.game,
         },
       })],
     });

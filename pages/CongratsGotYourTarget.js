@@ -14,6 +14,7 @@ export default class Victory extends React.Component {
     console.log(this.props.navigation);
     this.state = {
       player: this.props.navigation.getParam("player"),
+      game: this.props.navigation.getParam("game"),
     };
   }
 
@@ -24,6 +25,7 @@ export default class Victory extends React.Component {
         routeName: "gameRunning",
         params: {
           player: this.state.player,
+          game: this.state.game,
         },
       })],
     });
