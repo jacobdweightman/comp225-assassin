@@ -95,7 +95,7 @@ export default class GameMenuRunning extends React.Component {
         screen = json.win ? "win" : "congrats";
         this.advance(screen);
       } else {
-        Alert.alert("That's not your target's kill code");
+        Alert.alert("That's not your target's confirmation code");
       }
 
     } catch (error) {
@@ -168,16 +168,16 @@ export default class GameMenuRunning extends React.Component {
               style={[baseStyle.inputText, styles.inputText]}
               keyboardType={"number-pad"}
               onChangeText={(enteredKillCode) => this.setState({enteredKillCode})}
-              placeholder={"Kill Code"}
+              placeholder={"Code"}
               placeholderTextColor={"#a9a9a9"}
               autoFocus={true}
               maxLength={4}
           />
           <View style={{height:hp("1%")}}></View>
-          <Text style={baseStyle.infoText}> Enter your target's kill code to confirm their assassination </Text>
+          <Text style={[baseStyle.infoText, {textAlign:'center'}]}> Enter your target's confirmation code to confirm their assassination </Text>
           <View style={styles.spacer} />{/*spacer*/}
           <TouchableOpacity style = {baseStyle.button} onPress= {this.verifyKillCode.bind(this)}>
-            <Text style= {baseStyle.text}> Verify Kill Code </Text>
+            <Text style= {baseStyle.text}> Verify Code </Text>
           </TouchableOpacity>
           <View style={{height:hp("1%")}}></View>
           <TouchableOpacity style = {baseStyle.button} onPress= {() => this.setState({showInput: !this.state.showInput})}>
@@ -202,7 +202,7 @@ export default class GameMenuRunning extends React.Component {
       <LinearGradient colors= {Palette.gradientCol} style ={Palette.place}>
         <View style={[baseStyle.container, styles.container]}>
         <View style={styles.spacer}></View>
-        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Kill Code is: " + this.state.player.killCode}</Text>
+        <Text style= {[baseStyle.subTitle, styles.subTitle]}> {"Your Confirmation Code is: " + this.state.player.killCode}</Text>
         <View style={styles.spacer}></View>
         <Text style={[baseStyle.subTitle, styles.subTitle]}>{this.state.targetMessage}</Text>
         <View style={styles.spacer}></View>
