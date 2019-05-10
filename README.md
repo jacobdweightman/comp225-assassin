@@ -14,6 +14,16 @@ Our app is for the real life game Assassin where people try to eliminate one ano
 
 ## Getting Started
 
+### To run in the Expo client:
+
+1. Make sure the dependencies are installed by running `npm install` in the project root directory
+
+2. Install the Expo app on the test device
+
+3. Start the Expo dev tools by running the following command from the application directory
+
+4. Open the app on the phone by scanning the displayed QR code!
+
 ### To build our project to Android:
 
 1. Navigate to the project directory and sign in using:
@@ -34,3 +44,20 @@ expo build:android
 6. To see your project on Expo go to: [https://expo.io/@username/project-name](https://expo.io/@coreyjpieper/elcoanja) and click on 'builds'. From here you should see a history of all your compelted builds.
 
 ### To build our project to iOS:
+
+The process for building to iOS is similar to building to Android, with the exception that rather than installing the application file directly from a link, the downloaded file must be released to Apple's TestFlight or App Store.
+
+1. Create IPA file:
+```
+expo build:ios
+```
+
+This will take a while, but when it finishes it will give you the .ipa file for the app.
+
+2. Add the app on App Store Connect
+
+3. Upload the .ipa file to Application Loader
+
+4. Add your user as a development tester on App Store Connect
+
+5. Install the app via TestFlight
