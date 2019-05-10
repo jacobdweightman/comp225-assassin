@@ -22,6 +22,10 @@ Our app is for the real life game Assassin where people try to eliminate one ano
 
 3. Start the Expo dev tools by running the following command from the application directory
 
+```
+expo start
+```
+
 4. Open the app on the phone by scanning the displayed QR code!
 
 ### To build our project to Android:
